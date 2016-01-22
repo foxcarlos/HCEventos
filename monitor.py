@@ -1,13 +1,9 @@
-__author__ = 'cgarcia'
+__author__ = 'FoxCarlos'
 
-import json
-import zmq
 import time
 import os
-import ConfigParser
+import json
 import bottle
-import sys
-import pymongo
 from bottle.ext.websocket import GeventWebSocketServer
 from bson.objectid import ObjectId
 from os.path import join, dirname
@@ -16,14 +12,17 @@ import datetime
 import re
 import psycopg2
 
+
 class pg():
+
     '''Nueva clase para manejar postgreSQL '''
+
     def __init__(self):
         '''Por ahora solo se inicializan variables en el init '''
 
         self.cur = ''
         self.conn = ''
-        self.estadoConexion = {'status':0, 'mensaje':''}
+        self.estadoConexion = {'status': 0, 'mensaje': ''}
         self.cad_conex = ''
 
     def conectar(self):
@@ -37,10 +36,10 @@ class pg():
             usuario = os.environ['usuario']
             clave = os.environ['clave']
         except:
-            servidor=''
-            basedatos=''
-            usuario=''
-            clave=''
+            servidor = ''
+            basedatos = ''
+            usuario = ''
+            clave = ''
 
         string_conn = "host='{0}' dbname='{1}' user='{2}' password='{3}' ".format(servidor, basedatos, usuario, clave)
         self.cad_conex = string_conn
@@ -48,29 +47,29 @@ class pg():
         try:
             self.conn = psycopg2.connect(string_conn)
             self.cur = self.conn.cursor()
-            self.estado = {'status':1, 'mensaje':'Conexion Exitosa'}
+            self.estado = {'status': 1, 'mensaje': 'Conexion Exitosa'}
         except psycopg2.Error as e:
-            self.estado = {'status':0, 'mensaje':e}
+            self.estado = {'status': 0, 'mensaje': e}
 
     def ejecutar(self, cadSelect):
         '''Metodo que permite hacer los Select o Insert a postgresql '''
 
-        #self.estadoConexion = {'status':0, 'mensaje':''}
+        # self.estadoConexion = {'status': 0, 'mensaje': ''}
         cadSelectSql = cadSelect
 
         if self.estado['status']:
             try:
                 self.cur.execute(cadSelectSql)
-                self.estado = {'status':1, 'mensaje':'Comando Ejecutado con Exito'}
+                self.estado = {'status': 1, 'mensaje': 'Comando Ejecutado con Exito'}
 
             except psycopg2.Error as e:
-                self.estado = {'status':0, 'mensaje':e}
+                self.estado = {'status': 0, 'mensaje': e}
 
-def guardarPostGreSQL(nombre='', apellido='', correo='', clave='', dia='',mes='',anio='',genero=''):
+def guardarPostGreSQL(nombre='', apellido='', correo='', clave='', dia='', mes='', anio='', genero=''):
     '''Este metodo permite guardar los datos en postgreSQL
     invocado por el metodo POST /registro'''
 
-    devuelveMsg = {'status':0, 'mensaje':''}
+    devuelveMsg = {'status': 0, 'mensaje': ''}
 
     varNombre = nombre.strip()
     varApellido = apellido.strip()
@@ -84,44 +83,44 @@ def guardarPostGreSQL(nombre='', apellido='', correo='', clave='', dia='',mes=''
     posg = pg()
     posg.conectar()
 
-    #Si la comnexion a la base de datos falla
+    # Si la comnexion a la base de datos falla
     if not posg.estado['status']:
         devuelveMsg = posg.estado
     else:
-        #Verificar si el Usuario ya esta registrado
+        # Verificar si el Usuario ya esta registrado
         sql = "select usuario from usuario where usuario ='{0}'".format(varCorreo)
         posg.ejecutar(sql)
 
-        #Si hay un fallo al ejecutar el comando sql
+        # Si hay un fallo al ejecutar el comando sql
         if not posg.estado['status']:
             devuelveMsg = posg.estado
         else:
             registros = posg.cur.fetchall()
 
             if registros:
-                devuelveMsg = {'status':0, 'mensaje':'Usuario ya esta registrado'}
+                devuelveMsg = {'status': 0, 'mensaje': 'Usuario ya esta registrado'}
             else:
-                #Si no esta registrado se procede a agregarlo a la base de datos
+                # Si no esta registrado se procede a agregarlo a la base de datos
                 armarInsert = "insert into usuario (usuario, clave ) values ('{0}', '{1}')".format(varCorreo, varClave)
                 posg.ejecutar(armarInsert)
 
-                #Si falla el comando SQl al insertar
+                # Si falla el comando SQl al insertar
                 if not posg.estado['status']:
                     devuelveMsg = posg.estado
                 else:
-                    #Se obtiene el Id unico que se genero automaticamente en PGSQL
+                    # Se obtiene el Id unico que se genero automaticamente en PGSQL
                     obtenerID = "SELECT currval(pg_get_serial_sequence('usuario','id'))"
                     posg.ejecutar(obtenerID)
 
-                    #Si falla al obntener el ID Unico
+                    # Si falla al obntener el ID Unico
                     if not posg.estado['status']:
                         devuelveMsg = posg.estado
                     else:
                         idDevuelto = posg.cur.fetchall()
                         idUsuario = idDevuelto[0][0]
 
-                        #validar que la fecha recibida desde el html viene bien, en caso
-                        #de venir mal se toma la fecha del monento
+                        # validar que la fecha recibida desde el html viene bien, en caso
+                        # de venir mal se toma la fecha del monento
                         fechaNacArmar = '{0}/{1}/{2}'.format(varAnio, varMes, varDia)
                         try:
                             time.strptime(fechaNacArmar, '%Y/%m/%d')
@@ -130,7 +129,7 @@ def guardarPostGreSQL(nombre='', apellido='', correo='', clave='', dia='',mes=''
                             fechaNacArmar = '{0}/{1}/{2}'.format(f.year, f.month, f.day)
                             print(fechaNacArmar)
 
-                        #Ahora se procede a insertar el resto de los valores en la tabla persona
+                        # Ahora se procede a insertar el resto de los valores en la tabla persona
                         sqlInsertpersona = "insert into persona (usuario, nombres, apellidos, fechanac,\
                         genero_sexo) values({0}, '{1}', '{2}', '{3}', {4})".format(idUsuario, varNombre, varApellido, fechaNacArmar, varGenero)
                         posg.ejecutar(sqlInsertpersona)
@@ -138,31 +137,32 @@ def guardarPostGreSQL(nombre='', apellido='', correo='', clave='', dia='',mes=''
                             devuelveMsg = posg.estado
                         else:
                             posg.conn.commit()
-                            devuelveMsg = {'status':1, 'mensaje':'Usuario registrado con exito, ahora inicie sesion'}
+                            devuelveMsg = {'status': 1, 'mensaje':'Usuario registrado con exito, ahora inicie sesion'}
     return devuelveMsg
 
 def validaLogin(usuario, clave):
     ''' parametros recibidos 2:
     (string usuario, string clave)
     Metodo para validar el inicio de sesion
-    contra la base de datos'''
+    contra la base de datos
+    '''
 
     lcUsuario = usuario.strip()
     lcClave = clave.strip()
     accesoPermitido = False
     registros = []
-    objDevolver = {'devolver':[{'status':0, 'mensaje':'Error'}, {}]}
+    objDevolver = {'devolver': [{'status': 0, 'mensaje': 'Error'}, {}]}
 
     posg = pg()
     posg.conectar()
     print(posg.estado['mensaje'])
 
-    #Se verifica el estado de la conexion
+    # Se verifica el estado de la conexion
     if posg.estado["status"]:
         sql = "select id from usuario where (usuario = '{0}' and clave = '{1}')".format(lcUsuario, lcClave)
         posg.ejecutar(sql)
 
-        #Se verifica el estado del Select SQL
+        # Se verifica el estado del Select SQL
         if posg.estado["status"]:
             registros = posg.cur.fetchall()
             if registros:
@@ -175,7 +175,7 @@ def validaLogin(usuario, clave):
 
 @bottle.route('/congreso')
 def congreso():
-    #return bottle.template('congreso.html')
+    # return bottle.template('congreso.html')
     web = "http://congresoshospitalcoromoto.blogspot.com"
     bottle.redirect(web)
 
@@ -256,9 +256,9 @@ def inicioSesion():
     qquw haya iniciado sesion, entonces procede a cargar
     mediante un load de jquery el form para que pueda
     iniciar sesion'''
-    #nota: mas adelante de  hara en un solo metodo
+    # nota: mas adelante de  hara en un solo metodo
 
-    #username = bottle.request.get_cookie("account")
+    # username = bottle.request.get_cookie("account")
     return bottle.template('frmInicioSesion.html')
 
 @bottle.route('/cargarCerrarSesion')
@@ -277,11 +277,11 @@ def salir():
 
 @bottle.route('/')
 def index():
-    #usuario = ''
-    #bottle.response.set_cookie("account", usuario)
+    # usuario = ''
+    # bottle.response.set_cookie("account", usuario)
     username = bottle.request.get_cookie("account")
 
-    #print('usuario',username)
+    # print('usuario',username)
     return bottle.template('index', {'usuario':username})
 
 @bottle.route('/login')
@@ -305,8 +305,8 @@ def loginp():
     acceso, idUsuario = validaLogin(usuario, clave)
 
     if acceso:
-        #Verifica si el usuario tiene datos del registro incompleto
-        #incompleto = validaRegistroIncompleto(int(idUsuario[0][0]))
+        # Verifica si el usuario tiene datos del registro incompleto
+        # incompleto = validaRegistroIncompleto(int(idUsuario[0][0]))
 
         msg = 'Sesion iniciada con exito'
         stat = 1
@@ -324,7 +324,7 @@ def ciudad(idEstado=0):
     if not clasePG.estado['status']:
         pass  # por ahora no se enviara nimgun mensaje de error
     else:
-        #Verifica los datos en a tabla persona para el ID pasado como parametro
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
         sqlVerificaDatos = "select id, descripcion from referencias.ciudad where id_estado='{0}' order by descripcion".format(idEstado)
         clasePG.ejecutar(sqlVerificaDatos)
         if clasePG.estado['status']:
@@ -342,7 +342,7 @@ def estado(id=0):
     if not clasePG.estado['status']:
         pass  # por ahora no se enviara nimgun mensaje de error
     else:
-        #Verifica los datos en a tabla persona para el ID pasado como parametro
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
         sqlVerificaDatos = "select id, descripcion from referencias.estado where id_pais='{0}' order by descripcion".format(id)
         clasePG.ejecutar(sqlVerificaDatos)
         if clasePG.estado['status']:
@@ -360,7 +360,7 @@ def especialidad():
     if not clasePG.estado['status']:
         pass  # por ahora no se enviara nimgun mensaje de error
     else:
-        #Verifica los datos en a tabla persona para el ID pasado como parametro
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
         sqlVerificaDatos = "select id, descripcion from referencias.especialidad "
         clasePG.ejecutar(sqlVerificaDatos)
         if clasePG.estado['status']:
@@ -378,7 +378,7 @@ def profesion():
     if not clasePG.estado['status']:
         pass  # por ahora no se enviara nimgun mensaje de error
     else:
-        #Verifica los datos en a tabla persona para el ID pasado como parametro
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
         sqlVerificaDatos = "select id, descripcion from referencias.nivelacademico "
         clasePG.ejecutar(sqlVerificaDatos)
         if clasePG.estado['status']:
@@ -396,7 +396,7 @@ def pais():
     if not clasePG.estado['status']:
         pass  # por ahora no se enviara nimgun mensaje de error
     else:
-        #Verifica los datos en a tabla persona para el ID pasado como parametro
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
         sqlVerificaDatos = "select id, descripcion from referencias.pais "
         clasePG.ejecutar(sqlVerificaDatos)
         if clasePG.estado['status']:
@@ -414,7 +414,7 @@ def edoCivil():
     if not clasePG.estado['status']:
         pass  # por ahora no se enviara nimgun mensaje de error
     else:
-        #Verifica los datos en a tabla persona para el ID pasado como parametro
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
         sqlVerificaDatos = "select id, descripcion from referencias.edo_civil "
         clasePG.ejecutar(sqlVerificaDatos)
         if clasePG.estado['status']:
@@ -432,7 +432,7 @@ def nacionalidad():
     if not clasePG.estado['status']:
         pass  # por ahora no se enviara nimgun mensaje de error
     else:
-        #Verifica los datos en a tabla persona para el ID pasado como parametro
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
         sqlVerificaDatos = "select id, descripcion from referencias.nacionalidad "
         clasePG.ejecutar(sqlVerificaDatos)
         if clasePG.estado['status']:
@@ -450,7 +450,7 @@ def genero():
     if not clasePG.estado['status']:
         pass  # por ahora no se enviara nimgun mensaje de error
     else:
-        #Verifica los datos en a tabla persona para el ID pasado como parametro
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
         sqlVerificaDatos = "select id, descripcion from referencias.genero_sexo "
         clasePG.ejecutar(sqlVerificaDatos)
         if clasePG.estado['status']:
@@ -464,7 +464,7 @@ def registroPost():
     '''Metodo POST que recibe informacion del FrontEnd
 cuando se crea un nuevo usuario desde el sitio Web'''
 
-    #print(bottle.request.forms.getall('registroRapido'))
+    # print(bottle.request.forms.getall('registroRapido'))
     nombre = bottle.request.forms.get('txtnombre')
     apellido = bottle.request.forms.get('txtapellido')
     correo = bottle.request.forms.get('txtcorreo')
@@ -476,7 +476,7 @@ cuando se crea un nuevo usuario desde el sitio Web'''
 
     print(nombre, apellido, correo, clave, dia, mes, anio, genero)
 
-    #Se envian los datos a guardar en PostGres y devuelve una tupla
+    # Se envian los datos a guardar en PostGres y devuelve una tupla
     # (numerico,cadena) donde 0 indica que hubo un error y uno que
     # se ejecuto satisfatoriamente y otro elemento con el mensaje
     # bien sea giardado con exito o usuario ya existe
@@ -491,7 +491,7 @@ def validaRegistroIncompleto(id=''):
     idUsuario = id
     clasePG = ConectarPG("host='10.121.6.4' dbname='evento' user='admhc' password='shc21152115'")
 
-    #Verifica los datos en a tabla persona para el ID pasado como parametro
+    # Verifica los datos en a tabla persona para el ID pasado como parametro
     sqlVerificaDatos = "select *from persona where usuario = '{0}'".format(idUsuario)
     print(sqlVerificaDatos)
     buscar = clasePG.ejecutar(sqlVerificaDatos)
@@ -501,7 +501,7 @@ def validaRegistroIncompleto(id=''):
 
 @bottle.get('/grid')
 def grid():
-    #Busca en mongodb el objetoId del usuario que inicio sesion
+    # Busca en mongodb el objetoId del usuario que inicio sesion
     usuario = bottle.request.get_cookie("account")
     objetoUsuarioId = buscarUsuarioId(usuario)
 
@@ -512,8 +512,8 @@ def grid():
     condicion = {'usuario_id':objetoUsuarioId}
     ordenadoPor = 'nombre'
 
-    #appBuscar realiza la consulta y devuelve una lista con diccionarios por cada registro
-    #
+    # appBuscar realiza la consulta y devuelve una lista con diccionarios por cada registro
+    
     doc = appBuscar.consulta(camposMostrar, condicion, ordenadoPor)
     listaFinal = [f.values() for f in doc]
 
@@ -550,7 +550,7 @@ def validaSms(num, msg):
     elif num[:4] not in ['0426', '0416', '0414', '0424', '0412']:
         devuelve = False
 
-    #Esta Opcion es temporal para poder enviar yo Mensajes Internacionales
+    # Esta Opcion es temporal para poder enviar yo Mensajes Internacionales
     usuario = bottle.request.get_cookie("account")
     if usuario == 'foxcarlos':
         devuelve = True
@@ -558,5 +558,5 @@ def validaSms(num, msg):
     return devuelve
 
 
-#bottle.debug(True)
+# bottle.debug(True)
 bottle.run(host='0.0.0.0', port=8086, server=GeventWebSocketServer, reloader = True)
