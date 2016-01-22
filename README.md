@@ -1,3 +1,8 @@
+# README #
+
+This README would normally document whatever steps are necessary to get your application up and running.
+
+### What is this repository for? ###
 Sistema para gestionar las jornadas o eventos especiales del hospital coromoto 
 
 Operaciones que maneja:
@@ -5,3 +10,27 @@ Operaciones que maneja:
     1.Registro de participantes
     2.Registro de eventos
     3.Manejo de datos de contacto
+
+* Quick summary
+* Version
+* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+
+### How do I get set up? ###
+
+* Summary of set up
+* Configuration
+* Dependencies
+* Database configuration
+* How to run tests
+* Deployment instructions
+
+### Contribution guidelines ###
+
+* Writing tests
+* Code review
+* Other guidelines
+
+### Who do I talk to? ###
+
+* Repo owner or admin
+* Other community or team contact

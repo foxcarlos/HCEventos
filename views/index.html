@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Registro de participantes</title>
+
+    <link href=" /static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='/static/css/sidebar.css'>
+    <link href='http://fonts.googleapis.com/css?family=Hind:700,600,500' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id='wrapper'>
+            <div id="divMenuPrincipal">
+                <div id='sidebar-wrapper'>
+                    <ul class='sidebar-nav'>
+                        <div class='user-sidebar-info'>
+                            <div class='row user-foto'>
+                                <img src='static/img/unknow-user.png'></img>
+                            </div>
+                            <div class='row'></div>
+                        </div>
+                        <li><a href='#'><span class=''></span> Nosotros</a></li>
+                        <li><a href='#'>Programa</a></li>
+                        <li><a href='#'>Objetivos</a></li>
+                        <li><a href='#'>Comit&eacute;</a></li>
+                        <li><a href='#'>Normas y reglamentos</a></li>
+                        <li><a href='#'>Formatos</a></li>
+                        <li><a href='#'>Contacto</a></li>
+                    </ul>
+                </div> <!-- End sidebar wrapper -->
+            </div/><!--Fin de MenuPrincipal -->
+
+            <div id='page-content-wrapper toggled'>
+                <div class='container-fluid'>
+                    <div class='navbar navbar-inverse navbar-fixed-top'>
+                        <div class='container'>
+                            <ul class='nav navbar-nav navbar-left'>
+                                <li><a href='#menu-toggle' id='menu-toggle'><span class='glyphicon glyphicon-align-justify'></span></a></li>
+                            </ul>
+                            <div class='collapse navbar-collapse navHeaderCollapse'>
+                                <div class="navbar-header">
+                                    <a id="menuInicio" class="navbar-brand" href="/">EVENTOS ACADEMICOS E INVESTIGACION HOSPITAL COROMOTO</a>
+                                </div>
+
+                                <!--Aqui se carga el form de inicio de sesion -->
+                                <div id="divInicioSesion">
+                                    <!--Este codigo se carga con jQuery -->
+                                </div><!--Fin del Form de inicio de Sesion  -->
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="divJumbotron">
+                        <div class='jumbotron'>
+                            <br><br><br>
+                            <div class="container-fluid">
+                                <div class='col-md-7'>
+                                    <br><br>
+                                    <div class='row'>
+                                        <div class='col-sm-12 text-center'>
+                                            <h2>II JORNADAS CIENTIFICAS INTEGRALES DEL HOSPITAL COROMOTO</h2>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div class='row'>
+                                        <div class='col-md-2'>
+                                        </div>
+                                        <div class='col-md-8'>
+                                            <div class='alert alert-info text-center'>
+                                            <p>Del 05 al 07 de Agosto de 2015</p>
+                                            <p>Hotel Venetur</p>
+                                            <cite>"Salud con Vocaci&oacute;n Socialista"</cite>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-2'>
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <span class='glyphicon glyphicon-bullhorn'> Hotel Venetur Maracaibo</span>
+                                    </div>
+                                    <br><br>
+                                    <br><br><br><br>
+                                    <div class='row'>
+                                        <div class='col-xs-8'>
+                                            <span class=''> (0261) 7900331/7900308/7900364</span>
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <div class='col-xs-8'>
+                                            <span class='glyphicon glyphicon-envelope'> congresoshospitalcoromoto@gmail.com</span>
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <div class='col-xs-8'>
+                                            <span class='glyphicon glyphicon-envelope'> congresoshospitalcoromoto@outlook.com</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-5'>
+                                    <br>
+                                    <div>
+                                        <div>
+                                            <h2>Crea tu cuenta</h2>
+                                        </div>
+                                        <div>
+                                            <h5 class='text-muted'>Inscripci&oacute;n gratuita</h5>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <form id="registroRapido" name="registroRapido">
+                                                <div class='form-group'>
+                                                    <div class='row'>
+                                                        <div class='col-md-6'>
+                                                            <input type='text' class='form-control input-lg' name='txtnombre' id='txtnombre' placeholder='Nombre'>
+                                                        </div>
+                                                        <div class='col-md-6'>
+                                                            <input type='text' class='form-control input-lg' name='txtapellido' id='txtapellido' placeholder='Apellido'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <div class='row'>
+                                                        <div class='col-sm-12'>
+                                                            <input type='mail' class='form-control input-lg' id='txtcorreo' placeholder='Correo electronico'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <div class='row'>
+                                                        <div class='col-sm-12'>
+                                                            <input type='mail' class='form-control input-lg' id='txtconfcorreo' placeholder='Confirmar correo electronico'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <div class='row'>
+                                                        <div class='col-md-12'>
+                                                            <input type='password' class='form-control input-lg' id='newpassword' placeholder='Contraseña nueva'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='title'>
+                                                    <h4><span class='small text-muted'>Cumpleaños</span></h4>
+                                                </div>
+                                                <div class='form-group'>
+                                                    <div class='row'>
+                                                                <div class='col-xs-2 Dcumple'>
+                                                                    <select id="txtdia" class='form-control input-sm'>
+                                                                    </select>
+                                                                </div>
+                                                                <div class='col-xs-2 Mcumple'>
+                                                                    <select id="txtmes" class='form-control input-sm'>
+                                                                    </select>
+                                                                </div>
+                                                                <div class='col-xs-2 Acumple'>
+                                                                    <select id="txtanio" class='form-control input-sm'>
+                                                                    </select>
+                                                                </div>
+                                                    </div>
+                                                </div> <!-- Fin de form-group -->
+                                                <div class='form-group'>
+                                                    <div class='row'>
+                                                        <div class='col-xs-4 Rmujer'>
+                                                            <div class='radio'>
+                                                                <label>
+                                                                    <input type='radio' name='Genero' id='femenino' value='1'>
+                                                                    Mujer
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-xs-4 Rhombre'>
+                                                            <div class='radio'>
+                                                                <label>
+                                                                    <input type='radio' name='Genero' id='masculino' value='2' checked >
+                                                                    Hombre
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class='row'>
+                                                        <div class='col-xs-5 text-left'>
+                                                            <button id="botonRegistrar" type='button' class='btn btn-danger btn-md btn-block'>Registrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br>
+                        </div> <!-- Fin de jumbotron -->
+                    </div><!--Fin del DIV jumbotron -->
+
+                    <div id="divPiePagina">
+                        <footer class='footer'>
+                            <div class='container'>
+                                <p class='text-muted'>&reg; Desarrollo de Aplicaciones - Coordinacion de sistemas - Hospital coromoto  2015.</p>
+                            </div>
+                        </footer>
+                    </div>
+
+                    </div>
+                    </div>
+                </div> <!-- End container-fluid -->
+            </div> <!-- End of content wrapper -->
+        </div> <!-- End Wrapper -->
+
+        <!--Ventana Modal para mostrar Notificaciones -->
+        <div id="dialog-message" title="Mensaje del Sistema">
+            <p id="primerP">
+            </p>
+            <p id="segundoP">
+            </p>
+        </div>
+
+    <link rel="stylesheet" href="/static/jquery-ui-1.11.4/jquery-ui.css">
+    <script src='/static/js/jquery-1.11.3.min.js'></script>
+    <script src="/static/jquery-ui-1.11.4/jquery-ui.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script>
+
+        /*-----------------------------------------------------------------*
+         Inicio del Documento
+        -------------------------------------------------------------------*/
+        $(document).ready(function() {
+            // Si  el usuario inicio sesion
+            var miUsuario =  "{{get('usuario', '')}}"
+            if (!miUsuario || miUsuario.trim().length == 0 || miUsuario == 'None'){
+                $('#divInicioSesion').load('/cargarInicioSesion #mostrarInicioSesion');
+            }
+            else{
+                $('#divInicioSesion').load('/cargarCerrarSesion #mostrarCerrarSesion');
+            }
+
+            $('#menu-toggle').click(function(e) {
+                e.preventDefault();
+                $('#wrapper').toggleClass('toggled');
+            });
+
+            $("#txtnombre").attr("required", true);
+
+            cargarComboBoxAnioEdad();
+            cargarComboBoxDiaEdad();
+            cargarComboBoxMesEdad();
+
+        })
+
+        /*-----------------------------------------------------------------*
+        Click en el Boton Registrar
+        -------------------------------------------------------------------*/
+        $("#botonRegistrar").click(function() {
+            var bandera = 0 //por Defecto bandera es Falso
+
+            var nombre = $("#txtnombre").val()
+            var apellido = $("#txtapellido").val()
+            var correo = $("#txtcorreo").val()
+            var correoconf = $("#txtconfcorreo").val()
+            var clave = $("#newpassword").val()
+            var dia = $("#txtdia").val()
+            var mes = $("#txtmes").val()
+            var anio = $("#txtanio").val()
+            var genero = $("input[name='Genero']:checked").val()
+
+            var parametrosPost = {txtnombre:nombre, txtapellido:apellido, txtcorreo:correo, newpassword:clave,
+                txtdia:dia, txtmes:mes, txtanio:anio, txtgenero:genero}
+
+            //Validaciones para el Formulario, si establecer una bandera  si todo sale bien
+            if ($.trim(correo.length)>0 && $.trim(correo) == $.trim(correoconf) ){
+                bandera = 1
+            }
+
+            if (bandera){
+                $.post("/registro",
+                    parametrosPost,
+                    function(respuesta){
+                        //respuesta es el resultado que devuelve nuestro archivo que recibe las variables
+                        var status = respuesta.status
+                        var mensaje = respuesta.mensaje
+
+                        $("#primerP").text(mensaje)
+                        $("#segundoP").text(' ')
+
+                        $( "#dialog-message" ).dialog({
+                            modal: false,
+                            buttons: {
+                                Aceptar: function() {
+                                    $( this ).dialog( "close" );
+
+                                    /*Si se logro insertar el registro se regresa al index*/
+                                    if (status==1){
+                                        window.location.href = "/"}
+                                }
+                            }
+                        });
+
+                    },"json"
+                );
+
+                /*$('#divMenuPrincipal').load('/cargarMenuOtro #mostrarMenuOtro');
+                $('#divJumbotron').load('/cargarRegistro #mostrarRegistro');*/
+            }
+            else{
+                $("#primerP").html('<b>Datos Invalidos</b>')
+                $("#segundoP").text('Verifique no no se encuentre ningun campo vacio')
+
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    buttons: {
+                        Aceptar: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                });
+
+            }
+        });
+
+        /*-----------------------------------------------------------------------------------------------
+        /Metodo que permite buscar los datos del registro
+        /-----------------------------------------------------------------------------------------------*/
+
+        function buscarRegistros(url){
+            /*Metodo que permite ir al backend y trarse los registro en formato json*/
+            var datosDevuelve
+            $.get(url,function(respuesta){
+                datos = respuesta;
+                datosDevuelve = datos.valores
+                return datosDevuelve
+            },"json"
+            );
+        }
+
+        function asignarCampos(valor){
+            console.log(valor)
+            alert(valor.nacionalidad)
+            alert(valor.edo_civil)
+            alert(valor.infcontactomovil)
+
+            $('#txtcedula').val(datos.valores.cedula_passp)
+            $('#txtnombre').val(datos.valores.nombres)
+            $('#txtapellido').val(datos.valores.apellidos)
+            /*fechanac*/
+
+            $('#slcgenero option:eq('+datos.valores.genero_sexo+')').prop('selected', true)
+            $('#slcnac option:eq('+datos.valores.nacionalidad+')').prop('selected', true)
+            $('#slcestcivil option:eq('+edo_civil+')').prop('selected', true)
+            $('#txtmovil').val(datos.valores.infcontactomovil)
+            $('#txthab').val(datos.valores.infcontactelef)
+            $('#txtmail').val(datos.valores.infcontacemail)
+            $('#txttwitter').val(datos.valores.infcontactwitter)
+            $('#txtinstagram').val(datos.valores.infcontacinstagram)
+        }
+
+        /*---------------------------------------------------------------------------------/
+        /Metodo que permite cargar un json obtenido desde python con el metodo get
+        ---------------------------------------------------------------------------------*/
+        function cargarComboBox(metodo, selector, elemento){
+            /*parametros pasados 3
+            (string:metodo al que llamara)
+            (string:el selector que se modificara)
+            (string: El elemento indice del diccionario)
+            */
+            //alert('entro en cargarcombobox')
+
+            $.get(metodo,function(respuesta1){
+                var datos = respuesta1
+                var htmlSelectArmar = $(selector).html()
+
+                for (var i=0;i<datos.length;i++){
+                    var id = "'"+datos[i]["id"]+"'"
+                    var elemento2 = datos[i][elemento]
+                    htmlSelectArmar = htmlSelectArmar + "<option value="+ id +">"+ elemento2 +"</option>"
+                }
+
+                $(selector).html(htmlSelectArmar)
+            },"json"
+            );
+        }
+
+
+        /*------------------------------------------------------------------------
+        change en el comboBox de pais del form registro.html
+        ------------------------------------------------------------------------*/
+        $("#divJumbotron").on("change","#slcpais", function() {
+            alert('cambio')
+            idPais = $("#slcpais").val()
+            url = '/estado/'+idPais
+            cargarComboBox(url, '#slcestado', 'descripcion')
+
+            //Se limpia ciudad cuando se selecciona un pais
+            cargarComboBox('/ciudad/0', '#slcciudad', 'descripcion')
+
+       })
+
+        /*------------------------------------------------------------------------
+        change en el comboBox de Estado del form registro.html
+        ------------------------------------------------------------------------*/
+        $("#divJumbotron").on("change","#slcestado", function() {
+            alert('cambio')
+            idEstado = $("#slcestado").val()
+            url = '/ciudad/'+idEstado
+            cargarComboBox(url, '#slcciudad', 'descripcion')
+       })
+
+       $("#divJumbotron").on("load","#slcpais", function() {
+           alert('Ready el slcpais')
+       })
+
+        /*------------------------------------------------------------------------
+        Click en el Boton iniciar sesion  del form frmInicioSesion.html
+        ------------------------------------------------------------------------*/
+        $("#divInicioSesion").on("click","#btnIniciarSesion", function() {
+            var email = $("#inputEmail").val()
+            var clave = $("#inputPassword").val()
+
+            var parametros = {txtEmail:email, txtClave:clave}
+
+            $.post("/login",parametros,function(respuesta){
+                var status = respuesta.status
+                var mensaje = respuesta.mensaje
+
+                $("#primerP").text(mensaje)
+                $("#segundoP").text(' ')
+
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    buttons: {
+                        Aceptar: function() {
+                            $( this ).dialog( "close" );
+                            /*Si se logro iniciar sesion con exito vamos al index*/
+                            if (status==1){
+                                //$(location).attr('href',"/")
+                                $('#divInicioSesion').load('/cargarCerrarSesion #mostrarCerrarSesion');
+                                $('#divMenuPrincipal').load('/cargarMenuOtro #mostrarMenuOtro')
+                                $('#divJumbotron').load('/cargarRegistro #mostrarRegistro')
+                                alert('se logro iniciar sesion')
+                                //Verifica los datos que ya tiene ingresado en la base de datos y los muestra
+
+                                cargarComboBox('/genero', '#slcgenero', 'descripcion')
+                                cargarComboBox('/nacionalidad', '#slcnac', 'descripcion')
+                                cargarComboBox('/edoCivil', '#slcestcivil', 'descripcion')
+                                cargarComboBox('/pais', '#slcpais', 'descripcion')
+                                cargarComboBox('/nivelacademico', '#slcnivelacademico', 'descripcion')
+                                cargarComboBox('/especialidad', '#slcespecialidad', 'descripcion')
+
+                                var urlMetodo = "/editarRegistro"
+                                var reg = buscarRegistros(urlMetodo)
+                                asignarCampos(reg)
+
+                            }
+                        }
+                    }
+                })
+            },"json"
+            );
+        });
+
+        /*---------------------------------------------------------------------------------/
+        /Metodo que permite cargar el comboBox con los anios
+        ---------------------------------------------------------------------------------*/
+        function cargarComboBoxAnioEdad(){
+            var anioActual = new Date();
+            var anio = anioActual.getFullYear();
+            var edadMaxima = 80;
+            var anioDesde = anio - edadMaxima;
+            var htmlAnioOption = "<option value='0' selected='1'>Año</option>"
+
+            for (var i=anio;i>anioDesde;i--){
+                htmlAnioOption = htmlAnioOption + "<option value="+"'"+i+"'" +">"+i+"</option>"
+            }
+            $("#txtanio").html(htmlAnioOption)
+        }
+
+        /*---------------------------------------------------------------------------------/
+        /Metodo que permite cargar el comboBox con los dias
+        ---------------------------------------------------------------------------------*/
+
+        function cargarComboBoxDiaEdad(){
+            var dias = 0
+            var diaInicio = 1
+            var diaFin = 31
+            var htmlDiaOption = "<option value='0' selected='1'>D&iacute;a</option>"
+
+            for (var i=1;i<=diaFin;i++){
+                htmlDiaOption = htmlDiaOption + "<option value="+"'"+i+"'"+">"+i+"</option>"
+            }
+            $("#txtdia").html(htmlDiaOption)
+        }
+
+        /*---------------------------------------------------------------------------------/
+        /Metodo que permite cargar el comboBox con los Meses
+        ---------------------------------------------------------------------------------*/
+        function cargarComboBoxMesEdad(){
+            var meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                            'Julio','Agosto','Septiembre','Octubre',
+                            'Noviembre','Diciembre'];
+
+            var htmlMesOption = "<option value='0' selected='1'>Mes</option>"
+
+            for (var i=0;i<meses.length;i++){
+                htmlMesOption = htmlMesOption + "<option value="+"'"+meses[i]+"'"+">"+meses[i]+"</option>"
+            }
+            $("#txtmes").html(htmlMesOption)
+        }
+
+
+        /*------------------------------------------------------------------------
+        Click en el Boton registrarse del form registro.html
+        ------------------------------------------------------------------------*/
+        $("#divJumbotron").on("click","#btnRegistrarse", function() {
+            //window.location.href = "/";
+
+
+            /*$("#primerP").text("Hola")
+
+            $( "#dialog-message" ).dialog({
+            dialogClass: "critical",
+            close: function( event, ui ) {
+                alert("hola")},
+            title: "Mensaje del Sistema",
+            show: { effect: "blind", duration: 800 },
+            hide: { effect: "explode", duration: 1000 },
+            buttons: [
+            {
+                text: "Aceptar",
+                class: "btn btn-red",
+                icons: {
+                primary: "ui-icon-triangle-1-s"},
+                click: function() {
+                $( this ).dialog( "close" );
+                }
+            },
+            ]
+        }); */
+    });
+
+    </script>
+
+    </body>
+</html>
+

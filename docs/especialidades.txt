@@ -1,0 +1,60 @@
+Alergologia
+Anestesiologia y reanimacion
+Cardiologia
+Gastroenterologia
+Endocrinologia
+Geriatria
+Hematologia y hemoterapia
+Hidrologia medica
+Infectologia
+Medicina aeroespacial
+Medicina del deporte
+Medicina del trabajo
+Medicina de urgencias
+Medicina familiar y comunitaria
+Medicina intensiva
+Medicina interna
+Medicina legal y forense
+Medicina preventiva y salud publica
+Nefrologia
+Neumologia
+Neurologia
+Nutriologia
+Odontologia
+Oftalmologia
+Oncologia medica
+Oncologia radioterapica
+Otorrinolaringologia
+Pediatria
+Proctologia
+Psiquiatria
+Rehabilitacion
+Reumatologia
+Traumatologia
+Toxicologia
+Urologia
+Cirugia cardiovascular
+Cirugia general y del aparato digestivo
+Cirugia oral y maxilofacial
+Cirugia ortopedica y traumatologia
+Cirugia pediatrica
+Cirugia plastica, estetica y reparadora
+Cirugia toracica
+Neurocirugia
+Angiologia y cirugia vascular
+Dermatologia medico-quirurgica y venereologia
+Estomatologia
+Ginecologia y obstetricia o tocologia
+Oftalmologia
+Otorrinolaringologia
+Urologia
+Analisis clinicos
+Anatomia patologica
+Bioquimica clinica
+Farmacologia clinica
+Genetica medica
+Inmunologia
+Medicina nuclear
+Microbiologia y parasitologia
+Neurofisiologia clinica
+Radiodiagnostico o radiologia
