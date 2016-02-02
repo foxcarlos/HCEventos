@@ -24,6 +24,9 @@
         }
     });
 
+    App.Views.Login = Backbone.View.extend({
+      tagName: 'divInicioSesion'
+    });
     //Vista para el Index
     App.Views.Index = Backbone.View.extend({
         tagName: 'body',
@@ -31,8 +34,6 @@
         miPlantilla: plantilla('index'),  // _.template($('#personaPlantilla').html()) ,
 
         /*initialize: function(){
-          $('#wrapper').toggleClass('toggled');
-          this.render();
         },*/
 
         events: {
