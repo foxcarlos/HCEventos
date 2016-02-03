@@ -24,8 +24,16 @@
         }
     });
 
-    App.Views.Login = Backbone.View.extend({
-      tagName: 'divInicioSesion'
+    var VistaLogin = Backbone.View.extend({
+      tagName: 'divInicioSesion',
+
+      plantillaLogin: plantilla('inicioSesionPlantilla'),
+
+      render: function(){
+        this.$el.html(this.plantillaLogin());
+        return this;
+      }
+
     });
     //Vista para el Index
     App.Views.Index = Backbone.View.extend({
@@ -37,12 +45,19 @@
         },*/
 
         events: {
-          'click #menu-toggle': 'mostrarMenu'
+          'click #menu-toggle': 'mostrarMenu',
+
+          'click #botonRegistrar': 'mostrarLogin',
         },
 
         mostrarMenu: function(e){
           e.preventDefault()
           this.$('#wrapper').toggleClass('toggled');
+        },
+
+        mostrarLogin: function(){
+          var miVistaLogin = new VistaLogin();
+          this.$("#divInicioSesion").append(miVistaLogin.render().el);
         },
 
         render: function(){

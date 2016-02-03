@@ -15,6 +15,43 @@
 			<strong><%= nombre%></strong> (<%= edad%>) - <%= ocupacion%>
 		</script>
 
+		<script id="inicioSesionPlantilla" type="text/template">
+			//
+			<div id="mostrarInicioSesion">
+				<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Iniciar Sesion</b> <span class="caret"></span></a>
+								<ul id="login-dp" class="dropdown-menu">
+										<li>
+												<div class="container-fluid">
+														<form class="form" role="form"  accept-charset="UTF-8" id="frmLogin">
+																<div class="input-group form-group">
+																		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+																		<input type="email" class="form-control" id="inputEmail" placeholder="Direccion Email" required name="usu_form" >
+																</div>
+																<div class="input-group form-group">
+																		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+																		<input type="password" class="form-control" id="inputPassword" placeholder="Contrasena" required name="pass_form" >
+																</div>
+
+																<div class="help-block text-center"><a href="">Olvido de clave ?</a></div>
+
+																<div class="form-group">
+																		<button id="btnIniciarSesion" type="button" class="btn btn-primary btn-block">Iniciar Sesion</button>
+																</div>
+														</form>
+
+														<div class="bottom text-center">
+																No tienes cuenta? <a href="/"><b>Registrate</b></a>
+														</div>
+												</div>
+										</li>
+								</ul>
+						</li>
+				</ul>
+			</div>
+		</script>
+
 		<script id="index" type="text/template">
 			<!-- -->
 			<div id='wrapper'>
@@ -51,7 +88,7 @@
 															</div>
 
 															<!--Aqui se carga el form de inicio de sesion -->
-															<div id="divInicioSesion">
+															<div class="navbar-header" id="divInicioSesion">
 																	<!--Este codigo se carga con jQuery -->
 															</div><!--Fin del Form de inicio de Sesion  -->
 
