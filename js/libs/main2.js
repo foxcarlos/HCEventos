@@ -14,7 +14,7 @@
         defaults:{
             cabeceraTitulo: 'EVENTOS ACADEMICOS E INVESTIGACION HOSPITAL COROMOTO',
             jumbotronTitulo: 'II JORNADAS CIENTIFICAS INTEGRALES DEL HOSPITAL COROMOTO',
-            jumbotronAlertaCentral1: 'Del 05 al 07 de Agosto de 2015',
+            jumbotronAlertaCentral1: 'Del 05 al 07 de Agosto de 2016',
             jumbotronAlertaCentral2: 'Hotel Venetur',
             jumbotronAlertaCentral3: '"Salud con Vocaci&oacute;n Socialista"',
             jumbotronAlertaCentralDifusion: 'Hotel Venetur Maracaibo',
@@ -33,13 +33,22 @@
         this.render();
       },
 
+      events: {
+        'click #desplegarInicioSesion': 'desplegarFormSesion',
+      },
+
+      desplegarFormSesion: function(e){
+        e.preventDefault()
+        this.$('#login-dp').toggleClass('dropdown-menu');
+      },
+
       render: function(){
         this.$el.html(this.plantillaLogin());
         return this;
       }
 
     });
-    //Vista para el Index
+    //Vista para el Index:
     App.Views.Index = Backbone.View.extend({
         tagName: 'body',
 
@@ -51,20 +60,21 @@
         events: {
           'click #menu-toggle': 'mostrarMenu',
 
-          'click #desplegarInicioSesion': 'desplegarFormSesion',
+          //'click #desplegarInicioSesion': 'desplegarFormSesion',
 
           'click #botonRegistrar': 'mostrarLogin',
-        },
-
-        desplegarFormSesion: function(e){
-          e.preventDefault()
-          this.$('#mostrarInicioSesion').toggleClass('toggled');
         },
 
         mostrarMenu: function(e){
           e.preventDefault()
           this.$('#wrapper').toggleClass('toggled');
+          this.$('#text-muted').toggleClass('text-muted');
         },
+
+        /*desplegarFormSesion: function(e){
+          e.preventDefault()
+          this.$('#login-dp').toggleClass('dropdown-menu');
+        },*/
 
         mostrarLogin: function(){
           miSelector = '#divInicioSesion'
