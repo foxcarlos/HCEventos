@@ -7,7 +7,6 @@
 
   	<link rel='stylesheet' href='/home/cgarcia/desarrollo/python/HCEventos/static/css/sidebar.css'>
 		<link rel="stylesheet" href="/home/cgarcia/desarrollo/python/HCEventos/static/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/home/cgarcia/desarrollo/python/HCEventos/static/css/style.css">
 	</head>
 	<body>
 
@@ -17,245 +16,246 @@
 
 		<script id="inicioSesionPlantilla" type="text/template">
 			<div id="mostrarInicioSesion">
-				<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-								<a id="desplegarInicioSesion" href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Iniciar Sesion</b> <span class="caret"></span></a>
-								<ul id="login-dp" class="dropdown-menu">
-										<li>
-												<div class="container-fluid">
-														<form class="form" role="form"  accept-charset="UTF-8" id="frmLogin">
-																<div class="input-group form-group">
-																		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-																		<input type="email" class="form-control" id="inputEmail" placeholder="Direccion Email" required name="usu_form" >
-																</div>
-																<div class="input-group form-group">
-																		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-																		<input type="password" class="form-control" id="inputPassword" placeholder="Contrasena" required name="pass_form" >
-																</div>
 
-																<div class="help-block text-center"><a href="">Olvido de clave ?</a></div>
-
-																<div class="form-group">
-																		<button id="btnIniciarSesion" type="button" class="btn btn-primary btn-block">Iniciar Sesion</button>
-																</div>
-														</form>
-
-														<div class="bottom text-center">
-																No tienes cuenta? <a href="/"><b>Registrate</b></a>
-														</div>
-												</div>
-										</li>
-								</ul>
-						</li>
-				</ul>
 			</div>
 		</script>
 
 		<script id="index" type="text/template">
-			<!-- -->
-			<div id='wrapper'>
-					<div id="divMenuPrincipal">
-							<div id='sidebar-wrapper'>
-									<ul class='sidebar-nav'>
-											<div class='user-sidebar-info'>
-													<div class='row user-foto'>
-															<img src='static/img/unknow-user.png'></img>
-													</div>
-													<div class='row'></div>
+			<div class='container-fluid'>
+			<nav class="navbar navbar-default navbar-inverse" role="navigation">
+			  <div class="container-fluid">
+			    <ul class='nav navbar-nav navbar-left'>
+			        <li><a href='#menu-toggle' id='menu-toggle'><span class='glyphicon glyphicon-align-justify'></span></a></li>
+					</ul>
+
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">Login dropdown</a>
+			    </div>
+
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="nav navbar-nav">
+			        <li class="active"><a href="#">Link</a></li>
+			        <li><a href="#">Link</a></li>
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+			          <ul class="dropdown-menu" role="menu">
+			            <li><a href="#">Action</a></li>
+			            <li><a href="#">Another action</a></li>
+			            <li><a href="#">Something else here</a></li>
+			            <li class="divider"></li>
+			            <li><a href="#">Separated link</a></li>
+			            <li class="divider"></li>
+			            <li><a href="#">One more separated link</a></li>
+			          </ul>
+			        </li>
+			      </ul>
+			      <form class="navbar-form navbar-left" role="search">
+			        <div class="form-group">
+			          <input type="text" class="form-control" placeholder="Search">
+			        </div>
+			        <button type="submit" class="btn btn-default">Submit</button>
+			      </form>
+			      <ul class="nav navbar-nav navbar-right">
+			        <li><p class="navbar-text">Already have an account?</p></li>
+			        <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+						<ul id="login-dp" class="dropdown-menu">
+							<li>
+								 <div class="row">
+										<div class="col-md-12">
+											<form class="form" role="form"  accept-charset="UTF-8" id="frmLogin">
+			    								<div class="input-group form-group">
+													<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+													<input type="email" class="form-control" id="inputEmail" placeholder="Direccion Email" required name="usu_form" >
+												</div>
+												<div class="input-group form-group">
+													<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+													<input type="password" class="form-control" id="inputPassword" placeholder="Contrasena" required name="pass_form" >
+												</div>
+
+												<div class="help-block text-center"><a href="">Olvido de clave ?</a></div>
+													<div class="form-group">
+													<button id="btnIniciarSesion" type="button" class="btn btn-primary btn-block">Iniciar Sesion</button>
+												</div>
+											</form>
+
+											<div class="bottom text-center">
+												No tienes cuenta? <a href="/"><b>Registrate</b></a>
 											</div>
-											<li><a href='#'><span class=''></span> Nosotros</a></li>
-											<li><a href='#'>Programa</a></li>
-											<li><a href='#'>Objetivos</a></li>
-											<li><a href='#'>Comit&eacute;</a></li>
-											<li><a href='#'>Normas y reglamentos</a></li>
-											<li><a href='#'>Formatos</a></li>
-											<li><a href='#'>Contacto</a></li>
-									</ul>
-							</div> <!-- End sidebar wrapper -->
-					</div>
-					<!--Fin de MenuPrincipal -->
+										</div>
+								 </div>
+							</li>
+						</ul>
+			        </li>
+			      </ul>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+				</div><!-- /.container-fluid -->
+			</nav>
 
-					<div id='page-content-wrapper toggled'>
-							<div class='container-fluid'>
-									<div class='navbar navbar-inverse navbar-fixed-top'>
-											<div class='container'>
-													<ul class='nav navbar-nav navbar-left'>
-															<li><a href='#menu-toggle' id='menu-toggle'><span class='glyphicon glyphicon-align-justify'></span></a></li>
-													</ul>
-
-													<div class='collapse navbar-collapse navHeaderCollapse'>
-															<div class="navbar-header">
-																	<a id="menuInicio" class="navbar-brand" href="/"> <%= cabeceraTitulo%> </a>
+			<div id="divJumbotron">
+					<div class='jumbotron'>
+							<br><br><br>
+							<div class="container-fluid">
+									<div class='col-md-7'>
+											<br><br>
+											<div class='row'>
+													<div class='col-sm-12 text-center'>
+															<h2 id='titu' > <%= jumbotronTitulo %> </h2>
+													</div>
+											</div>
+											<br><br>
+											<div class='row'>
+													<div class='col-md-2'>
+													</div>
+													<div class='col-md-8'>
+															<div class='alert alert-info text-center'>
+															<p> <%= jumbotronAlertaCentral1 %> </p>
+															<p> <%= jumbotronAlertaCentral2 %> </p>
+															<cite> <%= jumbotronAlertaCentral3 %> </cite>
 															</div>
-
-															<!--Aqui se carga el form de inicio de sesion -->
-															<div class="navbar-header" id="divInicioSesion">
-																	<!--Este codigo se carga con jQuery -->
-															</div><!--Fin del Form de inicio de Sesion  -->
-
+													</div>
+													<div class='col-md-2'>
+													</div>
+											</div>
+											<div class='row'>
+													<span class='glyphicon glyphicon-bullhorn'> <%= jumbotronAlertaCentralDifusion %> </span>
+											</div>
+											<br><br>
+											<br><br><br><br>
+											<div class='row'>
+													<div class='col-xs-8'>
+															<span class=''> <%= jumbotronAlertaCentralContacto1 %> </span>
+													</div>
+											</div>
+											<div class='row'>
+													<div class='col-xs-8'>
+															<span class='glyphicon glyphicon-envelope'> <%= jumbotronAlertaCentralContacto2 %> </span>
+													</div>
+											</div>
+											<div class='row'>
+													<div class='col-xs-8'>
+															<span class='glyphicon glyphicon-envelope'> <%= jumbotronAlertaCentralContacto3 %> </span>
 													</div>
 											</div>
 									</div>
-
-									<div id="divJumbotron">
-											<div class='jumbotron'>
-													<br><br><br>
-													<div class="container-fluid">
-															<div class='col-md-7'>
-																	<br><br>
-																	<div class='row'>
-																			<div class='col-sm-12 text-center'>
-																					<h2 id='titu' > <%= jumbotronTitulo %> </h2>
-																			</div>
-																	</div>
-																	<br><br>
-																	<div class='row'>
-																			<div class='col-md-2'>
-																			</div>
-																			<div class='col-md-8'>
-																					<div class='alert alert-info text-center'>
-																					<p> <%= jumbotronAlertaCentral1 %> </p>
-																					<p> <%= jumbotronAlertaCentral2 %> </p>
-																					<cite> <%= jumbotronAlertaCentral3 %> </cite>
+									<div class='col-md-5'>
+											<br>
+											<div>
+													<div>
+															<h2>Crea tu cuenta</h2>
+													</div>
+													<div>
+															<h5 id='text-muted' class='text-muted'>Inscripci&oacute;n gratuita</h5>
+													</div>
+													<br>
+													<div>
+															<form id="registroRapido" name="registroRapido">
+																	<div class='form-group'>
+																			<div class='row'>
+																					<div class='col-md-6'>
+																							<input type='text' class='form-control input-lg' name='txtnombre' id='txtnombre' placeholder='Nombre'>
+																					</div>
+																					<div class='col-md-6'>
+																							<input type='text' class='form-control input-lg' name='txtapellido' id='txtapellido' placeholder='Apellido'>
 																					</div>
 																			</div>
-																			<div class='col-md-2'>
+																	</div>
+																	<div class='form-group'>
+																			<div class='row'>
+																					<div class='col-sm-12'>
+																							<input type='mail' class='form-control input-lg' id='txtcorreo' placeholder='Correo electronico'>
+																					</div>
 																			</div>
 																	</div>
-																	<div class='row'>
-																			<span class='glyphicon glyphicon-bullhorn'> <%= jumbotronAlertaCentralDifusion %> </span>
-																	</div>
-																	<br><br>
-																	<br><br><br><br>
-																	<div class='row'>
-																			<div class='col-xs-8'>
-																					<span class=''> <%= jumbotronAlertaCentralContacto1 %> </span>
+																	<div class='form-group'>
+																			<div class='row'>
+																					<div class='col-sm-12'>
+																							<input type='mail' class='form-control input-lg' id='txtconfcorreo' placeholder='Confirmar correo electronico'>
+																					</div>
 																			</div>
 																	</div>
-																	<div class='row'>
-																			<div class='col-xs-8'>
-																					<span class='glyphicon glyphicon-envelope'> <%= jumbotronAlertaCentralContacto2 %> </span>
+																	<div class='form-group'>
+																			<div class='row'>
+																					<div class='col-md-12'>
+																							<input type='password' class='form-control input-lg' id='newpassword' placeholder='Contraseña nueva'>
+																					</div>
 																			</div>
 																	</div>
-																	<div class='row'>
-																			<div class='col-xs-8'>
-																					<span class='glyphicon glyphicon-envelope'> <%= jumbotronAlertaCentralContacto3 %> </span>
+																	<div class='title'>
+																			<h4><span class='small text-muted'>Cumpleaños</span></h4>
+																	</div>
+																	<div class='form-group'>
+																			<div class='row'>
+																									<div class='col-xs-2 Dcumple'>
+																											<select id="txtdia" class='form-control input-sm'>
+																											</select>
+																									</div>
+																									<div class='col-xs-2 Mcumple'>
+																											<select id="txtmes" class='form-control input-sm'>
+																											</select>
+																									</div>
+																									<div class='col-xs-2 Acumple'>
+																											<select id="txtanio" class='form-control input-sm'>
+																											</select>
+																									</div>
+																			</div>
+																	</div> <!-- Fin de form-group -->
+																	<div class='form-group'>
+																			<div class='row'>
+																					<div class='col-xs-4 Rmujer'>
+																							<div class='radio'>
+																									<label>
+																											<input type='radio' name='Genero' id='femenino' value='1'>
+																											Mujer
+																									</label>
+																							</div>
+																					</div>
+																					<div class='col-xs-4 Rhombre'>
+																							<div class='radio'>
+																									<label>
+																											<input type='radio' name='Genero' id='masculino' value='2' checked >
+																											Hombre
+																									</label>
+																							</div>
+																					</div>
 																			</div>
 																	</div>
-															</div>
-															<div class='col-md-5'>
-																	<br>
 																	<div>
-																			<div>
-																					<h2>Crea tu cuenta</h2>
-																			</div>
-																			<div>
-																					<h5 id='text-muted' class='text-muted'>Inscripci&oacute;n gratuita</h5>
-																			</div>
-																			<br>
-																			<div>
-																					<form id="registroRapido" name="registroRapido">
-																							<div class='form-group'>
-																									<div class='row'>
-																											<div class='col-md-6'>
-																													<input type='text' class='form-control input-lg' name='txtnombre' id='txtnombre' placeholder='Nombre'>
-																											</div>
-																											<div class='col-md-6'>
-																													<input type='text' class='form-control input-lg' name='txtapellido' id='txtapellido' placeholder='Apellido'>
-																											</div>
-																									</div>
-																							</div>
-																							<div class='form-group'>
-																									<div class='row'>
-																											<div class='col-sm-12'>
-																													<input type='mail' class='form-control input-lg' id='txtcorreo' placeholder='Correo electronico'>
-																											</div>
-																									</div>
-																							</div>
-																							<div class='form-group'>
-																									<div class='row'>
-																											<div class='col-sm-12'>
-																													<input type='mail' class='form-control input-lg' id='txtconfcorreo' placeholder='Confirmar correo electronico'>
-																											</div>
-																									</div>
-																							</div>
-																							<div class='form-group'>
-																									<div class='row'>
-																											<div class='col-md-12'>
-																													<input type='password' class='form-control input-lg' id='newpassword' placeholder='Contraseña nueva'>
-																											</div>
-																									</div>
-																							</div>
-																							<div class='title'>
-																									<h4><span class='small text-muted'>Cumpleaños</span></h4>
-																							</div>
-																							<div class='form-group'>
-																									<div class='row'>
-																															<div class='col-xs-2 Dcumple'>
-																																	<select id="txtdia" class='form-control input-sm'>
-																																	</select>
-																															</div>
-																															<div class='col-xs-2 Mcumple'>
-																																	<select id="txtmes" class='form-control input-sm'>
-																																	</select>
-																															</div>
-																															<div class='col-xs-2 Acumple'>
-																																	<select id="txtanio" class='form-control input-sm'>
-																																	</select>
-																															</div>
-																									</div>
-																							</div> <!-- Fin de form-group -->
-																							<div class='form-group'>
-																									<div class='row'>
-																											<div class='col-xs-4 Rmujer'>
-																													<div class='radio'>
-																															<label>
-																																	<input type='radio' name='Genero' id='femenino' value='1'>
-																																	Mujer
-																															</label>
-																													</div>
-																											</div>
-																											<div class='col-xs-4 Rhombre'>
-																													<div class='radio'>
-																															<label>
-																																	<input type='radio' name='Genero' id='masculino' value='2' checked >
-																																	Hombre
-																															</label>
-																													</div>
-																											</div>
-																									</div>
-																							</div>
-																							<div>
-																									<div class='row'>
-																											<div class='col-xs-5 text-left'>
-																													<button id="botonRegistrar" type='button' class='btn btn-danger btn-md btn-block'>Registrar</button>
-																											</div>
-																									</div>
-																							</div>
-																					</form>
+																			<div class='row'>
+																					<div class='col-xs-5 text-left'>
+																							<button id="botonRegistrar" type='button' class='btn btn-danger btn-md btn-block'>Registrar</button>
+																					</div>
 																			</div>
 																	</div>
-															</div>
+															</form>
 													</div>
-													<br><br>
-											</div> <!-- Fin de jumbotron -->
-									</div><!--Fin del DIV jumbotron -->
-
-									<div id="divPiePagina">
-											<footer class='footer'>
-													<div class='container'>
-															<p id='textoPiePagina' class='text-muted'>&reg; Desarrollo de Aplicaciones - Coordinacion de sistemas - Hospital coromoto  2015.</p>
-													</div>
-											</footer>
+											</div>
 									</div>
-							</div> <!-- End container-fluid -->
-					</div> <!-- End of content wrapper -->
-			</div> <!-- End Wrapper -->
+							</div>
+							<br><br>
+					</div> <!-- Fin de jumbotron -->
+			</div><!--Fin del DIV jumbotron -->
+			<a>ss</a>
+			<b/>
+			<a>ss</a>
+			<a>ss</a>
+			<a>ss</a>
+			<a>ss</a>
 		</script>
 
 		<script src="js/libs/underscore.js"></script>
 		<script src="js/libs/jquery-2.2.0.min.js"></script>
 		<script src="js/libs/backbone.js"></script>
 		<script src="js/libs/main2.js"></script>
+		<script src="js/libs/bootstrap.min.js"></script>
 	</body>
 </html>

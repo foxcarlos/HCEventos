@@ -37,11 +37,6 @@
         'click #desplegarInicioSesion': 'desplegarFormSesion',
       },
 
-      desplegarFormSesion: function(e){
-        e.preventDefault()
-        this.$('#login-dp').toggleClass('dropdown-menu');
-      },
-
       render: function(){
         this.$el.html(this.plantillaLogin());
         return this;
@@ -59,27 +54,19 @@
 
         events: {
           'click #menu-toggle': 'mostrarMenu',
-
-          //'click #desplegarInicioSesion': 'desplegarFormSesion',
-
-          'click #botonRegistrar': 'mostrarLogin',
+          'click #desplegarInicioSesion': 'desplegarFormSesion',
+          //'click #botonRegistrar': 'mostrarLogin',
         },
 
         mostrarMenu: function(e){
           e.preventDefault()
           this.$('#wrapper').toggleClass('toggled');
-          this.$('#text-muted').toggleClass('text-muted');
         },
 
-        /*desplegarFormSesion: function(e){
-          e.preventDefault()
-          this.$('#login-dp').toggleClass('dropdown-menu');
-        },*/
-
         mostrarLogin: function(){
-          miSelector = '#divInicioSesion'
+          /*miSelector = '#divInicioSesion'
           var miVistaLogin = new VistaLogin({el: miSelector});
-          this.$(miSelector).append(miVistaLogin.render().el);
+          this.$(miSelector).append(miVistaLogin.render().el);*/
         },
 
         render: function(){
