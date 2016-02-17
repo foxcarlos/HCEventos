@@ -12,7 +12,7 @@
     // Models Index
     App.Models.Index = Backbone.Model.extend({
         defaults:{
-            cabeceraTitulo: 'EVENTOS ACADEMICOS E INVESTIGACION HOSPITAL COROMOTO',
+            cabeceraTitulo: 'EVENTOS HOSPITAL COROMOTO',
             jumbotronTitulo: 'II JORNADAS CIENTIFICAS INTEGRALES DEL HOSPITAL COROMOTO',
             jumbotronAlertaCentral1: 'Del 05 al 07 de Agosto de 2016',
             jumbotronAlertaCentral2: 'Hotel Venetur',
@@ -20,14 +20,16 @@
             jumbotronAlertaCentralDifusion: 'Hotel Venetur Maracaibo',
             jumbotronAlertaCentralContacto1: '(0261) 7900331/7900308/7900364',
             jumbotronAlertaCentralContacto2: 'congresoshospitalcoromoto@gmail.com',
-            jumbotronAlertaCentralContacto3: 'congresoshospitalcoromoto@outlook.com'
+            jumbotronAlertaCentralContacto3: 'congresoshospitalcoromoto@outlook.com',
+            piePagina: '&reg; Desarrollo de Aplicaciones - Coordinacion de sistemas - Hospital coromoto  2016.'
         }
     });
 
     var VistaLogin = Backbone.View.extend({
       //tagName: 'divInicioSesion',
 
-      plantillaLogin: plantilla('inicioSesionPlantilla'),
+      //plantillaLogin: plantilla('inicioSesionPlantilla'),
+      plantillaLogin: plantilla('sesionActivaPlantilla'),
 
       initialize: function(){
         this.render();
@@ -45,13 +47,12 @@
 
         miPlantilla: plantilla('index'),  // _.template($('#personaPlantilla').html()) ,
 
-        /*initialize: function(){
-        },*/
+        initialize: function(){
+          //this.mostrarLogin()
+        },
 
         events: {
           'click #menu-toggle': 'mostrarMenu',
-
-          'click #botonRegistrar': 'mostrarLogin',
         },
 
         mostrarMenu: function(e){
@@ -66,12 +67,13 @@
         },
 
         render: function(){
-            this.$el.html(this.miPlantilla(this.model.toJSON()));
-            return this;
+          this.$el.html(this.miPlantilla(this.model.toJSON()));
+          return this;
         }
     });
 
     var index = new App.Models.Index()
     var indexView = new App.Views.Index({model: index});
-    $(document.body).append(indexView.render().el);   // adding people view in DOM.. Only for demo
+    $(document.body).append(indexView.render().el);  // Añade el index al DOM
+    $(document.body).append(indexView.mostrarLogin());  // Añade el el Login al DOM
 })();
