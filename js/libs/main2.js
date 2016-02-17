@@ -33,15 +33,6 @@
         this.render();
       },
 
-      events: {
-        'click #desplegarInicioSesion': 'desplegarFormSesion',
-      },
-
-      desplegarFormSesion: function(e){
-        e.preventDefault()
-        this.$('#login-dp').toggleClass('dropdown-menu');
-      },
-
       render: function(){
         this.$el.html(this.plantillaLogin());
         return this;
@@ -60,21 +51,13 @@
         events: {
           'click #menu-toggle': 'mostrarMenu',
 
-          //'click #desplegarInicioSesion': 'desplegarFormSesion',
-
           'click #botonRegistrar': 'mostrarLogin',
         },
 
         mostrarMenu: function(e){
           e.preventDefault()
           this.$('#wrapper').toggleClass('toggled');
-          this.$('#text-muted').toggleClass('text-muted');
         },
-
-        /*desplegarFormSesion: function(e){
-          e.preventDefault()
-          this.$('#login-dp').toggleClass('dropdown-menu');
-        },*/
 
         mostrarLogin: function(){
           miSelector = '#divInicioSesion'
