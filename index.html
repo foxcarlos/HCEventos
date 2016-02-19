@@ -5,8 +5,8 @@
 
 		<title>Registro de participantes</title>
 
-  	<link rel='stylesheet' href='/home/cgarcia/desarrollo/python/HCEventos/static/css/sidebar.css'>
-		<link rel="stylesheet" href="/home/cgarcia/desarrollo/python/HCEventos/static/css/bootstrap.css">
+  	<link rel='stylesheet' href='static/css/sidebar.css'>
+		<link rel="stylesheet" href="static/css/bootstrap.css">
 	</head>
 	<body>
 
@@ -87,204 +87,232 @@
 			</div>
 		</script>
 
-		<script id="index" type="text/template">
-			<div class='container-fluid'>
-			<nav class="navbar navbar-default navbar-inverse" role="navigation">
-			  <div class="container-fluid">
-			    <ul class='nav navbar-nav navbar-left'>
-			        <li><a href='#menu-toggle' id='menu-toggle'><span class='glyphicon glyphicon-align-justify'></span></a></li>
-					</ul>
+		<script id="cuerpoIndexParte1Plantilla" type="text/template">
+			<div class='row'>
+					<div class='col-sm-12 text-center'>
+							<h2 id='titu' > <%= jumbotronTitulo %> </h2>
+					</div>
+			</div>
+			<br><br>
+			<div class='row'>
+					<div class='col-md-2'>
+					</div>
+					<div class='col-md-8'>
+							<div class='alert alert-info text-center'>
+							<p> <%= jumbotronAlertaCentral1 %> </p>
+							<p> <%= jumbotronAlertaCentral2 %> </p>
+							<cite> <%= jumbotronAlertaCentral3 %> </cite>
+							</div>
+					</div>
+					<div class='col-md-2'>
+					</div>
+			</div>
+			<div class='row'>
+					<span class='glyphicon glyphicon-bullhorn'> <%= jumbotronAlertaCentralDifusion %> </span>
+			</div>
+			<br><br>
+			<br><br><br><br>
+			<div class='row'>
+					<div class='col-xs-8'>
+							<span class=''> <%= jumbotronAlertaCentralContacto1 %> </span>
+					</div>
+			</div>
+			<div class='row'>
+					<div class='col-xs-8'>
+							<span class='glyphicon glyphicon-envelope'> <%= jumbotronAlertaCentralContacto2 %> </span>
+					</div>
+			</div>
+			<div class='row'>
+					<div class='col-xs-8'>
+							<span class='glyphicon glyphicon-envelope'> <%= jumbotronAlertaCentralContacto3 %> </span>
+					</div>
+			</div>
+		</script>
 
-			    <!-- Brand and toggle get grouped for better mobile display -->
-			    <div class="navbar-header">
-			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			      </button>
-			      <a class="navbar-brand" href="#"><%= cabeceraTitulo %></a>
-			    </div>
+		<script id="cuerpoIndexParte2Plantilla" type="text/template">
+			<div>
+				<div>
+					<h2>Crea tu cuenta</h2>
+				</div>
+				<div>
+					<h5 id='text-muted' class='text-muted'>Inscripci&oacute;n gratuita</h5>
+				</div>
+				<br>
+				<div>
+					<form id="registroRapido" name="registroRapido">
+						<div class='form-group'>
+							<div class='row'>
+								<div class='col-md-6'>
+									<input type='text' class='form-control input-lg' name='txtnombre' id='txtnombre' placeholder='Nombre'>
+								</div>
+								<div class='col-md-6'>
+									<input type='text' class='form-control input-lg' name='txtapellido' id='txtapellido' placeholder='Apellido'>
+								</div>
+							</div>
+						</div>
+						<div class='form-group'>
+							<div class='row'>
+								<div class='col-sm-12'>
+									<input type='mail' class='form-control input-lg' id='txtcorreo' placeholder='Correo electronico'>
+								</div>
+							</div>
+						</div>
+						<div class='form-group'>
+							<div class='row'>
+								<div class='col-sm-12'>
+									<input type='mail' class='form-control input-lg' id='txtconfcorreo' placeholder='Confirmar correo electronico'>
+								</div>
+							</div>
+						</div>
+						<div class='form-group'>
+							<div class='row'>
+								<div class='col-md-12'>
+									<input type='password' class='form-control input-lg' id='newpassword' placeholder='Contraseña nueva'>
+								</div>
+							</div>
+						</div>
+						<div class='title'>
+							<h4><span class='small text-muted'>Cumpleaños</span></h4>
+						</div>
+						<div class='form-group'>
+							<div class='row'>
+								<div class='col-xs-2 Dcumple'>
+										<select id="txtdia" class='form-control input-sm'>
+										</select>
+								</div>
+								<div class='col-xs-2 Mcumple'>
+										<select id="txtmes" class='form-control input-sm'>
+										</select>
+								</div>
+								<div class='col-xs-2 Acumple'>
+										<select id="txtanio" class='form-control input-sm'>
+										</select>
+								</div>
+							</div>
+						</div> <!-- Fin de form-group -->
 
-			    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      <ul class="nav navbar-nav">
-			        <li class="active"><a href="#">Menu 1</a></li>
-			        <li><a href="#">Menu 2</a></li>
-			        <li class="dropdown">
-			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu con SubMenu <span class="caret"></span></a>
-			          <ul class="dropdown-menu" role="menu">
-			            <li><a href="#">Action</a></li>
-			            <li><a href="#">Another action</a></li>
-			            <li><a href="#">Something else here</a></li>
-			            <li class="divider"></li>
-			            <li><a href="#">Separated link</a></li>
-			            <li class="divider"></li>
-			            <li><a href="#">One more separated link</a></li>
-			          </ul>
-			        </li>
-			      </ul>
-
-						<div  id="divInicioSesion">
-							<!-- aqui se carga el la plantilla del form de inicio de sesion-->
+						<div class='form-group'>
+							<div class='row'>
+								<div class='col-xs-4 Rmujer'>
+									<div class='radio'>
+										<label>
+												<input type='radio' name='Genero' id='femenino' value='1'>
+												Mujer
+										</label>
+									</div>
+								</div>
+								<div class='col-xs-4 Rhombre'>
+									<div class='radio'>
+										<label>
+												<input type='radio' name='Genero' id='masculino' value='2' checked >
+												Hombre
+										</label>
+									</div>
+								</div>
+							</div>
 						</div>
 
-			    </div><!-- /.navbar-collapse -->
-			  </div><!-- /.container-fluid -->
-				</div><!-- /.container-fluid -->
-			</nav>
+						<div>
+							<div class='row'>
+								<div class='col-xs-5 text-left'>
+									<button id="botonRegistrar" type='button' class='btn btn-danger btn-md btn-block'>Registrar</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</script>
 
+		<script id='cabeceraIndexPlantilla' type='text/template'>
+			<div class="container-fluid">
+				<nav class="navbar navbar-default navbar-inverse" role="navigation">
+				  <div class="container-fluid">
+				    <ul class='nav navbar-nav navbar-left'>
+				        <li><a href='#menu-toggle' id='menu-toggle'><span class='glyphicon glyphicon-align-justify'></span></a></li>
+						</ul>
+
+				    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <a class="navbar-brand" href="#"><%= cabeceraTitulo %></a>
+				    </div>
+
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      <ul class="nav navbar-nav">
+				        <li class="active"><a href="#">Menu 1</a></li>
+				        <li><a href="#">Menu 2</a></li>
+				        <li class="dropdown">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu con SubMenu <span class="caret"></span></a>
+				          <ul class="dropdown-menu" role="menu">
+				            <li><a href="#">Action</a></li>
+				            <li><a href="#">Another action</a></li>
+				            <li><a href="#">Something else here</a></li>
+				            <li class="divider"></li>
+				            <li><a href="#">Separated link</a></li>
+				            <li class="divider"></li>
+				            <li><a href="#">One more separated link</a></li>
+				          </ul>
+				        </li>
+				      </ul>
+
+							<div  id="divInicioSesion">
+								<!-- aqui se carga el la plantilla del form de inicio de sesion-->
+							</div>
+
+				    </div><!-- /.navbar-collapse -->
+				  </div><!-- /.container-fluid -->
+				</nav>
+			</div><!-- /.container-fluid -->
+		</script><!-- Fin de Plantilla cabecera -->
+
+		<script id="cuerpoIndexPlantilla" type="text/template">
 			<div id="divJumbotron">
 					<div class='jumbotron'>
-							<br><br><br>
 							<div class="container-fluid">
 									<div class='col-md-7'>
-											<br><br>
-											<div class='row'>
-													<div class='col-sm-12 text-center'>
-															<h2 id='titu' > <%= jumbotronTitulo %> </h2>
-													</div>
-											</div>
-											<br><br>
-											<div class='row'>
-													<div class='col-md-2'>
-													</div>
-													<div class='col-md-8'>
-															<div class='alert alert-info text-center'>
-															<p> <%= jumbotronAlertaCentral1 %> </p>
-															<p> <%= jumbotronAlertaCentral2 %> </p>
-															<cite> <%= jumbotronAlertaCentral3 %> </cite>
-															</div>
-													</div>
-													<div class='col-md-2'>
-													</div>
-											</div>
-											<div class='row'>
-													<span class='glyphicon glyphicon-bullhorn'> <%= jumbotronAlertaCentralDifusion %> </span>
-											</div>
-											<br><br>
-											<br><br><br><br>
-											<div class='row'>
-													<div class='col-xs-8'>
-															<span class=''> <%= jumbotronAlertaCentralContacto1 %> </span>
-													</div>
-											</div>
-											<div class='row'>
-													<div class='col-xs-8'>
-															<span class='glyphicon glyphicon-envelope'> <%= jumbotronAlertaCentralContacto2 %> </span>
-													</div>
-											</div>
-											<div class='row'>
-													<div class='col-xs-8'>
-															<span class='glyphicon glyphicon-envelope'> <%= jumbotronAlertaCentralContacto3 %> </span>
-													</div>
-											</div>
+										<div id="divCuerpoIndexParte1">
+											<!-- Aqui se carga la plantilla-->
+										</div>
 									</div>
+
 									<div class='col-md-5'>
-											<br>
-											<div>
-													<div>
-															<h2>Crea tu cuenta</h2>
-													</div>
-													<div>
-															<h5 id='text-muted' class='text-muted'>Inscripci&oacute;n gratuita</h5>
-													</div>
-													<br>
-													<div>
-															<form id="registroRapido" name="registroRapido">
-																	<div class='form-group'>
-																			<div class='row'>
-																					<div class='col-md-6'>
-																							<input type='text' class='form-control input-lg' name='txtnombre' id='txtnombre' placeholder='Nombre'>
-																					</div>
-																					<div class='col-md-6'>
-																							<input type='text' class='form-control input-lg' name='txtapellido' id='txtapellido' placeholder='Apellido'>
-																					</div>
-																			</div>
-																	</div>
-																	<div class='form-group'>
-																			<div class='row'>
-																					<div class='col-sm-12'>
-																							<input type='mail' class='form-control input-lg' id='txtcorreo' placeholder='Correo electronico'>
-																					</div>
-																			</div>
-																	</div>
-																	<div class='form-group'>
-																			<div class='row'>
-																					<div class='col-sm-12'>
-																							<input type='mail' class='form-control input-lg' id='txtconfcorreo' placeholder='Confirmar correo electronico'>
-																					</div>
-																			</div>
-																	</div>
-																	<div class='form-group'>
-																			<div class='row'>
-																					<div class='col-md-12'>
-																							<input type='password' class='form-control input-lg' id='newpassword' placeholder='Contraseña nueva'>
-																					</div>
-																			</div>
-																	</div>
-																	<div class='title'>
-																			<h4><span class='small text-muted'>Cumpleaños</span></h4>
-																	</div>
-																	<div class='form-group'>
-																			<div class='row'>
-																									<div class='col-xs-2 Dcumple'>
-																											<select id="txtdia" class='form-control input-sm'>
-																											</select>
-																									</div>
-																									<div class='col-xs-2 Mcumple'>
-																											<select id="txtmes" class='form-control input-sm'>
-																											</select>
-																									</div>
-																									<div class='col-xs-2 Acumple'>
-																											<select id="txtanio" class='form-control input-sm'>
-																											</select>
-																									</div>
-																			</div>
-																	</div> <!-- Fin de form-group -->
-																	<div class='form-group'>
-																			<div class='row'>
-																					<div class='col-xs-4 Rmujer'>
-																							<div class='radio'>
-																									<label>
-																											<input type='radio' name='Genero' id='femenino' value='1'>
-																											Mujer
-																									</label>
-																							</div>
-																					</div>
-																					<div class='col-xs-4 Rhombre'>
-																							<div class='radio'>
-																									<label>
-																											<input type='radio' name='Genero' id='masculino' value='2' checked >
-																											Hombre
-																									</label>
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div>
-																			<div class='row'>
-																					<div class='col-xs-5 text-left'>
-																							<button id="botonRegistrar" type='button' class='btn btn-danger btn-md btn-block'>Registrar</button>
-																					</div>
-																			</div>
-																	</div>
-															</form>
-													</div>
-											</div>
+										<div id="divCuerpoIndexParte2">
+												<!-- Aqui se carga la plantilla-->
+										</div>
 									</div>
 							</div>
 							<br><br>
 					</div> <!-- Fin de jumbotron -->
 			</div><!--Fin del DIV jumbotron -->
+		</script><!--Fin del Script Plantilla cuerpoIndex -->
 
-			<div id="divPiePagina">
-				<footer class='footer'>
-					<div class='container'>
-						<p id='textoPiePagina' class='text-muted'> <%= piePagina %> </p>
-					</div>
-				</footer>
-			</div> <!--Fin del DIV piePagina -->
+		<script id="piePaginaPlantilla" type="text/template">
+			<footer class='footer'>
+				<div class='container'>
+					<p id='textoPiePagina' class='text-muted'> <%= piePagina %> </p>
+				</div>
+			</footer>
+		</script>
+
+		<script id="index" type="text/template">
+			<div id='divCabeceraIndex'>
+				<!-- Aqui se carga la plantilla de la cabecera del Index (menu nav Bar)-->
+			</div>
+
+			<div id="divCuerpoIndex">
+				<!-- Aqui se carga la plantilla del cuerpo del Index-->
+			</div>
+
+			<div id="divPiePaginaIndex">
+				<!-- Aqui se carga la plantilla del pie de pagina del Index-->
+			</div>
 		</script>
 
 		<script src="js/libs/underscore.js"></script>
