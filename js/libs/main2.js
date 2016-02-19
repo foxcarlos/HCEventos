@@ -68,6 +68,7 @@
 
         render: function(){
           this.$el.html(this.miPlantilla(this.model.toJSON()));
+          $('#txtnombre').val('Prueba');
           return this;
         }
     });
