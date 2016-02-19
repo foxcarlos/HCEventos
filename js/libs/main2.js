@@ -25,10 +25,22 @@
         }
     });
 
-    var VistaLogin = Backbone.View.extend({
-      //tagName: 'divInicioSesion',
+    // Vista para la cabecera del Index:
+    var VistaCabeceraIndex = Backbone.View.extend({
+      plantillaCabeceraIndex: plantilla('cabeceraIndexPlantilla'),
 
-      //plantillaLogin: plantilla('inicioSesionPlantilla'),
+      initialize: function(){
+        this.render();
+      },
+
+      render: function(){
+        this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
+        return this;
+      }
+    });
+
+    // Vista para el Login del Index:
+    var VistaLogin = Backbone.View.extend({
       plantillaLogin: plantilla('sesionActivaPlantilla'),
 
       initialize: function(){
@@ -41,14 +53,74 @@
       }
 
     });
-    //Vista para el Index:
+
+    // Vista para el Cuerpo del Index:
+    var VistaCuerpoIndex = Backbone.View.extend({
+      plantillaCuerpoIndex: plantilla('cuerpoIndexPlantilla'),
+
+      initialize: function(){
+        this.render();
+      },
+
+      render: function(){
+        this.$el.html(this.plantillaCuerpoIndex(this.model.toJSON()));
+        return this;
+      }
+    });
+
+    // Vista para el Cuerpo del Index Parte 1:
+    var VistaCuerpoIndexParte1 = Backbone.View.extend({
+      plantillaCuerpoIndexParte1: plantilla('cuerpoIndexParte1Plantilla'),
+
+      initialize: function(){
+        this.render();
+      },
+
+      render: function(){
+        this.$el.html(this.plantillaCuerpoIndexParte1(this.model.toJSON()));
+        return this;
+      }
+
+    });
+
+    // Vista para el Cuerpo del Index Parte 2:
+    var VistaCuerpoIndexParte2 = Backbone.View.extend({
+      plantillaCuerpoIndexParte2: plantilla('cuerpoIndexParte2Plantilla'),
+
+      initialize: function(){
+        this.render();
+      },
+
+      render: function(){
+        this.$el.html(this.plantillaCuerpoIndexParte2(this.model.toJSON()));
+        return this;
+      }
+
+    });
+
+    // Vista para el Pie de pagina del Index:
+    var VistaPiePaginaIndex = Backbone.View.extend({
+      plantillaPiePagina: plantilla('piePaginaPlantilla'),
+
+      initialize: function(){
+        this.render();
+      },
+
+      render: function(){
+        this.$el.html(this.plantillaPiePagina(this.model.toJSON()));
+        return this;
+      }
+
+    });
+
+    // Vista para el Index:
     App.Views.Index = Backbone.View.extend({
         tagName: 'body',
 
         miPlantilla: plantilla('index'),  // _.template($('#personaPlantilla').html()) ,
 
         initialize: function(){
-          //this.mostrarLogin()
+
         },
 
         events: {
@@ -60,21 +132,43 @@
           this.$('#wrapper').toggleClass('toggled');
         },
 
-        mostrarLogin: function(){
+        mostrarVitasHijas: function(){
+          miSelector = '#divCabeceraIndex';
+          var miVistaCabeceraIndex = new VistaCabeceraIndex({el: miSelector, model: this.model});
+          this.$(miSelector).append(miVistaCabeceraIndex.render().el);
+
           miSelector = '#divInicioSesion'
           var miVistaLogin = new VistaLogin({el: miSelector});
           this.$(miSelector).append(miVistaLogin.render().el);
+
+          miSelector = '#divPiePaginaIndex';
+          var miVistaPiePaginaIndex = new VistaPiePaginaIndex({el: miSelector, model: this.model});
+          this.$(miSelector).append(miVistaPiePaginaIndex.render().el);
+
+          miSelector = '#divCuerpoIndex'
+          var miVistaCuerpoIndex = new VistaCuerpoIndex({el: miSelector, model: this.model});
+          this.$(miSelector).append(miVistaCuerpoIndex.render().el);
+
+          miSelector = '#divCuerpoIndexParte1'
+          var miVistaCuerpoIndexParte1 = new VistaCuerpoIndexParte1({el: miSelector, model: this.model});
+          console.log(miVistaCuerpoIndexParte1.render().el)
+          this.$(miSelector).append(miVistaCuerpoIndexParte1.render().el);
+
+          miSelector = '#divCuerpoIndexParte2'
+          var miVistaCuerpoIndexParte2 = new VistaCuerpoIndexParte2({el: miSelector, model: this.model});
+          console.log(miVistaCuerpoIndexParte2.render().el)
+          this.$(miSelector).append(miVistaCuerpoIndexParte2.render().el);
         },
 
         render: function(){
           this.$el.html(this.miPlantilla(this.model.toJSON()));
-          $('#txtnombre').val('Prueba');
           return this;
         }
     });
 
-    var index = new App.Models.Index()
-    var indexView = new App.Views.Index({model: index});
+    var indexModelo = new App.Models.Index()
+    var indexView = new App.Views.Index({model: indexModelo});
     $(document.body).append(indexView.render().el);  // Añade el index al DOM
-    $(document.body).append(indexView.mostrarLogin());  // Añade el el Login al DOM
+    $(document.body).append(indexView.mostrarVitasHijas());  // Añade el el Login al DOM
+
 })();
