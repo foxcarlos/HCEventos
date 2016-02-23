@@ -33,6 +33,10 @@
         this.render();
       },
 
+      events:{
+          'click #action': function(){alert('Hola')}
+      },
+
       render: function(){
         this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
         return this;
