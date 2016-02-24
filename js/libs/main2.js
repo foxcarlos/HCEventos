@@ -25,6 +25,20 @@
         }
     });
 
+    // Vista para el menu Configurar de la cabecera:
+    var VistaCabeceraMenu = Backbone.View.extend({
+      plantillaCabeceraMenu: plantilla('pruebaPlantilla'),
+
+      initialize: function(){
+        this.render();
+      },
+
+      render: function(){
+        this.$el.html(this.plantillaCabeceraMenu(this.model.toJSON()));
+        return this;
+      }
+    });
+
     // Vista para la cabecera del Index:
     var VistaCabeceraIndex = Backbone.View.extend({
       plantillaCabeceraIndex: plantilla('cabeceraIndexPlantilla'),
@@ -45,8 +59,8 @@
 
     // Vista para el Login del Index:
     var VistaLogin = Backbone.View.extend({
-        plantillaLogin: plantilla('sesionActivaPlantilla'),
-        //plantillaLogin: plantilla('sesionInactivaPlantilla'),
+        //plantillaLogin: plantilla('sesionActivaPlantilla'),
+        plantillaLogin: plantilla('sesionInactivaPlantilla'),
 
 
       initialize: function(){
@@ -142,6 +156,10 @@
           miSelector = '#divCabeceraIndex';
           var miVistaCabeceraIndex = new VistaCabeceraIndex({el: miSelector, model: this.model});
           this.$(miSelector).append(miVistaCabeceraIndex.render().el);
+
+          miSelector = '#divMenu';
+          var miVistaCabeceraMenu = new VistaCabeceraMenu({el: miSelector, model: this.model});
+          this.$(miSelector).append(miVistaCabeceraMenu.render().el);
 
           miSelector = '#divInicioSesion'
           var miVistaLogin = new VistaLogin({el: miSelector});
