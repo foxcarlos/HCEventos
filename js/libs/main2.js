@@ -45,7 +45,9 @@
 
     // Vista para el Login del Index:
     var VistaLogin = Backbone.View.extend({
-      plantillaLogin: plantilla('sesionActivaPlantilla'),
+        plantillaLogin: plantilla('sesionActivaPlantilla'),
+        //plantillaLogin: plantilla('sesionInactivaPlantilla'),
+
 
       initialize: function(){
         this.render();
