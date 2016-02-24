@@ -161,6 +161,10 @@
           var miVistaCabeceraMenu = new VistaCabeceraMenu({el: miSelector, model: this.model});
           this.$(miSelector).append(miVistaCabeceraMenu.render().el);
 
+          miSelector = '#divMenu';
+          var miVistaCabeceraMenu = new VistaCabeceraMenu({el: miSelector, model: this.model});
+          this.$(miSelector).append(miVistaCabeceraMenu.render().el);
+
           miSelector = '#divInicioSesion'
           var miVistaLogin = new VistaLogin({el: miSelector});
           this.$(miSelector).append(miVistaLogin.render().el);
