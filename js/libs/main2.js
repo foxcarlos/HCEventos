@@ -28,13 +28,16 @@
     // Vista para el menu Configurar de la cabecera:
     var VistaCabeceraMenu = Backbone.View.extend({
       plantillaCabeceraMenu: plantilla('pruebaPlantilla'),
+      plantillaCabeceraMenu2: plantilla('prueba2Plantilla'),
 
       initialize: function(){
         this.render();
       },
 
       render: function(){
-        this.$el.html(this.plantillaCabeceraMenu(this.model.toJSON()));
+        suma = this.plantillaCabeceraMenu() + this.plantillaCabeceraMenu2();
+        console.log(suma);
+        this.$el.html(suma);
         return this;
       }
     });
@@ -157,12 +160,9 @@
           var miVistaCabeceraIndex = new VistaCabeceraIndex({el: miSelector, model: this.model});
           this.$(miSelector).append(miVistaCabeceraIndex.render().el);
 
-          miSelector = '#divMenu';
+          miSelector = '#ulMenu';
           var miVistaCabeceraMenu = new VistaCabeceraMenu({el: miSelector, model: this.model});
-          this.$(miSelector).append(miVistaCabeceraMenu.render().el);
-
-          miSelector = '#divMenu';
-          var miVistaCabeceraMenu = new VistaCabeceraMenu({el: miSelector, model: this.model});
+          var renderizar = miVistaCabeceraMenu.render().el;
           this.$(miSelector).append(miVistaCabeceraMenu.render().el);
 
           miSelector = '#divInicioSesion'
