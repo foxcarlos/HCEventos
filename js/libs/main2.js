@@ -25,6 +25,11 @@
         }
     });
 
+    // Modelo para el Menu
+    App.Models.Menu = Backbone.Collection.extend({
+        url: '/menu/1'
+    });
+
     // Vista para el menu Configurar de la cabecera:
     var VistaCabeceraMenu = Backbone.View.extend({
       plantillaCabeceraMenu: plantilla('pruebaPlantilla'),

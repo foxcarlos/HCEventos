@@ -42,7 +42,10 @@ class pg():
             clave = ''
 
         string_conn = "host='{0}' dbname='{1}' user='{2}' password='{3}' ".format(servidor, basedatos, usuario, clave)
+        string_conn = "host='10.121.6.4' dbname='evento' user='cliente' password='cliente' ".format(servidor, basedatos, usuario, clave)
+
         self.cad_conex = string_conn
+        print(string_conn)
 
         try:
             self.conn = psycopg2.connect(string_conn)
@@ -183,6 +186,12 @@ def congreso():
 def static(filename):
     return bottle.static_file(filename, root='static/')
 
+
+@bottle.route('/js/<filename:path>')
+def static(filename):
+    return bottle.static_file(filename, root='js/')
+
+
 @bottle.route('/editarRegistro')
 def editarRegistro():
     '''Permite consultar en la base de datos si el usuario
@@ -282,7 +291,8 @@ def index():
     username = bottle.request.get_cookie("account")
 
     # print('usuario',username)
-    return bottle.template('index', {'usuario':username})
+    #return bottle.template('index', {'usuario':username})
+    return bottle.static_file("index.html", root='')
 
 @bottle.route('/login')
 def login():
@@ -330,6 +340,34 @@ def ciudad(idEstado=0):
         if clasePG.estado['status']:
             buscar = clasePG.cur.fetchall()
             de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
+            List2Dict = de_Lista_a_Diccionario
+    return json.dumps(List2Dict)
+
+@bottle.route('/menu/:id')
+def estado(id=0):
+    clasePG = pg()
+    clasePG.conectar()
+    List2Dict = {}
+
+    if not clasePG.estado['status']:
+        print('error')
+        pass  # por ahora no se enviara nimgun mensaje de error
+    else:
+        # Verifica los datos en a tabla persona para el ID pasado como parametro
+        sqlVerificaDatos = '''select id, orden,nombre,depende_menu_id from menu where id in (
+                select menu_id from seguridad.permisos AS sp
+                where
+                sp.status = 1 and
+                sp.rol_id in (
+                    select rol_id from seguridad.usuario_rol AS ur where ur.usuario_id = {0} and ur.status = 1)) order by orden
+        '''.format(id)
+
+
+        # sqlVerificaDatos = "select id, descripcion from referencias.estado where id_pais='{0}' order by descripcion".format(id)
+        clasePG.ejecutar(sqlVerificaDatos)
+        if clasePG.estado['status']:
+            buscar = clasePG.cur.fetchall()
+            de_Lista_a_Diccionario = [{'id':i[0], 'orden':i[1], 'nombre':i[2], 'depende_menu_id':i[3]} for i in buscar]
             List2Dict = de_Lista_a_Diccionario
     return json.dumps(List2Dict)
 
@@ -513,7 +551,7 @@ def grid():
     ordenadoPor = 'nombre'
 
     # appBuscar realiza la consulta y devuelve una lista con diccionarios por cada registro
-    
+
     doc = appBuscar.consulta(camposMostrar, condicion, ordenadoPor)
     listaFinal = [f.values() for f in doc]
 
