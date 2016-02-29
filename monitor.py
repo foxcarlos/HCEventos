@@ -42,7 +42,7 @@ class pg():
             clave = ''
 
         string_conn = "host='{0}' dbname='{1}' user='{2}' password='{3}' ".format(servidor, basedatos, usuario, clave)
-        string_conn = "host='10.121.6.4' dbname='evento' user='cliente' password='cliente' ".format(servidor, basedatos, usuario, clave)
+        string_conn = "host='localhost' dbname='evento' user='postgres' password='postgres' ".format(servidor, basedatos, usuario, clave)
 
         self.cad_conex = string_conn
         print(string_conn)

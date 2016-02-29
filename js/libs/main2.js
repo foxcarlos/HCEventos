@@ -26,9 +26,39 @@
     });
 
     // Modelo para el Menu
-    App.Models.Menu = Backbone.Collection.extend({
+    App.Collections.Menu = Backbone.Collection.extend({
         url: '/menu/1'
+        /*
+         Esta Coleccion se instancia:
+         var menu = new App.Collections.Menu();
+         menu.fetch()
+         luego se recorre con:
+         for(var i=0;i<menu.length;i=i+1){
+            console.log(menu.at(i).attributes)
+         }
+
+         menu.forEach(function(modelo, index, arreglo){
+           console.log(modelo.get('nombre'))
+           })
+        */
     });
+
+    // Otra Prueba para generar menus:
+    var VistaCabeceraMenues = Backbone.View.extend({
+      plantillaCabeceraMenues: plantilla('pru'),
+
+      initialize: function(){
+        this.render();
+      },
+
+      render: function(){
+        p = this.plantillaCabeceraMenues({nombreMenu: 'hola'});
+        console.log(p);
+        this.$el.html(p);
+        return this;
+      }
+    });
+
 
     // Vista para el menu Configurar de la cabecera:
     var VistaCabeceraMenu = Backbone.View.extend({
@@ -161,6 +191,10 @@
         },
 
         mostrarVitasHijas: function(){
+          miSelector = '#ulMenu';
+          var miVistaCabeceraMenues = new VistaCabeceraMenues({el: miSelector, model: this.model});
+          this.$(miSelector).append(miVistaCabeceraMenues.render().el);
+
           miSelector = '#divCabeceraIndex';
           var miVistaCabeceraIndex = new VistaCabeceraIndex({el: miSelector, model: this.model});
           this.$(miSelector).append(miVistaCabeceraIndex.render().el);
