@@ -40,6 +40,18 @@
          menu.forEach(function(modelo, index, arreglo){
            console.log(modelo.get('nombre'))
            })
+
+         var Coleccion = Backbone.Collection.extend({
+          url: '/menu/1'
+    });
+
+    miColeccion.forEach(function(modelo, index, arreglo){
+        if(modelo.get("depende_menu_id")==0){
+            console.log(modelo.get("nombre"));
+            $("#ulMenu").append('<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">'+ modelo.get("nombre") +'<span class="caret"></span><a><ul '+'id="ul'+modelo.get("id")+'"'+' class="dropdown-menu" role="menu"></ul></li>')
+        }
+   })
+
         */
     });
 
