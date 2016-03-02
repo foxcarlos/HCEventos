@@ -497,29 +497,30 @@ def genero():
             List2Dict = de_Lista_a_Diccionario
     return json.dumps(List2Dict)
 
-@bottle.post('/registro')
+@bottle.post('/crearRegistroRapido')
 def registroPost():
     '''Metodo POST que recibe informacion del FrontEnd
-cuando se crea un nuevo usuario desde el sitio Web'''
+cuando se crea un nuevo usuario desde el sitio Web
+'''
+    recibido = bottle.request.json
+    json.decoderloads(recibido.replace("\'", '"'));
 
     # print(bottle.request.forms.getall('registroRapido'))
-    nombre = bottle.request.forms.get('txtnombre')
-    apellido = bottle.request.forms.get('txtapellido')
-    correo = bottle.request.forms.get('txtcorreo')
-    clave = bottle.request.forms.get('newpassword')
-    dia = bottle.request.forms.get('txtdia')
-    mes = bottle.request.forms.get('txtmes')
-    anio = bottle.request.forms.get('txtanio')
-    genero = bottle.request.forms.get('txtgenero')
+    nombre = recibido['nombre']
+    apellido = recibido['apellido']
+    correo = recibido['correo']
+    clave = recibido['clave']
+    fechanac = recibido['fechaNac']
+    genero = recibido['genero']
 
-    print(nombre, apellido, correo, clave, dia, mes, anio, genero)
+    print(nombre, apellido, correo, clave, fechanac, genero)
 
     # Se envian los datos a guardar en PostGres y devuelve una tupla
     # (numerico,cadena) donde 0 indica que hubo un error y uno que
     # se ejecuto satisfatoriamente y otro elemento con el mensaje
     # bien sea giardado con exito o usuario ya existe
-    insReg = guardarPostGreSQL(nombre, apellido, correo, clave, dia,mes, \
-        anio, genero)
+
+    insReg = ''  # guardarPostGreSQL(nombre, apellido, correo, clave, dia,mes, anio, genero)
     print(insReg)
 
     return json.dumps(insReg)

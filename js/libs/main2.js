@@ -25,6 +25,20 @@
         }
     });
 
+    // Modelo para el regitro rapido de cuentas nuevas
+    App.Models.RegistroRapido = Backbone.Model.extend({
+        urlRoot: 'crearRegistroRapido',
+
+        defaults:{
+            nombre: '',
+            apellido: '',
+            correo: '',
+            clave: '',
+            fechaNac: '',
+            genero: ''
+        },
+    });
+
     // Modelo para el Menu
     App.Collections.Menu = Backbone.Collection.extend({
         url: '/menu/1'
@@ -161,6 +175,14 @@
         this.render();
       },
 
+      events:{
+          'click #botonRegistrar': 'registrarNuevo',
+      },
+
+      registrarNuevo: function(){
+          alert('Se regsitro');
+      },
+
       render: function(){
         this.$el.html(this.plantillaCuerpoIndexParte2(this.model.toJSON()));
         return this;
@@ -190,7 +212,6 @@
         miPlantilla: plantilla('index'),  // _.template($('#personaPlantilla').html()) ,
 
         initialize: function(){
-
         },
 
         events: {
@@ -199,7 +220,10 @@
 
         mostrarMenu: function(e){
           e.preventDefault()
-          this.$('#wrapper').toggleClass('toggled');
+          // this.$('#wrapper').toggleClass('toggled');
+          alert('hola');
+          this.$("#datepicker").datepicker();
+
         },
 
         mostrarVitasHijas: function(){
