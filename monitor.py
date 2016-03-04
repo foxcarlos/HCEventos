@@ -503,7 +503,6 @@ def registroPost():
 cuando se crea un nuevo usuario desde el sitio Web
 '''
     recibido = bottle.request.json
-    json.decoderloads(recibido.replace("\'", '"'));
 
     # print(bottle.request.forms.getall('registroRapido'))
     nombre = recibido['nombre']
