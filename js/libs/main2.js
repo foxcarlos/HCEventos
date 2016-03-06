@@ -181,14 +181,22 @@
 
       registrarNuevo: function(){
           alert('Se regsitro');
-          $('').val()
+
+          nom = $('#txtnombre').val();
+          ape = $('#txtapellido').val();
+          corr = $('#txtcorreo').val();
+          corr2 = $('#txtconfcorreo').val();
+          cla = $('#newpassword').val();
+          fnac = $('#txtfechanac').val();
+          gen = $('input[type=radio]:checked').val()
+
           var mo = new App.Models.RegistroRapido({
-              nombre: 'carlos',
-              apellido: 'garcia',
-              fechaNac: '16/06/1972',
-              clave: 'carlosgarcia',
-              correo: 'foxcarlos@gmail.com',
-              genero: 'M'
+              nombre: nom,
+              apellido: ape,
+              fechaNac: fnac,
+              clave: cla,
+              correo: corr,
+              genero: gen
           });
           mo.save();
       },
