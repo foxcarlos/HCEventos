@@ -26,6 +26,19 @@
     });
 
     // Modelo para el regitro rapido de cuentas nuevas
+    App.Models.MensajeModal = Backbone.Model.extend({
+        // urlRoot: 'crearRegistroRapido',
+
+        defaults:{
+            modalCabecera: '',
+            modalCuerpo1: '',
+            modalCuerpo2: '',
+            modalBoton1: '',
+            modalBoton2: ''
+        },
+    });
+
+    // Modelo para el regitro rapido de cuentas nuevas
     App.Models.RegistroRapido = Backbone.Model.extend({
         urlRoot: 'crearRegistroRapido',
 
@@ -170,6 +183,7 @@
     // Vista para el Cuerpo del Index Parte 2:
     var VistaCuerpoIndexParte2 = Backbone.View.extend({
       plantillaCuerpoIndexParte2: plantilla('cuerpoIndexParte2Plantilla'),
+      plantillaModal2: plantilla('modal2'),
 
       initialize: function(){
         this.render();
@@ -198,7 +212,10 @@
               correo: corr,
               genero: gen
           });
-          mo.save();
+          respuesta = mo.save();
+          var htm = plantillaModal2()
+          // responseJSON.mensaje
+
       },
 
       render: function(){

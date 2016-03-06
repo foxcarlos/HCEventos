@@ -9,6 +9,35 @@
 	</head>
 	<body>
 
+        <script id="modal2" type="text/template">
+            <div id="dialog-message" title=<%= modalCabecera%>>
+                <p>
+                    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+                    <%= modalCuerpo1%>
+                </p>
+                <p>
+                    <%= modalCuerpo2%>
+                </p>
+            </div>
+        <script>
+
+        <script id="modal" type="text/template">
+            <div class="modal hide fade" id="myModal">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h3><%= modalCabecera%></h3>
+                </div>
+                <div class="modal-body">
+                    <strong><%= modalCuerpo1%></strong>
+                    <p><%= modalCuerpo2%></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal"><%= modalBoton1%></a>
+                    <a href="#" class="btn btn-primary"><%= modalBoton2%></a>
+                </div>
+            </div>
+        </script>
+
 		<script id="personaPlantilla" type="text/template">
 		    <strong><%= nombre%></strong> (<%= edad%>) - <%= ocupacion%>
 		</script>
