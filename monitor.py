@@ -6,6 +6,7 @@ import json
 import bottle
 from bottle.ext.websocket import GeventWebSocketServer
 from static.python.datos import sql
+from static.python.notificar import notificar
 from bson.objectid import ObjectId
 from os.path import join, dirname
 from bottle import route, static_file, template
@@ -350,6 +351,13 @@ def registroPost():
     print(nombre, apellido, correo, clave, fechanac, genero)
     insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero)
     print(insReg)
+
+    if insReg:
+        cuerpoMensaje = 'Saludos {0} {1},  Ud se ha registrado con exito'.fomat(nombre, apellido)
+        remitenteMensaje = ''
+        asuntoMensaje = 'Registro realizado con Exito'
+
+        notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
 
     # Se envian los datos a guardar en PostGres y devuelve una tupla
     # (numerico,cadena) donde 0 indica que hubo un error y uno que

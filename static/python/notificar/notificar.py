@@ -1,0 +1,34 @@
+import smtplib
+from email.mime.text import MIMEText
+
+def enviarEmail(destinatario, mensaje, remitente='pycondor@gmail.com', \
+asunto='Sin Asunto '):
+    '''
+    El metodo enviar email recibe 3 parametros:
+    Destinatario:uncorreo@gmail.com
+    Mensaje:'Esto es una prueba de envio'
+    Remitente:Si no se envia ningun remitente el toma por defecto pycondor@gma
+    Asunto:si no se coloca ninguno el toma por defecto el pasado en el parametr
+    '''
+    # Creamos el mensaje
+    msg = MIMEText(mensaje)
+
+    # Conexin con el server
+
+    msg['Subject'] = asunto
+    msg['From'] = remitente
+    msg['To'] = destinatario
+
+    # Autenticamos
+    mailServer = smtplib.SMTP('smtp.gmail.com', 587)
+    mailServer.ehlo()
+    mailServer.starttls()
+    mailServer.ehlo()
+    mailServer.login("pycondor@gmail.com", "shc21152115")
+
+    # Enviamos
+    mailServer.sendmail(remitente, destinatario, \
+    msg.as_string())
+
+    # Cerramos conexion
+    mailServer.close()
