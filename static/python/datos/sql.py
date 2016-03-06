@@ -90,7 +90,7 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
         devuelveMsg = posg.estado
     else:
         # Verificar si el Usuario ya esta registrado
-        sql = "select login from seguridad.usuarios where usuario ='{0}'".format(Correo)
+        sql = "select login from seguridad.usuarios where login ='{0}'".format(Correo)
         posg.ejecutar(sql)
 
         # Si hay un fallo al ejecutar el comando sql
@@ -103,7 +103,7 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
                 devuelveMsg = {'status': 0, 'mensaje': 'Usuario ya esta registrado'}
             else:
                 # Si no esta registrado se procede a agregarlo a la base de datos
-                armarInsert = "insert into usuario (login, clave ) values ('{0}', '{1}')".format(Correo, Clave)
+                armarInsert = "insert into seguridad.usuarios (login, clave ) values ('{0}', '{1}')".format(Correo, Clave)
                 posg.ejecutar(armarInsert)
 
                 # Si falla el comando SQl al insertar
@@ -111,7 +111,7 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
                     devuelveMsg = posg.estado
                 else:
                     # Se obtiene el Id unico que se genero automaticamente en PGSQL
-                    obtenerID = "SELECT currval(pg_get_serial_sequence('usuario','id'))"
+                    obtenerID = "SELECT currval(pg_get_serial_sequence('seguridad.usuarios','id'))"
                     posg.ejecutar(obtenerID)
 
                     # Si falla al obntener el ID Unico
@@ -123,7 +123,9 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
 
                         # Ahora se procede a insertar el resto de los valores en la tabla persona
                         sqlInsertpersona = "insert into persona (usuario, nombres, apellidos, fechanac,\
-                        genero_sexo) values({0}, '{1}', '{2}', '{3}', {4})".format(idUsuario, Nombre, Apellido, FechaNac, Genero)
+                        genero_sexo) values({0}, '{1}', '{2}', '{3}', {4})".\
+                            format(idUsuario, Nombre, Apellido, FechaNac, Genero)
+
                         posg.ejecutar(sqlInsertpersona)
                         if not posg.estado['status']:
                             devuelveMsg = posg.estado

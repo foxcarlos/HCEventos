@@ -352,8 +352,8 @@ def registroPost():
     insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero)
     print(insReg)
 
-    if insReg:
-        cuerpoMensaje = 'Saludos {0} {1},  Ud se ha registrado con exito'.fomat(nombre, apellido)
+    if insReg['status']:
+        cuerpoMensaje = 'Saludos {0} {1}, Ud se ha registrado con exito a la Pagina de Eventos del Hospital Coromoto, su usuario es: {2} y su clave de acceso es: {3}, Lo invitamos a concluir su registro iniciando sesion y completando los datos faltantes'.format(nombre, apellido, correo, clave)
         remitenteMensaje = ''
         asuntoMensaje = 'Registro realizado con Exito'
 

@@ -1,5 +1,11 @@
 import smtplib
 from email.mime.text import MIMEText
+import requests
+
+def sms(mensaje='', numero=''):
+    ''' Metodo para el envio de SMS'''
+
+    requests.post("http://10.121.0.110:9091/mensaje", data = {'var1':mensaje, 'var2':numero})
 
 def enviarEmail(destinatario, mensaje, remitente='pycondor@gmail.com', \
 asunto='Sin Asunto '):
@@ -10,8 +16,9 @@ asunto='Sin Asunto '):
     Remitente:Si no se envia ningun remitente el toma por defecto pycondor@gma
     Asunto:si no se coloca ninguno el toma por defecto el pasado en el parametr
     '''
+
     # Creamos el mensaje
-    msg = MIMEText(mensaje)
+    msg = MIMEText(mensaje.strip())
 
     # Conexin con el server
 
