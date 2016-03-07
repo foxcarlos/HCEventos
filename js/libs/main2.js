@@ -212,8 +212,9 @@
               correo: corr,
               genero: gen
           });
-          respuesta = mo.save();
-          var htm = plantillaModal2()
+          r = mo.save();
+          console.log(r.responseText);
+          // var htm = plantillaModal2()
           // responseJSON.mensaje
 
       },
