@@ -35,7 +35,8 @@
             modalCuerpo2: '',
             modalBoton1: '',
             modalBoton2: ''
-        },
+        }
+
     });
 
     // Modelo para el regitro rapido de cuentas nuevas
@@ -50,6 +51,19 @@
             fechaNac: '',
             genero: ''
         },
+
+        validate: function(attributes){
+            if(attributes.nombre === ''){
+                return "En necesario indicar un nombre";
+            }
+        },
+
+        initialize: function(){
+            this.on('invalid', function(model, error){
+                //alert(error);
+            });
+        }
+
     });
 
     // Modelo para el Menu
@@ -193,6 +207,16 @@
           'click #botonRegistrar': 'registrarNuevo',
       },
 
+      validar: function(obj){
+          campo = $(obj).val();
+
+          if(!campo.trim()){
+              console.log(campo.trim());
+              alert(mo.validationError);
+              $(obj).focus();
+          }
+      },
+
       registrarNuevo: function(){
           alert('Se regsitro');
 
@@ -204,7 +228,7 @@
           fnac = $('#txtfechanac').val();
           gen = $('input[type=radio]:checked').val()
 
-          var mo = new App.Models.RegistroRapido({
+          mo = new App.Models.RegistroRapido({
               nombre: nom,
               apellido: ape,
               fechaNac: fnac,
@@ -213,8 +237,15 @@
               genero: gen
           });
           r = mo.save();
-          console.log(r.responseText);
           // var htm = plantillaModal2()
+
+          this.validar('#txtnombre')
+          this.validar('#txtapellido')
+          this.validar('#txtcorreo')
+          this.validar('#txtconfcorreo')
+          this.validar('#newpassword')
+          this.validar('#txtfechanac')
+
           // responseJSON.mensaje
 
       },
