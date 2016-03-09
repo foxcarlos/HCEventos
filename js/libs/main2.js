@@ -91,6 +91,7 @@
                 return "En necesario indicar un Genero";
             }
         },*/
+       //
 
         initialize: function(){
             this.on('invalid', function(model, error){
