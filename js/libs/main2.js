@@ -280,7 +280,12 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
         for(var i=0; i<longitud; i++){
             selector = '#'+lista[i].id;
             descripcion = lista.get(i).placeholder
-            this.validarVacios( selector, descripcion )
+            valor = $(selector).val()
+            if(!valor.trim()){
+                alert(descripcion);
+                break
+            }
+            //this.validarVacios( selector, descripcion )
             //alert(mo.validationError);
         }
     },
