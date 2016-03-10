@@ -129,7 +129,7 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
                             devuelveMsg = posg.estado
                         else:
                             posg.conn.commit()
-                            devuelveMsg = {'status': 1, 'mensaje': 'Usuario registrado con exito, ahora inicie sesion'}
+                            devuelveMsg = {'status': 1, 'mensaje': 'Usuario registrado con exito, ahora puede iniciar sesion'}
     return devuelveMsg
 
 def validaLogin(usuario, clave):

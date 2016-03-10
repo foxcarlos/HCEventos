@@ -345,19 +345,22 @@ def registroPost():
     apellido = recibido['apellido']
     correo = recibido['correo']
     clave = recibido['clave']
+    movil = recibido['movil']
     fechanac = recibido['fechaNac']
     genero = recibido['genero']
 
-    print(nombre, apellido, correo, clave, fechanac, genero)
+    print(nombre, apellido, correo, clave, movil, fechanac, genero)
     insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero)
     print(insReg)
 
     if insReg['status']:
-        cuerpoMensaje = 'Saludos {0} {1}, Ud se ha registrado con exito a la Pagina de Eventos del Hospital Coromoto, su usuario es: {2} y su clave de acceso es: {3}, Lo invitamos a concluir su registro iniciando sesion y completando los datos faltantes'.format(nombre, apellido, correo, clave)
+        cuerpoMensaje = 'Saludos {0}, Registro exitoso en Eventos del Hospital Coromoto, su usuario es: {1} y su clave de acceso es: {2}'.format(nombre, correo, clave)
+        # ' Lo invitamos a concluir su registro iniciando sesion y completando los datos faltantes'.format(nombre, apellido, correo, clave)
         remitenteMensaje = ''
         asuntoMensaje = 'Registro realizado con Exito'
 
-        notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
+        # notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
+        notificar.sms(cuerpoMensaje, movil)
 
     # Se envian los datos a guardar en PostGres y devuelve una tupla
     # (numerico,cadena) donde 0 indica que hubo un error y uno que

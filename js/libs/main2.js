@@ -91,10 +91,10 @@
                 return "En necesario indicar un Genero";
             }
         },*/
-       //
 
         initialize: function(){
             this.on('invalid', function(model, error){
+                alert(error)
             });
         }
     });
@@ -240,28 +240,46 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
         'click #botonRegistrar': 'registrarNuevo',
     },
 
-    validarVacios: function(obj, obj2){
-        campo = $(obj).val();
+    validarCampos: function(){
+        /*Este metodo verifica si existe un
+        campo del form vacio, de ser asi
+        envia un alert()
+        */
 
-        if(!campo.trim()){
-            alert(obj2);
-            $(obj).focus();
+        todoBien = true;
+
+        // Lista todos los elementos input del Form
+        var lista = $("#registroRapido :input");
+        var longitud = lista.length;
+
+        for(var i=0; i<longitud; i++){
+            selector = '#'+lista[i].id;
+            descripcion = lista.get(i).placeholder;
+            valor = $(selector).val();
+            if(!valor.trim()){
+                todoBien = false;
+                alert('Verifique el campo: '+descripcion);
+                $(selector).focus();
+                break
+            }
         }
+        return todoBien;
     },
 
     registrarNuevo: function(){
-        alert('Se regsitro');
 
-        nom = $('#txtnombre').val();
-        ape = $('#txtapellido').val();
-        corr = $('#txtcorreo').val();
-        cla = $('#newpassword').val();
-        cla2 = $('#newpassword2').val();
-        mov = $('#txtmovil').val();
-        fnac = $('#txtfechanac').val();
-        gen = $('input[type=radio]:checked').val();
+        var todoBien = true
+        // Valores de los Text del FORM
+        var nom = $('#txtnombre').val();
+        var ape = $('#txtapellido').val();
+        var corr = $('#txtcorreo').val();
+        var cla = $('#newpassword').val();
+        var cla2 = $('#newpassword2').val();
+        var mov = $('#txtmovil').val();
+        var fnac = $('#txtfechanac').val();
+        var gen = $('input[type=radio]:checked').val();
 
-        mo = new App.Models.RegistroRapido({
+        var mo = new App.Models.RegistroRapido({
             nombre: nom,
             apellido: ape,
             correo: corr,
@@ -271,22 +289,20 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
             fechaNac: fnac,
             genero: gen
         });
-        r = mo.save();
 
-        // Recorreo todos los objetos tipo Input
-        longitud = $("#registroRapido :input").length;
-        lista = $("#registroRapido :input");  // lista todos los elementos input del form
+        todoBien = this.validarCampos();
 
-        for(var i=0; i<longitud; i++){
-            selector = '#'+lista[i].id;
-            descripcion = lista.get(i).placeholder
-            valor = $(selector).val()
-            if(!valor.trim()){
-                alert(descripcion);
-                break
-            }
-            //this.validarVacios( selector, descripcion )
-            //alert(mo.validationError);
+        if(todoBien){
+            mo.save({},{
+                success: function(model, response){
+                    alert(response.mensaje);
+                    // this.render();
+                },
+
+                error: function(model, response){
+                    alert(response.mensaje);
+                }
+            });
         }
     },
 
