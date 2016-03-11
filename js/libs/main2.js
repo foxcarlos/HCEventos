@@ -125,7 +125,7 @@ miColeccion.forEach(function(modelo, index, arreglo){
         $("#ulMenu").append('<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">'+ modelo.get("nombre") +'<span class="caret"></span><a><ul '+'id="ul'+modelo.get("id")+'"'+' class="dropdown-menu" role="menu"></ul></li>')
     }
 })
-
+•
     */
 });
 
@@ -233,7 +233,8 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
     plantillaModal2: plantilla('modal2'),
 
     initialize: function(){
-    this.render();
+        this.render();
+        $('#txtfechanac').datepicker()
     },
 
     events:{
@@ -241,21 +242,42 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
     },
 
     validarCampos: function(){
+        var todoBien = true;
+
+        // Valida el Correo que tenga el formato correcto
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!regex.test($('#txtcorreo').val())){
+            todoBien = false;
+            alert('valido el correo es false')
+            return todoBien
+        }
+
+        c1 = $('newpassword').val();
+        c2 = $('newpassword2').val();
+
+        if(c1!=c2){
+            todoBien = false;
+            alert('claves no coinciden');
+        }
+    },
+
+    validarCamposVacios: function(){
         /*Este metodo verifica si existe un
         campo del form vacio, de ser asi
         envia un alert()
         */
 
-        todoBien = true;
+        var todoBien = true;
 
         // Lista todos los elementos input del Form
         var lista = $("#registroRapido :input");
         var longitud = lista.length;
 
         for(var i=0; i<longitud; i++){
-            selector = '#'+lista[i].id;
-            descripcion = lista.get(i).placeholder;
-            valor = $(selector).val();
+            var selector = '#'+lista[i].id;
+            var descripcion = lista.get(i).placeholder;
+            var valor = $(selector).val();
+
             if(!valor.trim()){
                 todoBien = false;
                 alert('Verifique el campo: '+descripcion);
@@ -264,20 +286,34 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
             }
         }
         return todoBien;
-    },
+      },
+
+    limpiarCampos: function(){
+        /*Este metodo limpiar los camposn
+        del form */
+
+        // Lista todos los elementos input del Form
+        var lista = $("#registroRapido :input");
+        var longitud = lista.length;
+
+        for(var i=0; i<longitud; i++){
+            selector = '#'+lista[i].id;
+            valor = $(selector).val('');
+        }
+      },
 
     registrarNuevo: function(){
 
         var todoBien = true
         // Valores de los Text del FORM
-        var nom = $('#txtnombre').val();
-        var ape = $('#txtapellido').val();
-        var corr = $('#txtcorreo').val();
-        var cla = $('#newpassword').val();
-        var cla2 = $('#newpassword2').val();
-        var mov = $('#txtmovil').val();
-        var fnac = $('#txtfechanac').val();
-        var gen = $('input[type=radio]:checked').val();
+        nom = $('#txtnombre').val();
+        ape = $('#txtapellido').val();
+        corr = $('#txtcorreo').val();
+        cla = $('#newpassword').val();
+        cla2 = $('#newpassword2').val();
+        mov = $('#txtmovil').val();
+        fnac = $('#txtfechanac').val();
+        gen = $('input[type=radio]:checked').val();
 
         var mo = new App.Models.RegistroRapido({
             nombre: nom,
@@ -290,17 +326,21 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
             genero: gen
         });
 
-        todoBien = this.validarCampos();
+        camposVacios = this.validarCamposVacios();
+        camposCorrectos = this.validarCampos();
+
+        self = this;
 
         if(todoBien){
             mo.save({},{
                 success: function(model, response){
                     alert(response.mensaje);
-                    // this.render();
+                    self.limpiarCampos();
                 },
 
                 error: function(model, response){
                     alert(response.mensaje);
+                    self.limpiarCampos();
                 }
             });
         }
@@ -345,7 +385,6 @@ App.Views.Index = Backbone.View.extend({
         e.preventDefault()
         // this.$('#wrapper').toggleClass('toggled');
         alert('hola');
-        this.$("#datepicker").datepicker();
 
     },
 
