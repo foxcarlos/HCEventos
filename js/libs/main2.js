@@ -241,24 +241,38 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
         'click #botonRegistrar': 'registrarNuevo',
     },
 
-    validarCampos: function(){
-        var todoBien = true;
+    validarCampos: function(objeto){
+        /* Esta funcion permite validar algunos campos del
+        * form de registro rapido, solo valida si la
+        * informacion esta escrita correctamente*/
+
+        var errorCampo = {estado: false, mensaje: 'Mensaje:'};
 
         // Valida el Correo que tenga el formato correcto
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if(!regex.test($('#txtcorreo').val())){
-            todoBien = false;
-            alert('valido el correo es false')
-            return todoBien
+        var rgxMovil = /^\d{11}$/
+        // rn.test('04165602966')
+
+        corr = $(objeto).val();
+        cla = $('#newpassword').val();
+        cla2 = $('#newpassword2').val();
+        mov = $('#txtmovil').val();
+        fnac = $('#txtfechanac').val();
+
+        if( objeto == '#txtcorreo' ){
+            if( !regex.test( corr) || !corr ){
+                errorCampo.estado = true;
+                errorCampo.mensaje = 'Correo Invalido'
+            }
         }
 
-        c1 = $('newpassword').val();
-        c2 = $('newpassword2').val();
-
-        if(c1!=c2){
-            todoBien = false;
-            alert('claves no coinciden');
+        if( objeto == '#newpassword2' ){
+            if( cla2 != cla ){
+                errorCampo.estado = true;
+                errorCampo.mensaje = 'Contraseñas no coinciden';
+            }
         }
+        return errorCampo
     },
 
     validarCamposVacios: function(){
@@ -268,6 +282,7 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
         */
 
         var todoBien = true;
+        var errorCampo = {estado: false, mensaje: ''}
 
         // Lista todos los elementos input del Form
         var lista = $("#registroRapido :input");
@@ -278,9 +293,20 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
             var descripcion = lista.get(i).placeholder;
             var valor = $(selector).val();
 
+            if( valor.trim() ){
+                errorCampoDevuelto = this.validarCampos(selector);
+
+                if( errorCampoDevuelto.estado ){
+                    todoBien = false
+                    alert( errorCampoDevuelto.mensaje );
+                    $(selector).focus();
+                    break
+                }
+            }
+
             if(!valor.trim()){
                 todoBien = false;
-                alert('Verifique el campo: '+descripcion);
+                alert('Campo vacio: '+ descripcion);
                 $(selector).focus();
                 break
             }
@@ -327,11 +353,11 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
         });
 
         camposVacios = this.validarCamposVacios();
-        camposCorrectos = this.validarCampos();
+        // camposCorrectos = this.validarCampos();
 
         self = this;
 
-        if(todoBien){
+        if(camposVacios){
             mo.save({},{
                 success: function(model, response){
                     alert(response.mensaje);
