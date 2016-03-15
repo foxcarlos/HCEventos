@@ -4,14 +4,42 @@
 		<meta charset="utf-8">
 
 		<title>Registro de participantes</title>
-
-  	<link rel='stylesheet' href='static/css/sidebar.css'>
-		<link rel="stylesheet" href="static/css/bootstrap.css">
+        <link rel='stylesheet' href='js/libs/jquery-ui-1.11.4/jquery-ui.css'>
+        <link rel="stylesheet" href="static/css/bootstrap.css">
 	</head>
 	<body>
 
+        <script id="modal2" type="text/template">
+            <div id="dialog-message" title=<%= modalCabecera%>>
+                <p>
+                    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+                    <%= modalCuerpo1%>
+                </p>
+                <p>
+                    <%= modalCuerpo2%>
+                </p>
+            </div>
+        <script>
+
+        <script id="modal" type="text/template">
+            <div class="modal hide fade" id="myModal">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <h3><%= modalCabecera%></h3>
+                </div>
+                <div class="modal-body">
+                    <strong><%= modalCuerpo1%></strong>
+                    <p><%= modalCuerpo2%></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal"><%= modalBoton1%></a>
+                    <a href="#" class="btn btn-primary"><%= modalBoton2%></a>
+                </div>
+            </div>
+        </script>
+
 		<script id="personaPlantilla" type="text/template">
-			<strong><%= nombre%></strong> (<%= edad%>) - <%= ocupacion%>
+		    <strong><%= nombre%></strong> (<%= edad%>) - <%= ocupacion%>
 		</script>
 
 		<script id="sesionActivaPlantilla" type="text/template">
@@ -50,7 +78,7 @@
 			</ul>
 		</script>
 
-		<script id="inicioSesionPlantilla" type="text/template">
+		<script id="sesionInactivaPlantilla" type="text/template">
 			<div id="mostrarInicioSesion">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
@@ -143,13 +171,14 @@
 						<div class='form-group'>
 							<div class='row'>
 								<div class='col-md-6'>
-									<input type='text' class='form-control input-lg' name='txtnombre' id='txtnombre' placeholder='Nombre'>
+									<input type='text' class='form-control input-lg' name='txtnombre' id='txtnombre' placeholder='Ingrese el Nombre'>
 								</div>
 								<div class='col-md-6'>
-									<input type='text' class='form-control input-lg' name='txtapellido' id='txtapellido' placeholder='Apellido'>
+									<input type='text' class='form-control input-lg' name='txtapellido' id='txtapellido' placeholder='Ingrese el Apellido'>
 								</div>
 							</div>
 						</div>
+
 						<div class='form-group'>
 							<div class='row'>
 								<div class='col-sm-12'>
@@ -157,46 +186,45 @@
 								</div>
 							</div>
 						</div>
+
+						<div class='form-group'>
+							<div class='row'>
+                                <div class='col-md-6'>
+									<input type='password' class='form-control input-lg' id='newpassword' placeholder='Contraseña nueva'>
+								</div>
+
+								<div class='col-md-6'>
+									<input type='password' class='form-control input-lg' id='newpassword2' placeholder='Confirme la contraseña'>
+								</div>
+							</div>
+						</div>
+
 						<div class='form-group'>
 							<div class='row'>
 								<div class='col-sm-12'>
-									<input type='mail' class='form-control input-lg' id='txtconfcorreo' placeholder='Confirmar correo electronico'>
+									<input type='tel' class='form-control input-lg' id='txtmovil' placeholder='Telef. Celular sin espacios ni guion'>
 								</div>
 							</div>
 						</div>
-						<div class='form-group'>
-							<div class='row'>
-								<div class='col-md-12'>
-									<input type='password' class='form-control input-lg' id='newpassword' placeholder='Contraseña nueva'>
-								</div>
-							</div>
-						</div>
+
+
 						<div class='title'>
 							<h4><span class='small text-muted'>Cumpleaños</span></h4>
 						</div>
-						<div class='form-group'>
-							<div class='row'>
-								<div class='col-xs-2 Dcumple'>
-										<select id="txtdia" class='form-control input-sm'>
-										</select>
-								</div>
-								<div class='col-xs-2 Mcumple'>
-										<select id="txtmes" class='form-control input-sm'>
-										</select>
-								</div>
-								<div class='col-xs-2 Acumple'>
-										<select id="txtanio" class='form-control input-sm'>
-										</select>
-								</div>
-							</div>
-						</div> <!-- Fin de form-group -->
+
+                        <div class='row'>
+                            <div class='col-xs-6 Dcumple'>
+                                <input type='text'  class='form-control input-lg' name='txtfechanac' id='txtfechanac' placeholder='Ingrese la fecha de Nacimiento DD/MM/AAAA'>
+                           </div>
+                        </div>
+                        </div> <!-- Fin de form-group -->
 
 						<div class='form-group'>
 							<div class='row'>
 								<div class='col-xs-4 Rmujer'>
 									<div class='radio'>
 										<label>
-												<input type='radio' name='Genero' id='femenino' value='1'>
+												<input type='radio' name='Genero' id='femenino' value=1>
 												Mujer
 										</label>
 									</div>
@@ -204,7 +232,7 @@
 								<div class='col-xs-4 Rhombre'>
 									<div class='radio'>
 										<label>
-												<input type='radio' name='Genero' id='masculino' value='2' checked >
+												<input type='radio' name='Genero' id='masculino' value=2 checked >
 												Hombre
 										</label>
 									</div>
@@ -224,47 +252,155 @@
 			</div>
 		</script>
 
+        <script id="pru" type="text/temlate">
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nuevo<span class="caret"></span></a>
+                <ul id="ulp" class="dropdown-menu" role="menu">
+                </ul>
+            </li>
+        </script>
+
+        <script id="pruebaPlantilla" type="text/template">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configurar Sistema<span class="caret"></span></a>
+                    <ul id="pruebaul" class="dropdown-menu" role="menu">
+                        <li><a href="#">Usuarios</a></li>
+                        <li><a href="#">Roles</a></li>
+                        <li><a href="#">Asignar Roles a Usuario</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Asignar Permisos al Menu</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Agregar Menu y SubMenu</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configurar Eventos<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Crear Eventos</a></li>
+                        <li><a href="#">Crear Programas</a></li>
+                        <li><a href="#">Crear Contenidos Programaticos</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Listar todos los eventos</a></li>
+                    </ul>
+                </li>
+        </script>
+
+        <script id="prueba2Plantilla" type="text/template">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ultima<span class="caret"></span></a>
+                    <ul id="ulp2" class="dropdown-menu" role="menu">
+                        <li><a href="#">Usuarios</a></li>
+                        <li><a href="#">Roles</a></li>
+                        <li><a href="#">Asignar Roles a Usuario</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Asignar Permisos al Menu</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Agregar Menu y SubMenu</a></li>
+                    </ul>
+                </li>
+        </script>
+
+        <script id="cabeceraMenuConfigurarSistemaPlantilla" type="text/template">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configurar Sistema<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Usuarios</a></li>
+                        <li><a href="#">Roles</a></li>
+                        <li><a href="#">Asignar Roles a Usuario</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Asignar Permisos al Menu</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Agregar Menu y SubMenu</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </script>
+
+        <script id="cabeceraMenuConfigurarEventosPlantilla" type="text/template">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu con SubMenu <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li id='action'><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </script>
+
+        <script id="cabeceraMenuEventosPlantilla" type="text/template">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu con SubMenu <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li id='action'><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </script>
+
+        <script id="cabeceraMenuUsuarioPlantilla" type="text/template">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Menu 1</a></li>
+                <li><a href="#">Menu 2</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu con SubMenu <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li id='action'><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </script>
+
 		<script id='cabeceraIndexPlantilla' type='text/template'>
 			<div class="container-fluid">
 				<nav class="navbar navbar-default navbar-inverse" role="navigation">
 				  <div class="container-fluid">
 				    <ul class='nav navbar-nav navbar-left'>
 				        <li><a href='#menu-toggle' id='menu-toggle'><span class='glyphicon glyphicon-align-justify'></span></a></li>
-						</ul>
+					</ul>
 
 				    <!-- Brand and toggle get grouped for better mobile display -->
 				    <div class="navbar-header">
-				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				      </button>
-				      <a class="navbar-brand" href="#"><%= cabeceraTitulo %></a>
+				        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				            <span class="sr-only">Toggle navigation</span>
+				        </button>
+				        <a class="navbar-brand" href="#"><%= cabeceraTitulo %></a>
 				    </div>
 
 				    <!-- Collect the nav links, forms, and other content for toggling -->
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				      <ul class="nav navbar-nav">
-				        <li class="active"><a href="#">Menu 1</a></li>
-				        <li><a href="#">Menu 2</a></li>
-				        <li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu con SubMenu <span class="caret"></span></a>
-				          <ul class="dropdown-menu" role="menu">
-				            <li><a href="#">Action</a></li>
-				            <li><a href="#">Another action</a></li>
-				            <li><a href="#">Something else here</a></li>
-				            <li class="divider"></li>
-				            <li><a href="#">Separated link</a></li>
-				            <li class="divider"></li>
-				            <li><a href="#">One more separated link</a></li>
-				          </ul>
-				        </li>
-				      </ul>
 
-							<div  id="divInicioSesion">
-								<!-- aqui se carga el la plantilla del form de inicio de sesion-->
-							</div>
+                        <ul id="ulMenu" class="nav navbar-nav">
+                            <!-- aqui se cargara la plantilla del Menu -->
+                        </ul>
+
+                        <div  id="divInicioSesion">
+                            <!-- aqui se carga el la plantilla del form de inicio de sesion-->
+                        </div>
 
 				    </div><!-- /.navbar-collapse -->
 				  </div><!-- /.container-fluid -->
@@ -317,8 +453,15 @@
 
 		<script src="js/libs/underscore.js"></script>
 		<script src="js/libs/jquery-2.2.0.min.js"></script>
+        <script src="js/libs/jquery-ui-1.11.4/jquery-ui.js"></script>
+		<script src="js/libs/backbone.js"></script>
 		<script src="js/libs/backbone.js"></script>
 		<script src="js/libs/main2.js"></script>
 		<script src="js/libs/bootstrap.min.js"></script>
+        <script>
+        $(function() {
+            $( "#txtfechanac" ).datepicker();
+        });
+        </script>
 	</body>
 </html>
