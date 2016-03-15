@@ -249,9 +249,9 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
         var errorCampo = {estado: false, mensaje: 'Mensaje:'};
 
         // Valida el Correo que tenga el formato correcto
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        var rgxMovil = /^\d{11}$/
-        // rn.test('04165602966')
+        var rgxEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var rgxMovil = /^[0]{1}[4]{1}[21]{1}[246]{1}[0-9]{7}$/;
+        var rgxFnac = /^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/;
 
         corr = $(objeto).val();
         cla = $('#newpassword').val();
@@ -260,7 +260,7 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
         fnac = $('#txtfechanac').val();
 
         if( objeto == '#txtcorreo' ){
-            if( !regex.test( corr) || !corr ){
+            if( !rgxEmail.test( corr) || !corr ){
                 errorCampo.estado = true;
                 errorCampo.mensaje = 'Correo Invalido'
             }
@@ -272,6 +272,21 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
                 errorCampo.mensaje = 'Contraseñas no coinciden';
             }
         }
+
+        if( objeto == '#txtmovil' ){
+            if( !rgxMovil.test(mov) || !mov){
+                errorCampo.estado = true;
+                errorCampo.mensaje = 'Numero de Movil invalido, verifique que no tenga espacios ni puntos ni guion';
+            }
+        }
+
+        if( objeto == '#txtfechanac' ){
+            if( !rgxFnac.test(fnac) || !fnac){
+                errorCampo.estado = true;
+                errorCampo.mensaje = 'Fecha de Nacimiento Invalida';
+            }
+        }
+
         return errorCampo
     },
 
