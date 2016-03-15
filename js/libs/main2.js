@@ -191,6 +191,20 @@ var VistaLogin = Backbone.View.extend({
     this.render();
     },
 
+    events:{
+        'click #btnIniciarSesion': 'iniciarSesion',
+
+        'click #olvidoClave': 'olvidoClave',
+
+        'click #registrate': 'registrarNuevo',
+    },
+
+    iniciarSesion: function(){
+        alert('ir a Iniciar Sesion');
+        d = $.getJSON('login');
+        alert(d.responseJSON.usuario);
+    },
+
     render: function(){
     this.$el.html(this.plantillaLogin());
     return this;

@@ -11,6 +11,7 @@ from bson.objectid import ObjectId
 from os.path import join, dirname
 from bottle import route, static_file, template
 import datetime
+from static.python.libs import pgSQL
 
 
 @bottle.route('/congreso')
@@ -133,10 +134,15 @@ def index():
 
 @bottle.route('/login')
 def login():
+    '''API REST que permite obtener la cookie
+    del usuario que tiene la sesion activa
+    actualmente'''
 
     username = bottle.request.get_cookie("account")
     print('El usuario es:',username)
-    return bottle.template('login')
+    respuesta = {'usuario': username}
+
+    return json.dumps(respuesta)
 
 @bottle.post('/login')
 def loginp():
@@ -182,8 +188,8 @@ def ciudad(idEstado=0):
 
 @bottle.route('/menu/:id')
 def estado(id=0):
-    clasePG = pg()
-    clasePG.conectar()
+    posg = pgSQL.PG()
+    posg.conectar()
     List2Dict = {}
 
     if not clasePG.estado['status']:
@@ -201,7 +207,7 @@ def estado(id=0):
 
 
         # sqlVerificaDatos = "select id, descripcion from referencias.estado where id_pais='{0}' order by descripcion".format(id)
-        clasePG.ejecutar(sqlVerificaDatos)
+        posg.sql(sqlVerificaDatos)
         if clasePG.estado['status']:
             buscar = clasePG.cur.fetchall()
             de_Lista_a_Diccionario = [{'id':i[0], 'orden':i[1], 'nombre':i[2], 'depende_menu_id':i[3]} for i in buscar]
@@ -413,43 +419,6 @@ def grid():
 
     return bottle.template('grid1', {'grid':listaFinal, 'cabecera':camposMostrar})
 
-"""
-@bottle.route('/mensaje')
-def mensaje():
-    return '''
-        <form action="/mensaje" method="post"'>
-            Numero: <input name="numero" type="text" />
-            Mensaje: <input name="mensaje" type="text" />
-            <input value="Enviar Sms" type="submit" />
-        </form>
-    '''
-"""
-
-@route('/my_ip')
-def show_ip():
-    ip = bottle.request.environ.get('REMOTE_ADDR')
-    # or ip = request.get('REMOTE_ADDR')
-    # or ip = request['REMOTE_ADDR']
-    print(ip)
-    return template("Your IP is: {{ip}}", ip=ip)
-
-def validaSms(num, msg):
-    devuelve = True
-    if not num:
-        devuelve = False
-    elif not msg:
-        devuelve = False
-    elif len(num) !=11:
-        devuelve = False
-    elif num[:4] not in ['0426', '0416', '0414', '0424', '0412']:
-        devuelve = False
-
-    # Esta Opcion es temporal para poder enviar yo Mensajes Internacionales
-    usuario = bottle.request.get_cookie("account")
-    if usuario == 'foxcarlos':
-        devuelve = True
-
-    return devuelve
 
 
 # bottle.debug(True)
