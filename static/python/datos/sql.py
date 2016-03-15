@@ -75,7 +75,7 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
     Apellido = apellido.strip()
     Correo = correo.strip()
     Clave = clave.strip()
-    FechaNac = fechanac  # datetime.datetime.strptime(fechanac.strip(), "%d/%m/%Y").strftime('%Y/%m/%d')
+    FechaNac = datetime.datetime.strptime(fechanac.strip(), "%d/%m/%Y").strftime('%Y/%m/%d')
     Genero = genero.strip()
 
     posg = pg()

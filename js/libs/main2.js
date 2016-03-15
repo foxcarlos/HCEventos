@@ -250,7 +250,7 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
 
         // Valida el Correo que tenga el formato correcto
         var rgxEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        var rgxMovil = /^[0]{1}[4]{1}[21]{1}[246]{1}[0-9]{7}$/;
+        var rgxMovil = /^([0]{1}[4]{1})(12|14|16|24|26)([0-9]{7})$/
         var rgxFnac = /^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/;
 
         corr = $(objeto).val();
