@@ -132,7 +132,7 @@ def index():
     #return bottle.template('index', {'usuario':username})
     return bottle.static_file("index.html", root='')
 
-@bottle.route('/login')
+@bottle.route('/consultarSesion')
 def login():
     '''API REST que permite obtener la cookie
     del usuario que tiene la sesion activa
@@ -144,7 +144,7 @@ def login():
 
     return json.dumps(respuesta)
 
-@bottle.post('/login')
+@bottle.post('/iniciarSesion')
 def loginp():
     ''' Metodo para el inicio de Sesion'''
 
@@ -152,10 +152,13 @@ def loginp():
     clave = ''
     idUsuario = False
 
-    usuario = bottle.request.forms.get('txtEmail')
-    clave = bottle.request.forms.get('txtClave')
+    recibidoo = bottle.request.json
+    print(recibidoo)
 
-    acceso, idUsuario = validaLogin(usuario, clave)
+    '''usuario = recibido['usuario']
+    clave = recibido['clave']
+
+    acceso, idUsuario = sql.validaLogin(usuario, clave)
 
     if acceso:
         # Verifica si el usuario tiene datos del registro incompleto
@@ -166,7 +169,7 @@ def loginp():
     else:
         stat = 0
         msg = 'El usuario o la clave es invalida'
-    return json.dumps({'status':stat, 'mensaje':msg})
+    return json.dumps({'status': stat, 'mensaje': msg})'''
 
 @bottle.route('/ciudad/:idEstado')
 def ciudad(idEstado=0):
@@ -367,23 +370,6 @@ def registroPost():
 
         # notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
         notificar.sms(cuerpoMensaje, movil)
-
-    # Se envian los datos a guardar en PostGres y devuelve una tupla
-    # (numerico,cadena) donde 0 indica que hubo un error y uno que
-    # se ejecuto satisfatoriamente y otro elemento con el mensaje
-    # bien sea giardado con exito o usuario ya existe
-
-    # Tabla Usuarios guardar los campos:
-    # login, clave
-
-    # De la tabla personas guadar los campos:
-    # nombres, apellidos, fechanac, genero_sexo
-
-    # De l tabla personas es necesario agregarle el campo relacion con
-    # la tabla usuarios
-
-    # De la tabla usuario es necesario elminar el campo persona_id
-
     return json.dumps(insReg)
 
 def validaRegistroIncompleto(id=''):

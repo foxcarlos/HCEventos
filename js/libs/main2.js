@@ -40,6 +40,16 @@
     });
 
     // Modelo para el regitro rapido de cuentas nuevas
+    App.Models.iniciarSesion = Backbone.Model.extend({
+        urlRoot: 'iniciarSesion',
+
+        defaults:{
+            usuario: '',
+            clave: '',
+        },
+    });
+
+    // Modelo para el regitro rapido de cuentas nuevas
     App.Models.RegistroRapido = Backbone.Model.extend({
         urlRoot: 'crearRegistroRapido',
 
@@ -183,13 +193,10 @@ var VistaCabeceraIndex = Backbone.View.extend({
 
 // Vista para el Login del Index:
 var VistaLogin = Backbone.View.extend({
-    //plantillaLogin: plantilla('sesionActivaPlantilla'),
-    //plantillaLogin: plantilla('sesionInactivaPlantilla'),
-
 
     initialize: function(){
         // Busca en el backend si hay una sesion activa
-        $.getJSON('login', function(respuesta){
+        $.getJSON('consultarSesion', function(respuesta){
             this.user = respuesta.usuario;
         });
 
@@ -212,8 +219,34 @@ var VistaLogin = Backbone.View.extend({
     },
 
     iniciarSesion: function(){
-        // capturar los input text e ir al backend
-        // a vrificar si existe e iniciar sesion
+        var vusuario = $('#inputEmail').val();
+        var vclave = $('#inputPassword').val();
+        $.post('iniciarSesion', {usuario:vusuario, clave:vclave}, function(data){
+            console.log(data);
+        }, 'json')
+
+        /*
+         var iniciarSesion = Backbone.Model.extend({
+          urlRoot: 'iniciarSesion',
+           defaults:{
+                   usuario: '',
+                       clave: '',
+                         },
+    });
+
+    var modelo = new iniciarSesion();
+    modelo.set({usuario:'foxcarlos@gmail.com', clave:'carlos'})
+    modelo.save({},{
+          success: function(model, response){
+                  console.log(response)
+                    },
+                      
+                      error: function(model, response){
+                              console.log(response)
+                                }
+    })
+        */
+
     },
 
     render: function(){
