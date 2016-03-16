@@ -184,11 +184,23 @@ var VistaCabeceraIndex = Backbone.View.extend({
 // Vista para el Login del Index:
 var VistaLogin = Backbone.View.extend({
     //plantillaLogin: plantilla('sesionActivaPlantilla'),
-    plantillaLogin: plantilla('sesionInactivaPlantilla'),
+    //plantillaLogin: plantilla('sesionInactivaPlantilla'),
 
 
     initialize: function(){
-    this.render();
+        // Busca en el backend si hay una sesion activa
+        $.getJSON('login', function(respuesta){
+            this.user = respuesta.usuario;
+        });
+
+        if( !this.user ){
+            // Si no hay sesion de usuario
+            this.plantillaLogin = plantilla('sesionInactivaPlantilla');
+        }
+        else{
+            this.plantillaLogin = plantilla('sesionActivaPlantilla');
+        }
+        this.render();
     },
 
     events:{
@@ -200,9 +212,8 @@ var VistaLogin = Backbone.View.extend({
     },
 
     iniciarSesion: function(){
-        alert('ir a Iniciar Sesion');
-        d = $.getJSON('login');
-        alert(d.responseJSON.usuario);
+        // capturar los input text e ir al backend
+        // a vrificar si existe e iniciar sesion
     },
 
     render: function(){
