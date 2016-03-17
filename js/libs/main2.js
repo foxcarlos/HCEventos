@@ -223,24 +223,22 @@ var VistaLogin = Backbone.View.extend({
         var inUsuario = $('#inputEmail').val();
         var inClave = $('#inputPassword').val();
 
-        // var modelo = new App.Models.RegistroRapido({
-        var modelo = new App.Models.IniciarSesion({
-            usuario: inUsuario,
-            clave: inClave
-        });
-
-        modelo.save({},{
-            success: function(model, response){
-                if( !response.status ){
-                    alert(response.mensaje);
+        dataEnviar = {usuario: inUsuario, clave: inClave}
+        $.ajax({
+            url:'iniciarSesion',
+            type:"POST",
+            data:JSON.stringify(dataEnviar),
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(response){
+                var estado = response.status
+                var idUsuario = response.mensaje
+                if( estado ){
+                    alert('Sesion iniciada con Exito')
                 }
                 else{
-                    alert('Felicidades...');
+                    alert(idUsuario);
                 }
-            },
-
-            error: function(model, response){
-                console.log(response)
             }
         })
     },

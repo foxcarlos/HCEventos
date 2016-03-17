@@ -36,7 +36,7 @@ def index():
     username = bottle.request.get_cookie("account")
 
     #print('usuario',username)
-    return bottle.template('index', {'usuario':username})
+    return bottle.static_file("index.html", root='')
 
 @bottle.route('/salir')
 def salir():
@@ -62,16 +62,15 @@ def loginp():
 
     usuario = ''
     clave = ''
-    acceso = False
+    msg = {"status": 0, "mensaje": ''}
 
     recibido = bottle.request.json
-    print(recibido)
 
     usuario = recibido['usuario']
     clave = recibido['clave']
 
+    # Consulta la Base de Datos
     acceso = sql.validaLogin(usuario, clave)
-    print(acceso)
 
     if acceso['status']:
         # Verifica si el usuario tiene datos del registro incompleto
