@@ -39,6 +39,18 @@
 
     });
 
+    // 
+    App.Models.IniciarSesion = Backbone.Model.extend({
+        urlRoot: 'buscarUsuario',
+
+        defaults:{
+            idUsuario: ''
+            email: '',
+            nombre: '',
+            apellido: ''
+        }
+    });
+
     // Modelo para el regitro rapido de cuentas nuevas
     App.Models.RegistroRapido = Backbone.Model.extend({
         urlRoot: 'crearRegistroRapido',
@@ -238,8 +250,11 @@ var VistaLogin = Backbone.View.extend({
                 var usuarioId = response.mensaje
                 if( estado ){
                     alert('Sesion iniciada con Exito');
-                    respuesta = self.consultaPOST('buscarUsuario', {idUsuario: usuarioId});
+                    var modeloIniciarSesion = new App.Models.IniciarSesion();
+
+                    /*respuesta = self.consultaPOST('buscarUsuario', {idUsuario: usuarioId});
                     alert(respuesta);
+                   */
                     self.plantillaLogin = plantilla('sesionActivaPlantilla');
                     self.render();
                 }
