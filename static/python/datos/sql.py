@@ -121,3 +121,38 @@ def validaLogin(usuario='', clave=''):
 
     return devuelveMsg
 
+def buscarUsuario(idUsuario):
+    ''' '''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        sql = "select usuario as usuario_id, nombreUsuario, nombres, apellidos from vdatospersona where usuario = {0}".format(idUsuario)
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': registros[0]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje}
+
+    return devuelveMsg

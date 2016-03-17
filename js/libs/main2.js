@@ -39,17 +39,6 @@
 
     });
 
-    // Modelo para el login de cuenta
-    // IniciarSesion
-    App.Models.IniciarSesion = Backbone.Model.extend({
-        urlRoot: 'iniciarSesion',
-
-        defaults:{
-            usuario: '',
-            clave: '',
-        },
-    });
-
     // Modelo para el regitro rapido de cuentas nuevas
     App.Models.RegistroRapido = Backbone.Model.extend({
         urlRoot: 'crearRegistroRapido',
@@ -156,7 +145,6 @@ var VistaCabeceraMenues = Backbone.View.extend({
     }
 });
 
-
 // Vista para el menu Configurar de la cabecera:
 var VistaCabeceraMenu = Backbone.View.extend({
     plantillaCabeceraMenu: plantilla('pruebaPlantilla'),
@@ -219,9 +207,24 @@ var VistaLogin = Backbone.View.extend({
         'click #registrate': 'registrarNuevo',
     },
 
+    consultaPOST: function(urlEnviar, data){
+        $.ajax({
+            url:urlEnviar,
+            type:"POST",
+            data:JSON.stringify(data),
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(response){
+                devolver = response
+            }
+        })
+    return devolver
+    },
+
     iniciarSesion: function(){
         var inUsuario = $('#inputEmail').val();
         var inClave = $('#inputPassword').val();
+        self = this;
 
         dataEnviar = {usuario: inUsuario, clave: inClave}
         $.ajax({
@@ -232,9 +235,13 @@ var VistaLogin = Backbone.View.extend({
             dataType:"json",
             success: function(response){
                 var estado = response.status
-                var idUsuario = response.mensaje
+                var usuarioId = response.mensaje
                 if( estado ){
-                    alert('Sesion iniciada con Exito')
+                    alert('Sesion iniciada con Exito');
+                    respuesta = self.consultaPOST('buscarUsuario', {idUsuario: usuarioId});
+                    alert(respuesta);
+                    self.plantillaLogin = plantilla('sesionActivaPlantilla');
+                    self.render();
                 }
                 else{
                     alert(idUsuario);
@@ -244,7 +251,7 @@ var VistaLogin = Backbone.View.extend({
     },
 
     render: function(){
-    this.$el.html(this.plantillaLogin());
+        this.$el.html(this.plantillaLogin);
     return this;
     }
 

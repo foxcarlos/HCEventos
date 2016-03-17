@@ -84,6 +84,30 @@ def loginp():
 
     return json.dumps(msg)
 
+@bottle.post('/buscarUsuario')
+def buscarUsuarioId():
+    '''Metodo que permite buscar datos del usaurio para el inicio de sesion '''
+
+    msg = {"status": 0, "mensaje": ''}
+    recibido = bottle.request.json
+    print(recibido)
+
+    # Consulta la Base de Datos
+    buscar = sql.buscarUsuario(recibido['idUsuario'])
+
+    if buscar['status']:
+        # Si todo salio bien, obtengo el registro que devuelve
+        registros = buscar['mensaje']
+        campos = ['id', 'usuario', 'nombre', 'apellido']
+
+        mensajeDict = dict(zip(campos, registros))
+        msg = {"status": buscar['status'], "mensaje": mensajeDict}
+    else:
+        msg = buscar
+
+    print(msg)
+    return json.dumps(msg)
+
 @bottle.route('/ciudad/:idEstado')
 def ciudad(idEstado=0):
     clasePG = pg()
