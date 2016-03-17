@@ -79,7 +79,7 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
                             devuelveMsg = {'status': 1, 'mensaje': 'Usuario registrado con exito, ahora puede iniciar sesion'}
     return devuelveMsg
 
-def validaLogin(usuario, clave):
+def validaLogin(usuario='', clave=''):
 
     ''' parametros recibidos 2:
     (string usuario, string clave)
@@ -88,16 +88,16 @@ def validaLogin(usuario, clave):
 
     lcUsuario = usuario.strip()
     lcClave = clave.strip()
-    accesoPermitido = False
     registros = []
-    objDevolver = {'devolver': [{'status': 0, 'mensaje': 'Error'}, {}]}
+    devuelveMsg = {'status': 0, 'mensaje': ''}
 
-    posg = pg()
+    posg = pgSQL.PG()
     posg.conectar()
-    print(posg.estado['mensaje'])
 
-    # Se verifica el estado de la conexion
-    if posg.estado["status"]:
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = posg
+    else:
         sql = "select id from usuario where (usuario = '{0}' and clave = '{1}')".format(lcUsuario, lcClave)
         posg.ejecutar(sql)
 
@@ -105,9 +105,12 @@ def validaLogin(usuario, clave):
         if posg.estado["status"]:
             registros = posg.cur.fetchall()
             if registros:
-                bottle.response.set_cookie("account", lcUsuario)
-                accesoPermitido = True
+                devuelveMsg = {'status': 1, 'mensaje': registros}
             else:
-                bottle.response.set_cookie("account", '')
-    return accesoPermitido, registros
+                devuelveMsg = {'status': 0, 'mensaje': 'Usuario o clave invalida'}
+        else:
+            devuelveMsg = posg
+
+    print(devuelveMsg)
+    return devuelveMsg
 

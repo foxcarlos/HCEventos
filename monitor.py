@@ -29,90 +29,14 @@ def static(filename):
 def static(filename):
     return bottle.static_file(filename, root='js/')
 
-
-@bottle.route('/editarRegistro')
-def editarRegistro():
-    '''Permite consultar en la base de datos si el usuario
-    que inicio sesion tiene datos en el registro
-    Devuelve un json con la siguiente esctructura:
-        un json con una lista dentro que a su vez esta lista tiene 2
-        JSON dentro, EJ:
-        {"devuelto":[{'status':0, 'mensaje':'registros devuelto con exito'}, {campos con el registro}]}
-    '''
-
-    username = bottle.request.get_cookie("account").upper()
-    dicc = {}
-    diccionario = {}
-
-    posg = pg()
-    posg.conectar()
-    print(posg.estado)
-
-    if posg.estado["status"]:
-        sql = "select id from usuario where upper(usuario) = '{0}'".format(username)
-        posg.ejecutar(sql)
-
-        if posg.estado["status"]:
-            registros = posg.cur.fetchall()
-            if registros:
-                idUsuario = registros[0][0]
-                sqlSelectVista = "select *from vdatospersona where usuario = {0}".format(idUsuario)
-                posg.ejecutar(sqlSelectVista)
-
-                vista = posg.cur.fetchall()
-
-                if vista:
-                    cabecera = [col[0] for col in posg.cur.description]
-                    dicc = dict(zip(cabecera, vista[0]))
-                    diccionario = {'status':1, 'mensaje':'OK', 'valores':dicc}
-                else:
-                    msgError = "El usaurio:{0}, no tiene registros en la vista 'vdatospersona'".format(username)
-                    diccionario = {'status':0, 'mensaje':msgError, 'valores':dicc}
-            else:
-                msgError = 'El usuario:{0} no tiene registros en la tabla "usuario"'.format(username)
-                diccionario = {'status':0, 'mensaje':msgError, 'valores':{}}
-    else:
-        msgError = posg.estado["mensaje"]
-        print(type(msgError))
-        diccionario = {'status':0, 'mensaje':msgError, 'valores': {}}
-        print(diccionario)
-
-    return json.dumps(diccionario)
-
-@bottle.route('/cargarRegistro')
-def registro():
-
-    return bottle.template('registro.html')
-
-@bottle.route('/cargarJumbotron')
-def jumbotron():
-    return bottle.template('index')
-
-@bottle.route('/cargarMenuOtro')
-def menuPrincipal():
-    return bottle.template('menuOtro.html')
-
-@bottle.route('/cargarPiePagina')
-def piePagina():
-    return bottle.template('piePaginaPrincipal.html')
-
-@bottle.route('/cargarInicioSesion')
-def inicioSesion():
-    '''Este metodo se ejecuta cuando se inicia
-    el index y no se consigue ningun usuario en la cookie
-    qquw haya iniciado sesion, entonces procede a cargar
-    mediante un load de jquery el form para que pueda
-    iniciar sesion'''
-    # nota: mas adelante de  hara en un solo metodo
-
-    # username = bottle.request.get_cookie("account")
-    return bottle.template('frmInicioSesion.html')
-
-@bottle.route('/cargarCerrarSesion')
-def cerrarSesion():
+@bottle.route('/')
+def index():
+    #usuario = ''
+    #bottle.response.set_cookie("account", usuario)
     username = bottle.request.get_cookie("account")
 
-    return bottle.template('cerrarSesion.html', {'usuario':username})
+    #print('usuario',username)
+    return bottle.template('index', {'usuario':username})
 
 @bottle.route('/salir')
 def salir():
@@ -122,16 +46,6 @@ def salir():
     print('usuario',username)
     return bottle.template('index')
 
-@bottle.route('/')
-def index():
-    # usuario = ''
-    # bottle.response.set_cookie("account", usuario)
-    username = bottle.request.get_cookie("account")
-
-    # print('usuario',username)
-    #return bottle.template('index', {'usuario':username})
-    return bottle.static_file("index.html", root='')
-
 @bottle.route('/consultarSesion')
 def login():
     '''API REST que permite obtener la cookie
@@ -139,9 +53,7 @@ def login():
     actualmente'''
 
     username = bottle.request.get_cookie("account")
-    print('El usuario es:',username)
     respuesta = {'usuario': username}
-
     return json.dumps(respuesta)
 
 @bottle.post('/iniciarSesion')
@@ -150,26 +62,28 @@ def loginp():
 
     usuario = ''
     clave = ''
-    idUsuario = False
+    acceso = False
 
-    recibidoo = bottle.request.json
-    print(recibidoo)
+    recibido = bottle.request.json
+    print(recibido)
 
-    '''usuario = recibido['usuario']
+    usuario = recibido['usuario']
     clave = recibido['clave']
 
-    acceso, idUsuario = sql.validaLogin(usuario, clave)
+    acceso = sql.validaLogin(usuario, clave)
+    print(acceso)
 
-    if acceso:
+    if acceso['status']:
         # Verifica si el usuario tiene datos del registro incompleto
         # incompleto = validaRegistroIncompleto(int(idUsuario[0][0]))
 
-        msg = 'Sesion iniciada con exito'
-        stat = 1
+        bottle.response.set_cookie("account", usuario)
+        msg = acceso
     else:
-        stat = 0
-        msg = 'El usuario o la clave es invalida'
-    return json.dumps({'status': stat, 'mensaje': msg})'''
+        bottle.response.set_cookie("account", '')
+        msg = acceso
+
+    return json.dumps(msg)
 
 @bottle.route('/ciudad/:idEstado')
 def ciudad(idEstado=0):

@@ -39,8 +39,9 @@
 
     });
 
-    // Modelo para el regitro rapido de cuentas nuevas
-    App.Models.iniciarSesion = Backbone.Model.extend({
+    // Modelo para el login de cuenta
+    // IniciarSesion
+    App.Models.IniciarSesion = Backbone.Model.extend({
         urlRoot: 'iniciarSesion',
 
         defaults:{
@@ -219,34 +220,29 @@ var VistaLogin = Backbone.View.extend({
     },
 
     iniciarSesion: function(){
-        var vusuario = $('#inputEmail').val();
-        var vclave = $('#inputPassword').val();
-        $.post('iniciarSesion', {usuario:vusuario, clave:vclave}, function(data){
-            console.log(data);
-        }, 'json')
+        var inUsuario = $('#inputEmail').val();
+        var inClave = $('#inputPassword').val();
 
-        /*
-         var iniciarSesion = Backbone.Model.extend({
-          urlRoot: 'iniciarSesion',
-           defaults:{
-                   usuario: '',
-                       clave: '',
-                         },
-    });
+        // var modelo = new App.Models.RegistroRapido({
+        var modelo = new App.Models.IniciarSesion({
+            usuario: inUsuario,
+            clave: inClave
+        });
 
-    var modelo = new iniciarSesion();
-    modelo.set({usuario:'foxcarlos@gmail.com', clave:'carlos'})
-    modelo.save({},{
-          success: function(model, response){
-                  console.log(response)
-                    },
-                      
-                      error: function(model, response){
-                              console.log(response)
-                                }
-    })
-        */
+        modelo.save({},{
+            success: function(model, response){
+                if( !response.status ){
+                    alert(response.mensaje);
+                }
+                else{
+                    alert('Felicidades...');
+                }
+            },
 
+            error: function(model, response){
+                console.log(response)
+            }
+        })
     },
 
     render: function(){
