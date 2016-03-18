@@ -39,12 +39,33 @@
 
     });
 
-    // 
+    //
     App.Models.IniciarSesion = Backbone.Model.extend({
         urlRoot: 'buscarUsuario',
 
         defaults:{
-            idUsuario: ''
+            persona_id: '',
+            persona_tipo_identidad: '',
+            identidad_descripcion: '',
+            persona_cedula_passp: '',
+            persona_nombres: '',
+            persona_apellidos: '',
+            persona_fechanac: '',
+            persona_genero_sexo: '',
+            sexo_descripcion: '',
+            persona_nacionalidad: '',
+            nacional_descripcion: '',
+            persona_edo_civil: '',
+            edocivil_descripcion: '',
+            persona_direccion: '',
+            direccion_direccion: '',
+            persona_contacto: '',
+            inf_personal_telefono_movil: '',
+            inf_personal_telefono_habitacion: '',
+            inf_personal_email: '',
+            inf_personal_twitter: '',
+            inf_personal_instagram: '',
+            persona_laboral: '',
             email: '',
             nombre: '',
             apellido: ''
