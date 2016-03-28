@@ -39,9 +39,9 @@
 
     });
 
-    //
-    App.Models.IniciarSesion = Backbone.Model.extend({
-        urlRoot: 'buscarUsuario',
+    // Modelo para datos del usuario
+    App.Models.DatosUsuario = Backbone.Model.extend({
+        urlRoot: 'datosUsuario',
 
         defaults:{
             persona_id: '',
@@ -57,19 +57,36 @@
             nacional_descripcion: '',
             persona_edo_civil: '',
             edocivil_descripcion: '',
-            persona_direccion: '',
+            direccion_id_pais: '',
+            pais_descripcion: '',
+            direccion_id_estado: '',
+            estado_descripcion: '',
+            direccion_id_ciudad: '',
+            ciudad_descripcion: '',
             direccion_direccion: '',
-            persona_contacto: '',
-            inf_personal_telefono_movil: '',
-            inf_personal_telefono_habitacion: '',
-            inf_personal_email: '',
-            inf_personal_twitter: '',
-            inf_personal_instagram: '',
-            persona_laboral: '',
-            email: '',
-            nombre: '',
-            apellido: ''
+            personal_laboral: '',
+            inflaboral_cargo: '',
+            inflaboral_institucion: '',
+            inflaboral_direccion: '',
+            //inflaboral.telefono AS telefonolaboral,
+            //inflaboral.fax AS faxlaboral,
+            //inflaboral.email AS emaillaboral,
+            //inflaboral.web AS weblaboral,
+            //inflaboral.twitter AS twitterlaboral,
+            personal_profesion: '',
+            infprofesional_id_nivelacademico: '',
+            nivelacademico_descripcion: '',
+            infprofesional_id_especialidad: '',
+            infprofesional_institucion: '',
+            infprofesional_direccion: '',
+            personal_usuario: '',
+            usuarios_login: ''
         }
+    });
+
+    // Coleccion para los datos de los usuarios
+    App.Collections.DatosUsuarios = Backbone.Collection.extend({
+        model: App.Models.DatosUsuario,
     });
 
     // Modelo para el regitro rapido de cuentas nuevas
@@ -86,44 +103,6 @@
             fechaNac: '',
             genero: ''
         },
-
-        /*validate: function(attributes){
-            if(attributes.nombre === ''){
-                return "En necesario indicar un Nombre";
-            }
-
-            if(attributes.apellido === ''){
-                return "En necesario indicar un Apellido";
-            }
-
-            if(attributes.correo === ''){
-                return "En necesario indicar un Correo Electronico";
-            }
-
-            if(attributes.clave === ''){
-                return "En necesario indicar uan Contraseña";
-            }
-
-            if(attributes.clave2 === ''){
-                return "En necesario que confirme su Contraseña";
-            }
-
-            if(attributes.clave != attributes.clave2){
-                return "La Contraseña y la contraseña de confirmacion no coinciden";
-            }
-
-            if(attributes.movil === ''){
-                return "En necesario indicar un Telefono Celular";
-            }
-
-            if(attributes.fechaNac === ''){
-                return "En necesario indicar su Fecha de Nacimiento";
-            }
-
-            if(attributes.genero === ''){
-                return "En necesario indicar un Genero";
-            }
-        },*/
 
         initialize: function(){
             this.on('invalid', function(model, error){
@@ -280,7 +259,7 @@ var VistaLogin = Backbone.View.extend({
                     self.render();
                 }
                 else{
-                    alert(idUsuario);
+                    alert(usuarioId);
                 }
             }
         })

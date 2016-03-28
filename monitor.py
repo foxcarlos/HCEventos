@@ -13,6 +13,7 @@ from bottle import route, static_file, template
 import datetime
 from static.python.libs import pgSQL
 
+HCEventos = bottle.Bottle()
 
 @bottle.route('/congreso')
 def congreso():
@@ -45,6 +46,18 @@ def salir():
     username = bottle.request.get_cookie("account")
     print('usuario',username)
     return bottle.template('index')
+
+@bottle.route('/restapi')
+def raGET():
+    print('Entro')
+    model = {'model': 'Modelo'}
+    return  model
+
+@bottle.put('/restapi/<id>')
+def raPUT(id):
+    print('Entro',id)
+    model = {'model': 'Modelo'}
+    return  model
 
 @bottle.route('/consultarSesion')
 def login():
@@ -305,8 +318,9 @@ def registroPost():
         remitenteMensaje = ''
         asuntoMensaje = 'Registro realizado con Exito'
 
-        # notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
-        notificar.sms(cuerpoMensaje, movil)
+        # Esto Ralentiza el front end
+        #notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
+        #notificar.sms(cuerpoMensaje, movil)
     return json.dumps(insReg)
 
 def validaRegistroIncompleto(id=''):
