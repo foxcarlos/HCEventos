@@ -242,7 +242,10 @@ var VistaLogin = Backbone.View.extend({
                 var usuarioId = response.mensaje
                 if( estado ){
                     alert('Sesion iniciada con Exito');
-                    var modeloIniciarSesion = new App.Models.IniciarSesion({id: inUsuario});
+                    // var modeloIniciarSesion = new App.Models.IniciarSesion({id: inUsuario});
+                    var modeloIniciarSesion = new App.Models.IniciarSesion({
+                                id: inUsuario
+                            });
 
                     /*respuesta = self.consultaPOST('buscarUsuario', {idUsuario: usuarioId});
                     alert(respuesta);
