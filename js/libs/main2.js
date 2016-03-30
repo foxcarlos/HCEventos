@@ -41,7 +41,7 @@
 
     // Modelo para datos del usuario
     App.Models.DatosUsuario = Backbone.Model.extend({
-        urlRoot: 'datosUsuario',
+        urlRoot: 'restapi',
 
         defaults:{
             persona_id: '',
@@ -64,7 +64,13 @@
             direccion_id_ciudad: '',
             ciudad_descripcion: '',
             direccion_direccion: '',
-            personal_laboral: '',
+            persona_contacto: '',
+            infpersonnal_telefono_movil: '',
+            infpersonal_telefono_habitacion: '',
+            infpersonal_email: '',
+            infpersonal_twitter: '',
+            infpersonal_instagram: '',
+            persona_laboral: '',
             inflaboral_cargo: '',
             inflaboral_institucion: '',
             inflaboral_direccion: '',
@@ -73,13 +79,13 @@
             //inflaboral.email AS emaillaboral,
             //inflaboral.web AS weblaboral,
             //inflaboral.twitter AS twitterlaboral,
-            personal_profesion: '',
+            persona_profesion: '',
             infprofesional_id_nivelacademico: '',
             nivelacademico_descripcion: '',
             infprofesional_id_especialidad: '',
             infprofesional_institucion: '',
             infprofesional_direccion: '',
-            personal_usuario: '',
+            persona_usuario: '',
             usuarios_login: ''
         }
     });
@@ -219,20 +225,6 @@ var VistaLogin = Backbone.View.extend({
         'click #registrate': 'registrarNuevo',
     },
 
-    consultaPOST: function(urlEnviar, data){
-        $.ajax({
-            url:urlEnviar,
-            type:"POST",
-            data:JSON.stringify(data),
-            contentType:"application/json; charset=utf-8",
-            dataType:"json",
-            success: function(response){
-                devolver = response
-            }
-        })
-    return devolver
-    },
-
     iniciarSesion: function(){
         var inUsuario = $('#inputEmail').val();
         var inClave = $('#inputPassword').val();
@@ -250,7 +242,7 @@ var VistaLogin = Backbone.View.extend({
                 var usuarioId = response.mensaje
                 if( estado ){
                     alert('Sesion iniciada con Exito');
-                    var modeloIniciarSesion = new App.Models.IniciarSesion();
+                    var modeloIniciarSesion = new App.Models.IniciarSesion({id: inUsuario});
 
                     /*respuesta = self.consultaPOST('buscarUsuario', {idUsuario: usuarioId});
                     alert(respuesta);

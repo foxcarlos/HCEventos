@@ -15,6 +15,29 @@ from static.python.libs import pgSQL
 
 HCEventos = bottle.Bottle()
 
+# ---------------------------------------
+# Ejemplo CRUD
+# ---------------------------------------
+@bottle.route('/restapi/<id>')
+def raget(id):
+    print('Entro al GET',id)
+    model = {'model': 'Modelo'}
+    return  model
+
+@bottle.post('/restapi')
+def rapost():
+    recibido = bottle.request.json
+    print('Entro al POST',recibido)
+    model = {'model': 'Modelo'}
+    return  model
+
+@bottle.put('/restapi/<id>')
+def raPUT(id):
+    print('Entro al PUT',id)
+    model = {'model': 'Modelo'}
+    return  model
+# ---------------------------------------
+
 @bottle.route('/congreso')
 def congreso():
     # return bottle.template('congreso.html')
@@ -46,18 +69,6 @@ def salir():
     username = bottle.request.get_cookie("account")
     print('usuario',username)
     return bottle.template('index')
-
-@bottle.route('/restapi')
-def raGET():
-    print('Entro')
-    model = {'model': 'Modelo'}
-    return  model
-
-@bottle.put('/restapi/<id>')
-def raPUT(id):
-    print('Entro',id)
-    model = {'model': 'Modelo'}
-    return  model
 
 @bottle.route('/consultarSesion')
 def login():
@@ -121,178 +132,6 @@ def buscarUsuarioId():
     print(msg)
     return json.dumps(msg)
 
-@bottle.route('/ciudad/:idEstado')
-def ciudad(idEstado=0):
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.ciudad where id_estado='{0}' order by descripcion".format(idEstado)
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/menu/:id')
-def estado(id=0):
-    posg = pgSQL.PG()
-    posg.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        print('error')
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = '''select id, orden,nombre,depende_menu_id from menu where id in (
-                select menu_id from seguridad.permisos AS sp
-                where
-                sp.status = 1 and
-                sp.rol_id in (
-                    select rol_id from seguridad.usuario_rol AS ur where ur.usuario_id = {0} and ur.status = 1)) order by orden
-        '''.format(id)
-
-
-        # sqlVerificaDatos = "select id, descripcion from referencias.estado where id_pais='{0}' order by descripcion".format(id)
-        posg.sql(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'orden':i[1], 'nombre':i[2], 'depende_menu_id':i[3]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/estado/:id')
-def estado(id=0):
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.estado where id_pais='{0}' order by descripcion".format(id)
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/especialidad')
-def especialidad():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.especialidad "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/nivelacademico')
-def profesion():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.nivelacademico "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/pais')
-def pais():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.pais "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/edoCivil')
-def edoCivil():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.edo_civil "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/nacionalidad')
-def nacionalidad():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.nacionalidad "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/genero')
-def genero():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.genero_sexo "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
 @bottle.post('/crearRegistroRapido')
 def registroPost():
     '''Metodo POST que recibe informacion del FrontEnd
@@ -335,28 +174,5 @@ def validaRegistroIncompleto(id=''):
     print(buscar)
     return buscar
 
-
-@bottle.get('/grid')
-def grid():
-    # Busca en mongodb el objetoId del usuario que inicio sesion
-    usuario = bottle.request.get_cookie("account")
-    objetoUsuarioId = buscarUsuarioId(usuario)
-
-    appBuscar = consultaM()
-    appBuscar.abrirColeccion('contactos')
-
-    camposMostrar = ('_id', 'nombre', 'apellido')
-    condicion = {'usuario_id':objetoUsuarioId}
-    ordenadoPor = 'nombre'
-
-    # appBuscar realiza la consulta y devuelve una lista con diccionarios por cada registro
-
-    doc = appBuscar.consulta(camposMostrar, condicion, ordenadoPor)
-    listaFinal = [f.values() for f in doc]
-
-    return bottle.template('grid1', {'grid':listaFinal, 'cabecera':camposMostrar})
-
-
-
 # bottle.debug(True)
-bottle.run(host='0.0.0.0', port=8086, server=GeventWebSocketServer, reloader = True)
+bottle.run(host='127.0.0.1', port=8086, server=GeventWebSocketServer, reloader = True)

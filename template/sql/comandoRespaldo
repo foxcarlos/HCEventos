@@ -1,0 +1,1 @@
+pg_dump HCeventos -i -h localhost -p 5432 -U postgres -c -C -F p  -v -f "/home/administrador/respaldo.backup3"
