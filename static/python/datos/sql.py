@@ -138,7 +138,50 @@ def buscarUsuario(idUsuario):
     if not posg.estado['status']:
         devuelveMsg = {'status': estado, 'mensaje': mensaje}
     else:
-        sql = "select usuario as usuario_id, nombreUsuario, nombres, apellidos from vdatospersona where usuario = {0}".format(idUsuario)
+        persona_id,                                                                                                                                     
+        persona_tipo_identidad,                                                                                                                         
+        identidad_descripcion,                                                                                                                          
+        persona_cedula_passp,                                                                                                                           
+        persona_nombres,                                                                                                                                
+        persona_apellidos,                                                                                                                              
+        persona_fechanac,                                                                                                                               
+        persona_genero_sexo,                                                                                                                            
+        sexo_descripcion,                                                                                                                               
+        persona_nacionalidad,                                                                                                                           
+        nacional_descripcion,                                                                                                                           
+        persona_edo_civil,                                                                                                                              
+        edocivil_descripcion,                                                                                                                           
+        direccion_id_pais,                                                                                                                              
+        pais_descripcion,                                                                                                                               
+        direccion_id_estado,                                                                                                                            
+        estado_descripcion,                                                                                                                             
+        direccion_id_ciudad,                                                                                                                            
+        ciudad_descripcion,                                                                                                                             
+        direccion_direccion,                                                                                                                            
+        persona_contacto,                                                                                                                               
+        infpersonnal_telefono_movil,                                                                                                                    
+        infpersonal_telefono_habitacion,                                                                                                                
+        infpersonal_email,                                                                                                                              
+        infpersonal_twitter,                                                                                                                            
+        infpersonal_instagram,                                                                                                                          
+        persona_laboral,                                                                                                                                
+        inflaboral_cargo,                                                                                                                               
+        inflaboral_institucion,                                                                                                                         
+        inflaboral_direccion,                                                                                                                           
+        inflaboral.telefono AS telefonolaboral,                                                                                                           
+        inflaboral.fax AS faxlaboral,                                                                                                                     
+        inflaboral.email AS emaillaboral,                                                                                                                 
+        inflaboral.web AS weblaboral,                                                                                                                     
+        inflaboral.twitter AS twitterlaboral,                                                                                                             
+        persona_profesion,                                                                                                                              
+        infprofesional_id_nivelacademico,                                                                                                               
+        nivelacademico_descripcion,                                                                                                                     
+        infprofesional_id_especialidad,                                                                                                                 
+        infprofesional_institucion,                                                                                                                     
+        infprofesional_direccion,                                                                                                                       
+        persona_usuario,                                                                                                                                
+        usuarios_login 
+        sql = "select usuario as usuario_id, nombreUsuario, nombres, apellidos from vdatospersona2 where usuario = {0}".format(idUsuario)
         posg.ejecutar(sql)
 
         # Se verifica el estado del Select SQL

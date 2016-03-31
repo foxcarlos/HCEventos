@@ -41,7 +41,7 @@
 
     // Modelo para datos del usuario
     App.Models.DatosUsuario = Backbone.Model.extend({
-        urlRoot: 'restapi',
+        urlRoot: 'datosUsuario',
 
         defaults:{
             persona_id: '',
@@ -242,10 +242,11 @@ var VistaLogin = Backbone.View.extend({
                 var usuarioId = response.mensaje
                 if( estado ){
                     alert('Sesion iniciada con Exito');
-                    // var modeloIniciarSesion = new App.Models.IniciarSesion({id: inUsuario});
-                    var modeloIniciarSesion = new App.Models.IniciarSesion({
-                                id: inUsuario
-                            });
+                    var modeloDatosUsuario = new App.Models.DatosUsuario({
+                        id: usuarioId
+                    });
+
+                    modeloDatosUsuario.fetch()
 
                     /*respuesta = self.consultaPOST('buscarUsuario', {idUsuario: usuarioId});
                     alert(respuesta);

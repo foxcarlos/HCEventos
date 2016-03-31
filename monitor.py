@@ -95,6 +95,7 @@ def loginp():
 
     # Consulta la Base de Datos
     acceso = sql.validaLogin(usuario, clave)
+    print(acceso)
 
     if acceso['status']:
         # Verifica si el usuario tiene datos del registro incompleto
@@ -108,16 +109,40 @@ def loginp():
 
     return json.dumps(msg)
 
-@bottle.post('/buscarUsuario')
-def buscarUsuarioId():
+# ---------------------------------------
+# Ejemplo CRUD
+# ---------------------------------------
+'''
+@bottle.route('/restapi/<id>')
+def raget(id):
+    print('Entro al GET',id)
+    model = {'model': 'Modelo'}
+    return  model
+
+@bottle.post('/restapi')
+def rapost():
+    recibido = bottle.request.json
+    print('Entro al POST',recibido)
+    model = {'model': 'Modelo'}
+    return  model
+
+@bottle.put('/restapi/<id>')
+def raPUT(id):
+    print('Entro al PUT',id)
+    model = {'model': 'Modelo'}
+    return  model
+# ---------------------------------------
+'''
+@bottle.route('/datosUsuario/<idUsuario>')
+def getUsuario(idUsuario):
     '''Metodo que permite buscar datos del usaurio para el inicio de sesion '''
 
     msg = {"status": 0, "mensaje": ''}
-    recibido = bottle.request.json
+    recibido = idUsuario
     print(recibido)
 
     # Consulta la Base de Datos
-    buscar = sql.buscarUsuario(recibido['idUsuario'])
+    buscar = sql.buscarUsuario(recibido)
 
     if buscar['status']:
         # Si todo salio bien, obtengo el registro que devuelve
@@ -129,7 +154,7 @@ def buscarUsuarioId():
     else:
         msg = buscar
 
-    print(msg)
+    msg = mensajeDict
     return json.dumps(msg)
 
 @bottle.post('/crearRegistroRapido')
