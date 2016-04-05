@@ -80,8 +80,7 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
     return devuelveMsg
 
 def validaLogin(usuario='', clave=''):
-
-    ''' parametros recibidos 2:
+    '''parametros recibidos 2:
     (string usuario, string clave)
     Metodo para validar el inicio de sesion
     contra la base de datos'''
@@ -122,7 +121,9 @@ def validaLogin(usuario='', clave=''):
     return devuelveMsg
 
 def buscarUsuario(idUsuario):
-    ''' '''
+    '''parametros:int ID usuario,
+    Metodo que permite buscar toda la informacion de un usuario
+    recibe un ID como parametro'''
 
     registros = []
     devuelveMsg = {'status': 0, 'mensaje': ''}
@@ -138,52 +139,51 @@ def buscarUsuario(idUsuario):
     if not posg.estado['status']:
         devuelveMsg = {'status': estado, 'mensaje': mensaje}
     else:
+        sql = '''SELECT id_tipo_identidad,
+        tipo_identidad,
+        cedula_passp,
+        nombres,
+        apellidos,
+        fechanac,
+        id_genero_sexo,
+        genero_sexo,
+        id_nacionalidad,
+        nacionalidad,
+        id_edo_civil,
+        edo_civil,
+        id_direccion,
+        id_pais,
+        pais,
+        id_estado,
+        estado,
+        id_ciudad,
+        ciudad,
+        direccion,
+        id_inf_personal,
+        inf_personal_telefono_movil,
+        inf_personal_telefono_habitacion,
+        inf_personal_email,
+        inf_personal_twitter,
+        inf_personal_instagram,
+        id_inf_laboral,
+        cargo,
+        institucionlaboral,
+        direccionlaboral,
+        telefonolaboral,
+        faxlaboral,
+        emaillaboral,
+        weblaboral,
+        twitterlaboral,
+        id_inf_profesional,
+        id_nivelacademico,
+        descripcion,
+        id_especialidad,
+        profesioninstitucion,
+        profesiondireccion,
+        id_usuario,
+        nombre_usuario FROM vdatospersona WHERE usaurio = {0}'''.format(idUsuario)
+        # sql = "select usuario as usuario_id, nombreUsuario, nombres, apellidos from vdatospersona2 where usuario = {0}".format(idUsuario)
 
-        p.tipo_identidad,
-        identidad.descripcion AS tipoidentidad,
-        p.cedula_passp,
-        p.nombres,
-        p.apellidos,
-        to_char(p.fechanac::timestamp with time zone, 'YYYY-MM-DD'::text) AS fechanac,
-        p.genero_sexo,
-        sexo.descripcion AS genero,
-        p.nacionalidad,
-        nacional.descripcion AS nacionalidad2,
-        p.edo_civil,
-        edocivil.descripcion AS edocivil,
-        p.direccion,
-        direcc.id_pais,
-        pais.descripcion AS pais,
-        direcc.id_estado,
-        estado.descripcion AS estado,
-        direcc.id_ciudad,
-        ciudad.descripcion AS ciudad,
-        direcc.direccion AS direccionpersonal,
-        p.contacto,
-        infpersonal.telefono_movil AS infcontactomovil,
-        infpersonal.telefono_habitacion AS infcontactelef,
-        infpersonal.email AS infcontacemail,
-        infpersonal.twitter AS infcontactwitter,
-        infpersonal.instagram AS infcontacinstagram,
-        p.laboral,
-        inflaboral.cargo,
-        inflaboral.institucion AS institucionlaboral,
-        inflaboral.direccion AS direccionlaboral,
-        inflaboral.telefono AS telefonolaboral,
-        inflaboral.fax AS faxlaboral,
-        inflaboral.email AS emaillaboral,
-        inflaboral.web AS weblaboral,
-        inflaboral.twitter AS twitterlaboral,
-        p.profesion,
-        infprofesional.id_nivelacademico,
-        nivelacademico.descripcion,
-        infprofesional.id_especialidad,
-        infprofesional.institucion AS profesioninstitucion,
-        infprofesional.direccion AS profesiondireccion,
-        p.usuario,
-        usu.login AS nombreusuario
-
-        sql = "select usuario as usuario_id, nombreUsuario, nombres, apellidos from vdatospersona2 where usuario = {0}".format(idUsuario)
         posg.ejecutar(sql)
 
         # Se verifica el estado del Select SQL
