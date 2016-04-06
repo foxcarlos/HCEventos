@@ -146,7 +146,7 @@ def getUsuario(idUsuario):
 
     if buscar['status']:
         # Si todo salio bien, obtengo el registro que devuelve
-        registros = buscar['mensaje']
+        registros = buscar['mensaje'][0]
         campos = ['id', 'usuario', 'nombre', 'apellido']
 
         mensajeDict = dict(zip(campos, registros))
@@ -154,7 +154,7 @@ def getUsuario(idUsuario):
     else:
         msg = buscar
 
-    msg = mensajeDict
+    msg = registros  # mensajeDict
     return json.dumps(msg)
 
 @bottle.post('/crearRegistroRapido')

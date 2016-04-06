@@ -139,56 +139,13 @@ def buscarUsuario(idUsuario):
     if not posg.estado['status']:
         devuelveMsg = {'status': estado, 'mensaje': mensaje}
     else:
-        sql = '''SELECT id_tipo_identidad,
-        tipo_identidad,
-        cedula_passp,
-        nombres,
-        apellidos,
-        fechanac,
-        id_genero_sexo,
-        genero_sexo,
-        id_nacionalidad,
-        nacionalidad,
-        id_edo_civil,
-        edo_civil,
-        id_direccion,
-        id_pais,
-        pais,
-        id_estado,
-        estado,
-        id_ciudad,
-        ciudad,
-        direccion,
-        id_inf_personal,
-        inf_personal_telefono_movil,
-        inf_personal_telefono_habitacion,
-        inf_personal_email,
-        inf_personal_twitter,
-        inf_personal_instagram,
-        id_inf_laboral,
-        cargo,
-        institucionlaboral,
-        direccionlaboral,
-        telefonolaboral,
-        faxlaboral,
-        emaillaboral,
-        weblaboral,
-        twitterlaboral,
-        id_inf_profesional,
-        id_nivelacademico,
-        descripcion,
-        id_especialidad,
-        profesioninstitucion,
-        profesiondireccion,
-        id_usuario,
-        nombre_usuario FROM vdatospersona WHERE usaurio = {0}'''.format(idUsuario)
-        # sql = "select usuario as usuario_id, nombreUsuario, nombres, apellidos from vdatospersona2 where usuario = {0}".format(idUsuario)
-
+        sql = "SELECT row_to_json(vdatospersona) FROM vdatospersona where id_usuario = {0}".format(idUsuario)
         posg.ejecutar(sql)
 
         # Se verifica el estado del Select SQL
         if posg.estado["status"]:
             registros = posg.cur.fetchall()
+            print(registros[0])
 
             if registros:
                 devuelveMsg = {'status': 1, 'mensaje': registros[0]}
@@ -198,6 +155,6 @@ def buscarUsuario(idUsuario):
             # Si falla el status de la Sentencia SQL
             estado = posg.estado['status']
             mensaje = posg.estado['mensaje']
-            devuelveMsg = {'status': estado, 'mensaje': mensaje}
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
 
     return devuelveMsg
