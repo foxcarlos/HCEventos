@@ -199,6 +199,10 @@ var VistaCabeceraIndex = Backbone.View.extend({
 
 // Vista para el Login del Index:
 var VistaLogin = Backbone.View.extend({
+    /**/
+    obtenerPlantilla: function(idElemento){
+        return plantilla(idElemento);
+    },
 
     initialize: function(){
         // Busca en el backend si hay una sesion activa
@@ -208,10 +212,10 @@ var VistaLogin = Backbone.View.extend({
 
         if( !this.user ){
             // Si no hay sesion de usuario
-            this.plantillaLogin = plantilla('sesionInactivaPlantilla');
+            this.plantillaLogin = this.obtenerPlantilla('sesionInactivaPlantilla');
         }
         else{
-            this.plantillaLogin = plantilla('sesionActivaPlantilla');
+            this.plantillaLogin = this.obtenerPlantilla('sesionActivaPlantilla');
         }
         this.render();
     },
@@ -240,18 +244,22 @@ var VistaLogin = Backbone.View.extend({
                 var estado = response.status
                 var usuarioId = response.mensaje
                 if( estado ){
-                    alert('Sesion iniciada con Exito');
                     var modeloDatosUsuario = new App.Models.DatosUsuario({
                         id: usuarioId
                     });
 
-                    modeloDatosUsuario.fetch()
+                    modeloDatosUsuario.fetch({
+                        success: function(modelResponse){
+                            var loginOk = self.obtenerPlantilla('sesionActivaPlantilla');
+                            self.plantillaLogin = loginOk( modelResponse.toJSON() );
+                            self.render();
+                            alert('Sesion iniciada con Exito');
+                        },
 
-                    /*respuesta = self.consultaPOST('buscarUsuario', {idUsuario: usuarioId});
-                    alert(respuesta);
-                   */
-                    self.plantillaLogin = plantilla('sesionActivaPlantilla');
-                    self.render();
+                        error: function(modelResponse){
+                            alert('Error al hacer fetch');
+                        }
+                    });
                 }
                 else{
                     alert(usuarioId);

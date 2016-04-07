@@ -139,7 +139,6 @@ def getUsuario(idUsuario):
 
     msg = {"status": 0, "mensaje": ''}
     recibido = idUsuario
-    print(recibido)
 
     # Consulta la Base de Datos
     buscar = sql.buscarUsuario(recibido)
