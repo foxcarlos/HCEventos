@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil del usuario</title>
+    <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bower_components/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/profile.css">
+</head>
+<body>
+    <br/><br/>
+
+    <div class='container'>
+        <div class="panel panel-default">
+            <!-- <div class="panel-heading">
+                <h3 class="panel-title">Edición de datos de cuenta</h3>
+                </div> -->
+            <div class="panel-body">
+                <div class="row">
+                    <!-- Resumen de usuario -->
+                    <div class="col-md-3 col-lg-3 " align="center">
+                        <img alt="Foto de usuario" src="../static/img/male-avatar-300x300.png" class="img-responsive img-usuario"></img>
+                        <h3>Jose I. luengo</h3>
+                        <div class='row'>
+                            <div class='col-md-12 text-muted'><small><span class='fa fa-twitter'></span>  jignacioltwt</small></div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-md-12 text-muted'><small><span class='fa fa-instagram'></span>  jignacioltwt</small></div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-md-12 text-muted'><small><span class='fa fa-mobile-phone'></span> +584126719830</small></div>
+                        </div>
+                    </div>
+                    <!-- Fin de resumen de usuario -->
+                    <!-- Fichas de datos del usuario -->
+                    <div class=''><input type='hidden' class='user-id' value=''></input></div>
+                    <div class=" col-md-9 col-lg-9 ">
+                        <div class="panel with-nav-tabs panel-default">
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab1default" data-toggle="tab">Datos personales</a></li>
+                                    <li><a href="#tab2default" data-toggle="tab">Datos de ubicación</a></li>
+                                    <li><a href="#tab3default" data-toggle="tab">Datos de contacto</a></li>
+                                    <li><a href="#tab4default" data-toggle="tab">Configuracion de cuenta</a></li>
+                                </ul>
+                            </div>
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <!-- Inicio de tab 1::Datos Basicos -->
+                                    <div class="tab-pane fade in active" id="tab1default">
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Nombres</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='text' class='form-control tab1-nombres' placeholder='Nombres' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Apellidos</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='text' class='form-control tab1-apellidos' placeholder='Apellidos' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Documento</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <select class='form-control tab1-documento' disabled>
+                                                    <option value='0'>Seleccione una opción</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Numero de documento</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='text' class='form-control tab1-numdocumento' placeholder='Número de documento' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Cumpleaños</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='text' class='form-control tab1-cumpleanos' placeholder='Cumpleaños' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3 tab1-genero'>
+                                                <label class='control-label'>Genero</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                 <select class='form-control tab1-genero'>
+                                                    <option value='0'>Seleccione una opción</option>
+                                                    <option value='1'>Masculino</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class='row'></div>
+                                        <div class='pull-right'>
+                                            <a href="#" type="button" class="btn btn-sm btn-warning btn-edita-dp"><i class="fa fa-edit"></i>  Editar</a>
+                                            <a href="#" type="button" class="btn btn-sm btn-primary btn-actualizar-dp hide"><i class="fa fa-save"></i>  Actualizar</a>
+                                            <a href="#" type="button" class="btn btn-sm btn-danger btn-cancela-dp hide"><i class="fa fa-cancel"></i>  Cancelar</a>
+                                        </div>
+                                    </div>
+                                    <!-- fin de tab 1 -->
+
+                                    <!-- Inicio de tab 2::Datos de ubicacion -->
+                                    <div class="tab-pane fade in" id="tab2default">
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Pais</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <select class='form-control tab2-pais' disabled>
+                                                    <option value='0'>Seleccione un pais</option>
+                                                    <option value='1'>Venezuela</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Estado</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <select class='form-control tab2-estado' disabled>
+                                                    <option value='0'>Seleccione un estado</option>
+                                                    <option value='1'>Zulia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Ciudad</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <select class='form-control tab2-ciudad' disabled>
+                                                    <option value='0'>Seleccione una ciudad</option>
+                                                    <option value='1'>Maracaibo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Localidad</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='text' class='form-control tab2-localidad' placeholder='Localidad' disabled></input>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <label class='control-label'>Dirección</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <textarea rows='4' class='form-control tab2-direccion' disabled></textarea>
+                                            </div>
+                                        </div>
+                                        <div class='row'></div>
+                                        <div class='pull-right'>
+                                            <a href="#" type="button" class="btn btn-sm btn-warning btn-edita-dp"><i class="fa fa-edit"></i>  Editar</a>
+                                            <a href="#" type="button" class="btn btn-sm btn-primary btn-actualizar-dp hide"><i class="fa fa-save"></i>  Actualizar</a>
+                                            <a href="#" type="button" class="btn btn-sm btn-danger btn-cancela-dp hide"><i class="fa fa-cancel"></i>  Cancelar</a>
+                                        </div>
+                                    </div>
+                                    <!-- fin de tab 2 -->
+
+
+                                    <!-- inicio tab 3::Datos de contacto -->
+                                    <div class="tab-pane fade" id="tab3default">
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <span class='fa fa-envelope fa-lg'></span>
+                                                <label class='control-label'>Correo electronico</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='mail' class='form-control pull-left tab3-correo' placeholder='Correo electronico' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <span class='fa fa-twitter fa-lg'></span>
+                                                <label class='control-label'>Twitter</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='mail' class='form-control pull-left tab3-twitter' placeholder='Cuenta twitter' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <span class='fa fa-instagram fa-lg'></span>
+                                                <label class='control-label'>Instagram</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='mail' class='form-control pull-left tab3-instagram' placeholder='Cuenta Instagram' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <span class='fa fa-mobile fa-lg'></span>
+                                                <label class='control-label'>Telefono movil</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='mail' class='form-control pull-left tab3-movil' placeholder='Telefono movil :: +584XXXXXXXXX' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-3'>
+                                                <span class='fa fa-home fa-lg'></span>
+                                                <label class='control-label'>Telefono habitación</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='mail' class='form-control pull-left tab3-habitacion' placeholder='Telefono movil :: +584XXXXXXXXX' disabled>
+                                            </div>
+                                        </div>
+
+
+                                        <div class='pull-right'>
+                                            <a href="#" type="button" class="btn btn-sm btn-warning btn-edita-dc"><i class="fa fa-edit"></i>  Editar</a>
+                                            <a href="#" type="button" class="btn btn-sm btn-primary btn-actualizar-dc hide"><i class="fa fa-save"></i>  Actualizar</a>
+                                            <a href="#" type="button" class="btn btn-sm btn-danger btn-cancela-dc hide"><i class="fa fa-cancel"></i>  Cancelar</a>
+                                        </div>
+                                    </div>
+                                    <!-- Fin de tab 3 -->
+
+                                    <!-- inicio tab 4 -->
+                                    <div class="tab-pane fade" id="tab4default">
+                                        <div class='alert alert-warning'>
+                                            <h4>Cambio de clave</h4>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-4'>
+                                                <span class='fa fa-user-secret fa-lg'></span>
+                                                <label class='control-label'>Clave actual</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='password' class='form-control pull-left tab4-claveactual' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-4'>
+                                                <span class='fa fa-warning fa-lg'></span>
+                                                <label class='control-label'>Nueva clave</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='password' class='form-control pull-left tab4-nuevaclave' disabled>
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-md-4'>
+                                                <span class='fa fa-warning fa-lg'></span>
+                                                <label class='control-label'>Confirmación de clave</label>
+                                            </div>
+                                            <div class='col-md-8'>
+                                                <input type='password' class='form-control pull-left tab4-confirma' disabled>
+                                            </div>
+                                        </div>
+
+
+                                        <div class='pull-right'>
+                                            <a href="#" type="button" class="btn btn-sm btn-warning btn-edita-cc"><i class="fa fa-edit"></i>  Editar</a>
+                                            <a href="#" type="button" class="btn btn-sm btn-primary btn-actualizar-cc hide"><i class="fa fa-save"></i>  Actualizar</a>
+                                            <a href="#" type="button" class="btn btn-sm btn-danger btn-cancela-cc hide"><i class="fa fa-cancel"></i>  Cancelar</a>
+                                        </div>
+                                    </div>
+                                    <!-- fin tab 4 -->
+                                </div>
+                            </div>   <!-- fin panel body -->
+                        </div>  <!-- final panel con tabs -->
+                    </div>
+                    <!-- Fin de datos de usuario -->
+                </div>
+            </div>
+        </div>
+    </div> <!-- fin container principal -->
+</body>
+
+    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src='/static/bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
+    <script src='/static/js/profile.js'></script>
+</html>

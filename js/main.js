@@ -226,11 +226,18 @@ var VistaLogin = Backbone.View.extend({
         'click #olvidoClave': 'olvidoClave',
 
         'click #registrate': 'registrarNuevo',
-        'click #editarPerfil': 'prueba'
+
+        'click #editarPerfil': 'perfil'
     },
 
-    prueba: function(){
+    perfil: function(){
         alert('Editar');
+        miSelector = '#divCuerpoIndex';
+        // var miVistaPerfil = new VistaPerfil({el: miSelector, model: this.model});
+        // this.$(miSelector).append(miVistaCabeceraMenues.render().el);
+        this.$(miSelector).append('<a>Hola</a>');
+        this.render();
+
     },
 
     iniciarSesion: function(){
