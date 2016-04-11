@@ -232,10 +232,12 @@ var VistaLogin = Backbone.View.extend({
 
     perfil: function(){
         alert('Editar');
-        miSelector = '#divCuerpoIndex';
+        miSelector = '#divCuerpoIndexParte2';
         // var miVistaPerfil = new VistaPerfil({el: miSelector, model: this.model});
         // this.$(miSelector).append(miVistaCabeceraMenues.render().el);
-        this.$(miSelector).append('<a>Hola</a>');
+
+        this.plantillaLogin = '<a>Hola</a>'
+        this.$(miSelector).append(this.plantillaLogin);
         this.render();
 
     },
