@@ -147,7 +147,7 @@ miColeccion.forEach(function(modelo, index, arreglo){
 });
 
 // Otra Prueba para generar menus:
-var VistaCabeceraMenues = Backbone.View.extend({
+App.Views.VistaCabeceraMenues = Backbone.View.extend({
     plantillaCabeceraMenues: plantilla('pru'),
 
     initialize: function(){
@@ -163,7 +163,7 @@ var VistaCabeceraMenues = Backbone.View.extend({
 });
 
 // Vista para el menu Configurar de la cabecera:
-var VistaCabeceraMenu = Backbone.View.extend({
+App.Views.VistaCabeceraMenu = Backbone.View.extend({
     plantillaCabeceraMenu: plantilla('pruebaPlantilla'),
     plantillaCabeceraMenu2: plantilla('prueba2Plantilla'),
 
@@ -180,7 +180,7 @@ var VistaCabeceraMenu = Backbone.View.extend({
 });
 
 // Vista para la cabecera del Index:
-var VistaCabeceraIndex = Backbone.View.extend({
+App.Views.VistaCabeceraIndex = Backbone.View.extend({
     plantillaCabeceraIndex: plantilla('cabeceraIndexPlantilla'),
 
     initialize: function(){
@@ -192,13 +192,14 @@ var VistaCabeceraIndex = Backbone.View.extend({
     },
 
     render: function(){
-    this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
+    // this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
+    this.$el.html( "<a>Cabecera Index</a>" )
     return this;
     }
 });
 
 // Vista para el Login del Index:
-var VistaLogin = Backbone.View.extend({
+App.Views.VistaLogin = Backbone.View.extend({
     /**/
     obtenerPlantilla: function(idElemento){
         return plantilla(idElemento);
@@ -290,7 +291,7 @@ var VistaLogin = Backbone.View.extend({
 });
 
 // Vista para el Cuerpo del Index:
-var VistaCuerpoIndex = Backbone.View.extend({
+App.Views.VistaCuerpoIndex = Backbone.View.extend({
     plantillaCuerpoIndex: plantilla('cuerpoIndexPlantilla'),
 
     initialize: function(){
@@ -304,7 +305,7 @@ var VistaCuerpoIndex = Backbone.View.extend({
 });
 
 // Vista para el Cuerpo del Index Parte 1:
-var VistaCuerpoIndexParte1 = Backbone.View.extend({
+App.Views.VistaCuerpoIndexParte1 = Backbone.View.extend({
     plantillaCuerpoIndexParte1: plantilla('cuerpoIndexParte1Plantilla'),
 
     initialize: function(){
@@ -319,7 +320,7 @@ var VistaCuerpoIndexParte1 = Backbone.View.extend({
 });
 
 // Vista para el Cuerpo del Index Parte 2:
-var VistaCuerpoIndexParte2 = Backbone.View.extend({
+App.Views.VistaCuerpoIndexParte2 = Backbone.View.extend({
     plantillaCuerpoIndexParte2: plantilla('cuerpoIndexParte2Plantilla'),
     plantillaModal2: plantilla('modal2'),
 
@@ -486,7 +487,7 @@ var VistaCuerpoIndexParte2 = Backbone.View.extend({
 });
 
 // Vista para el Pie de pagina del Index:
-var VistaPiePaginaIndex = Backbone.View.extend({
+App.Views.VistaPiePaginaIndex = Backbone.View.extend({
     plantillaPiePagina: plantilla('piePaginaPlantilla'),
 
     initialize: function(){
@@ -502,11 +503,14 @@ var VistaPiePaginaIndex = Backbone.View.extend({
 
 // Vista para el Index:
 App.Views.Index = Backbone.View.extend({
-    tagName: 'body',
+    // tagName: $('body'),
+
+    el:$('body'),
 
     miPlantilla: plantilla('index'),  // _.template($('#personaPlantilla').html()) ,
 
     initialize: function(){
+        this.render();
     },
 
     events: {
@@ -558,14 +562,25 @@ App.Views.Index = Backbone.View.extend({
     },
 
     render: function(){
-        this.$el.html(this.miPlantilla(this.model.toJSON()));
-        return this;
+        // this.$el.html(this.miPlantilla(this.model.toJSON()));
+        this.$el.html('Hola');
+        // miSelector = '#divCuerpoIndex'
+        // miSelector = '#divCuerpoIndex'
+        // var miVistaCuerpoIndex = new VistaCuerpoIndex({el: miSelector, model: this.model});
+        // console.log(miVistaCuerpoIndex.render().el)
+        // this.$el.html('<a>Hola</a>');
+
+        //mi = '#ulMenu'
+        //this.$(mi).append('<a>Menu</a>')
+        //indexView.mostrarVitasHijas();
+        //return this;
     }
 });
 
 var indexModelo = new App.Models.Index()
 var indexView = new App.Views.Index({model: indexModelo});
-$(document.body).append(indexView.render().el);  // Añade el index al DOM
-$(document.body).append(indexView.mostrarVitasHijas());  // Añade el el Login al DOM
+// console.log(indexView.render().el);
+// $(document.body).append(indexView.render().el);  // Añade el index al DOM
+// $(document.body).append(indexView.mostrarVitasHijas());  // Añade el el Login al DOM
 
 })();
