@@ -2,12 +2,13 @@
     window.App = {
         Models: {},
         Collections: {},
-        Views: {}
+        Views: {},
+        Plantilla: function(idPasado){
+            console.log(idPasado)
+            return _.template( $('#'+idPasado).html() )
+        }
     };
 
-    window.plantilla = function(id){
-            return _.template( $('#' + id).html() );
-    };
 
     // Models Index
     App.Models.Index = Backbone.Model.extend({
@@ -36,7 +37,6 @@
             modalBoton1: '',
             modalBoton2: ''
         }
-
     });
 
     // Modelo para datos del usuario
@@ -121,7 +121,7 @@ App.Collections.Menu = Backbone.Collection.extend({
     url: '/menu/1'
     /*
         Esta Coleccion se instancia:
-        var menu = new App.Collections.Menu();
+         menu = new App.Collections.Menu();
         menu.fetch()
         luego se recorre con:
         for(var i=0;i<menu.length;i=i+1){
@@ -148,7 +148,7 @@ miColeccion.forEach(function(modelo, index, arreglo){
 
 // Otra Prueba para generar menus:
 App.Views.VistaCabeceraMenues = Backbone.View.extend({
-    plantillaCabeceraMenues: plantilla('pru'),
+    plantillaCabeceraMenues: App.Plantilla('pru'),
 
     initialize: function(){
     this.render();
@@ -164,8 +164,8 @@ App.Views.VistaCabeceraMenues = Backbone.View.extend({
 
 // Vista para el menu Configurar de la cabecera:
 App.Views.VistaCabeceraMenu = Backbone.View.extend({
-    plantillaCabeceraMenu: plantilla('pruebaPlantilla'),
-    plantillaCabeceraMenu2: plantilla('prueba2Plantilla'),
+    plantillaCabeceraMenu: App.Plantilla('pruebaPlantilla'),
+    plantillaCabeceraMenu2: App.Plantilla('prueba2Plantilla'),
 
     initialize: function(){
     this.render();
@@ -181,7 +181,7 @@ App.Views.VistaCabeceraMenu = Backbone.View.extend({
 
 // Vista para la cabecera del Index:
 App.Views.VistaCabeceraIndex = Backbone.View.extend({
-    plantillaCabeceraIndex: plantilla('cabeceraIndexPlantilla'),
+    plantillaCabeceraIndex: App.Plantilla('cabeceraIndexPlantilla'),
 
     initialize: function(){
     this.render();
@@ -192,8 +192,8 @@ App.Views.VistaCabeceraIndex = Backbone.View.extend({
     },
 
     render: function(){
-    // this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
-    this.$el.html( "<a>Cabecera Index</a>" )
+    this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
+    //this.$el.html( "<a>Cabecera Index</a>" )
     return this;
     }
 });
@@ -202,7 +202,7 @@ App.Views.VistaCabeceraIndex = Backbone.View.extend({
 App.Views.VistaLogin = Backbone.View.extend({
     /**/
     obtenerPlantilla: function(idElemento){
-        return plantilla(idElemento);
+        return App.Plantilla(idElemento);
     },
 
     initialize: function(){
@@ -213,10 +213,17 @@ App.Views.VistaLogin = Backbone.View.extend({
 
         if( !this.user ){
             // Si no hay sesion de usuario
-            this.plantillaLogin = this.obtenerPlantilla('sesionInactivaPlantilla');
+
+            buscarPL = $.get('/tplSesionInactiva')
+            tplSesionInactiva = buscarPL.responseText
+            console.log(tplSesionInactiva)
+            //x = _.template( tplSesionInactiva )
+
+            this.plantillaLogin = tplSesionInactiva //  x({}) //this.obtenerPlantilla('sesionInactivaPlantilla');
+            console.log(this.plantillaLogin)
         }
         else{
-            this.plantillaLogin = this.obtenerPlantilla('sesionActivaPlantilla');
+            this.plantillaLogin = '<a>sesionActiva</a>'//  this.obtenerPlantilla('sesionActivaPlantilla');
         }
         this.render();
     },
@@ -265,7 +272,7 @@ App.Views.VistaLogin = Backbone.View.extend({
 
                     modeloDatosUsuario.fetch({
                         success: function(modelResponse){
-                            var loginOk = self.obtenerPlantilla('sesionActivaPlantilla');
+                            var loginOk = '<a>Sesion activa</a>'  //  self.obtenerPlantilla('sesionActivaPlantilla');
                             self.plantillaLogin = loginOk( modelResponse.toJSON() );
                             self.render();
                             alert('Sesion iniciada con Exito');
@@ -292,7 +299,7 @@ App.Views.VistaLogin = Backbone.View.extend({
 
 // Vista para el Cuerpo del Index:
 App.Views.VistaCuerpoIndex = Backbone.View.extend({
-    plantillaCuerpoIndex: plantilla('cuerpoIndexPlantilla'),
+    plantillaCuerpoIndex: App.Plantilla('cuerpoIndexPlantilla'),
 
     initialize: function(){
     this.render();
@@ -306,7 +313,7 @@ App.Views.VistaCuerpoIndex = Backbone.View.extend({
 
 // Vista para el Cuerpo del Index Parte 1:
 App.Views.VistaCuerpoIndexParte1 = Backbone.View.extend({
-    plantillaCuerpoIndexParte1: plantilla('cuerpoIndexParte1Plantilla'),
+    plantillaCuerpoIndexParte1: App.Plantilla('cuerpoIndexParte1Plantilla'),
 
     initialize: function(){
     this.render();
@@ -321,8 +328,8 @@ App.Views.VistaCuerpoIndexParte1 = Backbone.View.extend({
 
 // Vista para el Cuerpo del Index Parte 2:
 App.Views.VistaCuerpoIndexParte2 = Backbone.View.extend({
-    plantillaCuerpoIndexParte2: plantilla('cuerpoIndexParte2Plantilla'),
-    plantillaModal2: plantilla('modal2'),
+    plantillaCuerpoIndexParte2: App.Plantilla('cuerpoIndexParte2Plantilla'),
+    plantillaModal2: App.Plantilla('modal2'),
 
     initialize: function(){
         this.render();
@@ -488,7 +495,7 @@ App.Views.VistaCuerpoIndexParte2 = Backbone.View.extend({
 
 // Vista para el Pie de pagina del Index:
 App.Views.VistaPiePaginaIndex = Backbone.View.extend({
-    plantillaPiePagina: plantilla('piePaginaPlantilla'),
+    plantillaPiePagina: App.Plantilla('piePaginaPlantilla'),
 
     initialize: function(){
     this.render();
@@ -507,7 +514,7 @@ App.Views.Index = Backbone.View.extend({
 
     el:$('body'),
 
-    miPlantilla: plantilla('index'),  // _.template($('#personaPlantilla').html()) ,
+    miPlantilla: App.Plantilla('index'),  // _.template($('#personaPlantilla').html()) ,
 
     initialize: function(){
         this.render();
@@ -562,13 +569,24 @@ App.Views.Index = Backbone.View.extend({
     },
 
     render: function(){
-        // this.$el.html(this.miPlantilla(this.model.toJSON()));
-        this.$el.html('Hola');
+        this.$el.html(this.miPlantilla(this.model.toJSON()));
+        miSelector = '#divCuerpoIndex'
         // miSelector = '#divCuerpoIndex'
-        // miSelector = '#divCuerpoIndex'
-        // var miVistaCuerpoIndex = new VistaCuerpoIndex({el: miSelector, model: this.model});
-        // console.log(miVistaCuerpoIndex.render().el)
-        // this.$el.html('<a>Hola</a>');
+        var miVistaCuerpoIndex = new App.Views.VistaCuerpoIndex({el: miSelector, model: this.model});
+
+
+        miSelector = '#divCabeceraIndex';
+        var miVistaCabeceraIndex = new App.Views.VistaCabeceraIndex({el: miSelector, model: this.model});
+        this.$(miSelector).append(miVistaCabeceraIndex.render().el);
+
+        miSelector = '#ulMenu';
+        var miVistaCabeceraMenu = new App.Views.VistaCabeceraMenu({el: miSelector, model: this.model});
+        var renderizar = miVistaCabeceraMenu.render().el;
+        this.$(miSelector).append(miVistaCabeceraMenu.render().el);
+
+        miSelector = '#divInicioSesion'
+        var miVistaLogin = new App.Views.VistaLogin({el: miSelector});
+        this.$(miSelector).append(miVistaLogin.render().el);
 
         //mi = '#ulMenu'
         //this.$(mi).append('<a>Menu</a>')
@@ -583,4 +601,4 @@ var indexView = new App.Views.Index({model: indexModelo});
 // $(document.body).append(indexView.render().el);  // Añade el index al DOM
 // $(document.body).append(indexView.mostrarVitasHijas());  // Añade el el Login al DOM
 
-})();
+})()

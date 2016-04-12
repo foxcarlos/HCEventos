@@ -53,6 +53,11 @@ def static(filename):
 def static(filename):
     return bottle.static_file(filename, root='js/')
 
+@bottle.route('/tplSesionInactiva')
+def login():
+    ''' '''
+    return bottle.static_file("sesionInactiva.html", root='js/templates/')
+
 @bottle.route('/')
 def index():
     #usuario = ''
@@ -109,30 +114,6 @@ def loginp():
 
     return json.dumps(msg)
 
-# ---------------------------------------
-# Ejemplo CRUD
-# ---------------------------------------
-'''
-@bottle.route('/restapi/<id>')
-def raget(id):
-    print('Entro al GET',id)
-    model = {'model': 'Modelo'}
-    return  model
-
-@bottle.post('/restapi')
-def rapost():
-    recibido = bottle.request.json
-    print('Entro al POST',recibido)
-    model = {'model': 'Modelo'}
-    return  model
-
-@bottle.put('/restapi/<id>')
-def raPUT(id):
-    print('Entro al PUT',id)
-    model = {'model': 'Modelo'}
-    return  model
-# ---------------------------------------
-'''
 @bottle.route('/datosUsuario/<idUsuario>')
 def getUsuario(idUsuario):
     '''Metodo que permite buscar datos del usaurio para el inicio de sesion '''
