@@ -7,10 +7,26 @@
             console.log(idPasado)
             return _.template( $('#'+idPasado).html() )
         },
-        buscarPlantilla: function(url) {
-        }
-    };
 
+        BuscarHtml: function(urlPasada){
+            // Si no hay sesion de usuario
+            self = this;
+            $.ajax({
+                async: false,
+                url: urlPasada,
+                type: 'GET',
+                datatype: 'html',
+                success: function(response){
+                    self.htmlDevuelto = response;
+                },
+
+                error: function(respuesta){
+                    self.htmlDevuelto = respuesta;
+                }
+            })
+            return self.htmlDevuelto
+       }
+    };
 
     // Models Index
     App.Models.Index = Backbone.Model.extend({
@@ -209,28 +225,32 @@ App.Views.VistaLogin = Backbone.View.extend({
 
     initialize: function(){
         // Busca en el backend si hay una sesion activa
+
         $.getJSON('consultarSesion', function(respuesta){
             this.user = respuesta.usuario;
         });
 
+        // this.htmlSesionInactiva = App.BuscarHtml('tplSesionInactiva')
+
         if( !this.user ){
             self = this;
             // Si no hay sesion de usuario
-            $.ajax({
+            this.htmlSesionInactiva = App.BuscarHtml('tplSesionInactiva')
+
+            /*$.ajax({
                 url: 'tplSesionInactiva',
                 type: 'GET',
                 datatype: 'html',
                 success: function(response){
                     tplSesionInactiva = response;
-                    //x = _.template( tplSesionInactiva )
-                    self.plantillaLogin = tplSesionInactiva //  x({}) //this.obtenerPlantilla('sesionInactivaPlantilla');
+                    self.plantillaLogin = tplSesionInactiva;
                     self.render();
                 },
 
                 error: function(respuesta){
                         console.log(respuesta)
                 }
-            })
+            })*/
         }
         else{
             self.plantillaLogin = '<a>sesionActiva</a>'//  this.obtenerPlantilla('sesionActivaPlantilla');
@@ -282,7 +302,9 @@ App.Views.VistaLogin = Backbone.View.extend({
 
                     modeloDatosUsuario.fetch({
                         success: function(modelResponse){
-                            var loginOk = '<a>Sesion activa</a>'  //  self.obtenerPlantilla('sesionActivaPlantilla');
+                            // htmlDevuelto = App.BuscarHtml('tplSesionActiva')
+                            alert(self.htmlSesionActiva);
+                            var loginOk =  _.template(self.htmlSesionActiva);
                             self.plantillaLogin = loginOk( modelResponse.toJSON() );
                             self.render();
                             alert('Sesion iniciada con Exito');
@@ -301,7 +323,6 @@ App.Views.VistaLogin = Backbone.View.extend({
     },
 
     render: function(){
-        console.log(this.plantillaLogin)
         this.$el.html(this.plantillaLogin);
     return this;
     }

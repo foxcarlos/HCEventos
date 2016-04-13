@@ -58,11 +58,18 @@ def login():
     ''' '''
     return bottle.static_file("sesionInactiva.html", root='js/templates/')
 
-@bottle.route('/cargarPlantilla/<filename:path>')
-def cargarTemplate(nombreArchivo):
-    '''Metodo que permite caragar un template '''
-    archivoSolicitado = nombreArchivo
-    return bottle.static_file(archivoSolicitado, root='js/templates')
+@bottle.route('/tplSesionActiva')
+def login():
+    ''' '''
+    return bottle.static_file("sesionActiva.html", root='js/templates/')
+
+# ------------------------------------------------------------------------------
+# Por ahira no va
+# ------------------------------------------------------------------------------
+@route('/cargarPlantilla/<pagename>')
+def show_wiki_page(pagename):
+    print(pagename)
+    return bottle.static_file(pagename, root='js/templates/')
 
 @bottle.route('/')
 def index():
