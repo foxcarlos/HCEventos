@@ -212,20 +212,28 @@ App.Views.VistaLogin = Backbone.View.extend({
         });
 
         if( !this.user ){
+            self = this;
             // Si no hay sesion de usuario
+            $.ajax({
+                url: 'tplSesionInactiva',
+                type: 'GET',
+                datatype: 'html',
+                success: function(response){
+                    tplSesionInactiva = response;
+                    //x = _.template( tplSesionInactiva )
+                    self.plantillaLogin = tplSesionInactiva //  x({}) //this.obtenerPlantilla('sesionInactivaPlantilla');
+                    self.render();
+                },
 
-            buscarPL = $.get('/tplSesionInactiva')
-            tplSesionInactiva = buscarPL.responseText
-            console.log(tplSesionInactiva)
-            //x = _.template( tplSesionInactiva )
-
-            this.plantillaLogin = tplSesionInactiva //  x({}) //this.obtenerPlantilla('sesionInactivaPlantilla');
-            console.log(this.plantillaLogin)
+                error: function(respuesta){
+                        console.log(respuesta)
+                }
+            })
         }
         else{
-            this.plantillaLogin = '<a>sesionActiva</a>'//  this.obtenerPlantilla('sesionActivaPlantilla');
+            self.plantillaLogin = '<a>sesionActiva</a>'//  this.obtenerPlantilla('sesionActivaPlantilla');
+            self.render();
         }
-        this.render();
     },
 
     events:{
@@ -291,6 +299,7 @@ App.Views.VistaLogin = Backbone.View.extend({
     },
 
     render: function(){
+        console.log(this.plantillaLogin)
         this.$el.html(this.plantillaLogin);
     return this;
     }
