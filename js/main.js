@@ -6,6 +6,8 @@
         Plantilla: function(idPasado){
             console.log(idPasado)
             return _.template( $('#'+idPasado).html() )
+        },
+        buscarPlantilla: function(url) {
         }
     };
 
