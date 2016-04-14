@@ -8,7 +8,7 @@
             return _.template( $('#'+idPasado).html() )
         },
 
-        BuscarHtml: function(urlPasada){
+        /*BuscarHtml: function(urlPasada){
             // Si no hay sesion de usuario
             self = this;
             $.ajax({
@@ -18,6 +18,7 @@
                 datatype: 'html',
                 success: function(response){
                     self.htmlDevuelto = response;
+                    return self.devuelto
                 },
 
                 error: function(respuesta){
@@ -25,7 +26,7 @@
                 }
             })
             return self.htmlDevuelto
-       }
+       }*/
     };
 
     // Models Index
@@ -211,7 +212,6 @@ App.Views.VistaCabeceraIndex = Backbone.View.extend({
 
     render: function(){
     this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
-    //this.$el.html( "<a>Cabecera Index</a>" )
     return this;
     }
 });
@@ -223,39 +223,27 @@ App.Views.VistaLogin = Backbone.View.extend({
         return App.Plantilla(idElemento);
     },
 
-    initialize: function(){
-        // Busca en el backend si hay una sesion activa
+    verificaSesion: function(){
+        /*Este Metodo permite ir al backend y buscar en los cookies
+         si el usuario tiene una sesion abierta, dependiendo de esto
+         muestra una plantilla HTML */
 
         $.getJSON('consultarSesion', function(respuesta){
             this.user = respuesta.usuario;
         });
 
-        // this.htmlSesionInactiva = App.BuscarHtml('tplSesionInactiva')
-
         if( !this.user ){
-            self = this;
-            // Si no hay sesion de usuario
-            this.htmlSesionInactiva = App.BuscarHtml('tplSesionInactiva')
-
-            /*$.ajax({
-                url: 'tplSesionInactiva',
-                type: 'GET',
-                datatype: 'html',
-                success: function(response){
-                    tplSesionInactiva = response;
-                    self.plantillaLogin = tplSesionInactiva;
-                    self.render();
-                },
-
-                error: function(respuesta){
-                        console.log(respuesta)
-                }
-            })*/
+            htmlSesionInactiva = Utils.BuscarHtml('tplSesionInactiva');
+            this.plantillaLogin = htmlSesionInactiva;
+            this.render();
         }
         else{
-            self.plantillaLogin = '<a>sesionActiva</a>'//  this.obtenerPlantilla('sesionActivaPlantilla');
-            self.render();
+            self.plantillaLogin = '<a>sesionActiva</a>';
         }
+    },
+
+    initialize: function(){
+        this.verificaSesion();
     },
 
     events:{
@@ -283,48 +271,32 @@ App.Views.VistaLogin = Backbone.View.extend({
     iniciarSesion: function(){
         var inUsuario = $('#inputEmail').val();
         var inClave = $('#inputPassword').val();
-        self = this;
 
         dataEnviar = {usuario: inUsuario, clave: inClave}
-        $.ajax({
-            url:'iniciarSesion',
-            type:"POST",
-            data:JSON.stringify(dataEnviar),
-            contentType:"application/json; charset=utf-8",
-            dataType:"json",
-            success: function(response){
-                var estado = response.status
-                var usuarioId = response.mensaje
-                if( estado ){
-                    var modeloDatosUsuario = new App.Models.DatosUsuario({
-                        id: usuarioId
-                    });
+        response = Usuario.IniciarSesion(dataEnviar)
 
-                    modeloDatosUsuario.fetch({
-                        success: function(modelResponse){
-                            // htmlDevuelto = App.BuscarHtml('tplSesionActiva')
-                            alert(self.htmlSesionActiva);
-                            var loginOk =  _.template(self.htmlSesionActiva);
-                            self.plantillaLogin = loginOk( modelResponse.toJSON() );
-                            self.render();
-                            alert('Sesion iniciada con Exito');
-                        },
+        var estado = response.status;
+        var usuarioId = response.mensaje;
 
-                        error: function(modelResponse){
-                            alert('Error al hacer fetch');
-                        }
-                    });
-                }
-                else{
-                    alert(usuarioId);
-                }
-            }
-        })
+        if( estado ){
+            modelo = Usuario.BuscarUsuarioId(usuarioId);
+            console.log(modelo)
+            htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
+            alert(htmlSesionActiva)
+            var loginOk =  _.template(htmlSesionActiva);
+            self.plantillaLogin = loginOk( modelo );
+            this.render();
+            alert('Sesion iniciada con Exito');
+        }
+        else{
+            alert('Clave Incorrecta');
+        }
     },
 
     render: function(){
+        alert(this.plantillaLogin)
         this.$el.html(this.plantillaLogin);
-    return this;
+        return this;
     }
 
 });
