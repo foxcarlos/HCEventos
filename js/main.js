@@ -223,16 +223,13 @@ App.Views.VistaLogin = Backbone.View.extend({
         return App.Plantilla(idElemento);
     },
 
-    verificaSesion: function(){
+    verificaSesion: function(usuario){
         /*Este Metodo permite ir al backend y buscar en los cookies
          si el usuario tiene una sesion abierta, dependiendo de esto
          muestra una plantilla HTML */
 
-        $.getJSON('consultarSesion', function(respuesta){
-            this.user = respuesta.usuario;
-        });
 
-        if( !this.user ){
+        if( !usuario ){
             htmlSesionInactiva = Utils.BuscarHtml('tplSesionInactiva');
             this.plantillaLogin = htmlSesionInactiva;
             this.render();
@@ -243,7 +240,11 @@ App.Views.VistaLogin = Backbone.View.extend({
     },
 
     initialize: function(){
-        this.verificaSesion();
+        alert('entro al initialize')
+        $.getJSON('consultarSesion', function(respuesta){
+            this.user = respuesta.usuario;
+        });
+        this.verificaSesion(this.user);
     },
 
     events:{
@@ -284,6 +285,7 @@ App.Views.VistaLogin = Backbone.View.extend({
             htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
             alert(htmlSesionActiva)
             var loginOk =  _.template(htmlSesionActiva);
+            alert(loginOk)
             self.plantillaLogin = loginOk( modelo );
             this.render();
             alert('Sesion iniciada con Exito');
