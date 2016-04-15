@@ -53,15 +53,29 @@ def static(filename):
 def static(filename):
     return bottle.static_file(filename, root='js/')
 
+# ------------------------------------------------------------------------------
+# Plantillas HTML
+# ------------------------------------------------------------------------------
+
 @bottle.route('/tplSesionInactiva')
-def login():
+def sesionInactiva():
     ''' '''
     return bottle.static_file("sesionInactiva.html", root='js/templates/')
 
 @bottle.route('/tplSesionActiva')
-def login():
+def sesionActiva():
     ''' '''
     return bottle.static_file("sesionActiva.html", root='js/templates/')
+
+@bottle.route('/tplCabeceraIndex')
+def cabeceraIndex():
+    ''' '''
+    return bottle.static_file("cabeceraIndex.html", root='js/templates/')
+
+@bottle.route('/tplCuerpoIndex')
+def cabeceraIndex():
+    ''' '''
+    return bottle.static_file("cuerpoIndex.html", root='js/templates/')
 
 # ------------------------------------------------------------------------------
 # Por ahira no va

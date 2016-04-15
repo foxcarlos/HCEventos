@@ -178,7 +178,7 @@ App.Views.VistaCabeceraMenu = Backbone.View.extend({
     }
 });
 
-// Vista para la cabecera del Index:
+/*// Vista para la cabecera del Index:
 App.Views.VistaCabeceraIndex = Backbone.View.extend({
     plantillaCabeceraIndex: App.Plantilla('cabeceraIndexPlantilla'),
 
@@ -194,7 +194,7 @@ App.Views.VistaCabeceraIndex = Backbone.View.extend({
     this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
     return this;
     }
-});
+});*/
 
 // Vista para el Login del Index:
 App.Views.VistaLogin = Backbone.View.extend({
@@ -220,7 +220,6 @@ App.Views.VistaLogin = Backbone.View.extend({
     },
 
     initialize: function(){
-        alert('entro al initialize')
         $.getJSON('consultarSesion', function(respuesta){
             this.user = respuesta.usuario;
         });
@@ -240,12 +239,12 @@ App.Views.VistaLogin = Backbone.View.extend({
     perfil: function(){
         alert('Editar');
         miSelector = '#divCuerpoIndexParte2';
-        // var miVistaPerfil = new VistaPerfil({el: miSelector, model: this.model});
-        // this.$(miSelector).append(miVistaCabeceraMenues.render().el);
+        // var miVistaPerfil = new App.Views.Vista.Perfil({el: miSelector, model: this.model});
+        // this.$(miSelector).append(miVistaPerfil.render().el);
 
         this.plantillaLogin = '<a>Hola</a>'
         this.$(miSelector).append(this.plantillaLogin);
-        this.render();
+        //this.render();
 
     },
 
@@ -273,7 +272,6 @@ App.Views.VistaLogin = Backbone.View.extend({
     },
 
     render: function(){
-        alert(this.plantillaLogin)
         this.$el.html(this.plantillaLogin);
         return this;
     }
@@ -514,53 +512,20 @@ App.Views.Index = Backbone.View.extend({
 
     },
 
-    mostrarVitasHijas: function(){
-        miSelector = '#ulMenu';
-        var miVistaCabeceraMenues = new VistaCabeceraMenues({el: miSelector, model: this.model});
-        this.$(miSelector).append(miVistaCabeceraMenues.render().el);
-
-        miSelector = '#divCabeceraIndex';
-        var miVistaCabeceraIndex = new VistaCabeceraIndex({el: miSelector, model: this.model});
-        this.$(miSelector).append(miVistaCabeceraIndex.render().el);
-
-        miSelector = '#ulMenu';
-        var miVistaCabeceraMenu = new VistaCabeceraMenu({el: miSelector, model: this.model});
-        var renderizar = miVistaCabeceraMenu.render().el;
-        this.$(miSelector).append(miVistaCabeceraMenu.render().el);
-
-        miSelector = '#divInicioSesion'
-        var miVistaLogin = new VistaLogin({el: miSelector});
-        this.$(miSelector).append(miVistaLogin.render().el);
-
-        miSelector = '#divPiePaginaIndex';
-        var miVistaPiePaginaIndex = new VistaPiePaginaIndex({el: miSelector, model: this.model});
-        this.$(miSelector).append(miVistaPiePaginaIndex.render().el);
-
-        miSelector = '#divCuerpoIndex'
-        var miVistaCuerpoIndex = new VistaCuerpoIndex({el: miSelector, model: this.model});
-        this.$(miSelector).append(miVistaCuerpoIndex.render().el);
-
-        miSelector = '#divCuerpoIndexParte1'
-        var miVistaCuerpoIndexParte1 = new VistaCuerpoIndexParte1({el: miSelector, model: this.model});
-        console.log(miVistaCuerpoIndexParte1.render().el)
-        this.$(miSelector).append(miVistaCuerpoIndexParte1.render().el);
-
-        miSelector = '#divCuerpoIndexParte2'
-        var miVistaCuerpoIndexParte2 = new VistaCuerpoIndexParte2({el: miSelector, model: this.model});
-        console.log(miVistaCuerpoIndexParte2.render().el)
-        this.$(miSelector).append(miVistaCuerpoIndexParte2.render().el);
-    },
-
     render: function(){
         this.$el.html(this.miPlantilla(this.model.toJSON()));
-        miSelector = '#divCuerpoIndex'
-        // miSelector = '#divCuerpoIndex'
-        var miVistaCuerpoIndex = new App.Views.VistaCuerpoIndex({el: miSelector, model: this.model});
-
 
         miSelector = '#divCabeceraIndex';
-        var miVistaCabeceraIndex = new App.Views.VistaCabeceraIndex({el: miSelector, model: this.model});
+        var miVistaCabeceraIndex = new Vista.CabeceraIndex({el: miSelector, model: this.model});
         this.$(miSelector).append(miVistaCabeceraIndex.render().el);
+
+        miSelector = '#divCuerpoIndex'
+        var miVistaCuerpoIndex = new Vista.CuerpoIndex({el: miSelector, model: this.model});
+        this.$(miSelector).append(miVistaCuerpoIndex.render().el);
+
+        miSelector = '#divPiePaginaIndex';
+        var miVistaPiePaginaIndex = new App.Views.VistaPiePaginaIndex({el: miSelector, model: this.model});
+        this.$(miSelector).append(miVistaPiePaginaIndex.render().el);
 
         miSelector = '#ulMenu';
         var miVistaCabeceraMenu = new App.Views.VistaCabeceraMenu({el: miSelector, model: this.model});
@@ -571,17 +536,19 @@ App.Views.Index = Backbone.View.extend({
         var miVistaLogin = new App.Views.VistaLogin({el: miSelector});
         this.$(miSelector).append(miVistaLogin.render().el);
 
-        //mi = '#ulMenu'
-        //this.$(mi).append('<a>Menu</a>')
-        //indexView.mostrarVitasHijas();
-        //return this;
+        miSelector = '#divCuerpoIndexParte1'
+        var miVistaCuerpoIndexParte1 = new App.Views.VistaCuerpoIndexParte1({el: miSelector, model: this.model});
+        console.log(miVistaCuerpoIndexParte1.render().el)
+        this.$(miSelector).append(miVistaCuerpoIndexParte1.render().el);
+
+        miSelector = '#divCuerpoIndexParte2'
+        var miVistaCuerpoIndexParte2 = new App.Views.VistaCuerpoIndexParte2({el: miSelector, model: this.model});
+        console.log(miVistaCuerpoIndexParte2.render().el)
+        this.$(miSelector).append(miVistaCuerpoIndexParte2.render().el);
     }
 });
 
 var indexModelo = new App.Models.Index()
 var indexView = new App.Views.Index({model: indexModelo});
-// console.log(indexView.render().el);
-// $(document.body).append(indexView.render().el);  // Añade el index al DOM
-// $(document.body).append(indexView.mostrarVitasHijas());  // Añade el el Login al DOM
 
 })()

@@ -1,5 +1,6 @@
-// Vista para el Editar Perfil:
-var VistaPerfil = Backbone.View.extend({
+var  = Vista || {};
+
+var Vista.Perfil = Backbone.View.extend({
     /**/
     obtenerPlantilla: function(idElemento){
         return plantilla(idElemento);
@@ -63,3 +64,7 @@ var VistaPerfil = Backbone.View.extend({
     }
 
 });
+
+
+
+

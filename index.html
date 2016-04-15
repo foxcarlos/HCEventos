@@ -375,60 +375,6 @@
             </ul>
         </script>
 
-		<script id='cabeceraIndexPlantilla' type='text/template'>
-			<div class="container-fluid">
-				<nav class="navbar navbar-default navbar-inverse" role="navigation">
-				  <div class="container-fluid">
-				    <ul class='nav navbar-nav navbar-left'>
-				        <li><a href='#menu-toggle' id='menu-toggle'><span class='glyphicon glyphicon-align-justify'></span></a></li>
-					</ul>
-
-				    <!-- Brand and toggle get grouped for better mobile display -->
-				    <div class="navbar-header">
-				        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				            <span class="sr-only">Toggle navigation</span>
-				        </button>
-				        <a class="navbar-brand" href="#"><%= cabeceraTitulo %></a>
-				    </div>
-
-				    <!-- Collect the nav links, forms, and other content for toggling -->
-				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                        <ul id="ulMenu" class="nav navbar-nav">
-                            <!-- aqui se cargara la plantilla del Menu -->
-                        </ul>
-
-                        <div  id="divInicioSesion">
-                            <!-- aqui se carga el la plantilla del form de inicio de sesion-->
-                        </div>
-
-				    </div><!-- /.navbar-collapse -->
-				  </div><!-- /.container-fluid -->
-				</nav>
-			</div><!-- /.container-fluid -->
-		</script><!-- Fin de Plantilla cabecera -->
-
-		<script id="cuerpoIndexPlantilla" type="text/template">
-			<div id="divJumbotron">
-					<div class='jumbotron'>
-							<div class="container-fluid">
-									<div class='col-md-7'>
-										<div id="divCuerpoIndexParte1">
-											<!-- Aqui se carga la plantilla-->
-										</div>
-									</div>
-
-									<div class='col-md-5'>
-										<div id="divCuerpoIndexParte2">
-												<!-- Aqui se carga la plantilla-->
-										</div>
-									</div>
-							</div>
-							<br><br>
-					</div> <!-- Fin de jumbotron -->
-			</div><!--Fin del DIV jumbotron -->
-		</script><!--Fin del Script Plantilla cuerpoIndex -->
-
 		<script id="piePaginaPlantilla" type="text/template">
 			<footer class='footer'>
 				<div class='container'>
@@ -456,9 +402,12 @@
         <script src="js/libs/jquery-ui-1.11.4/jquery-ui.js"></script>
         <script src="js/libs/backbone.js"></script>
         <script src="js/utils/buscarHtmlBackend.js"></script>
-		<script src="js/main.js"></script>
-	    <script src="js/utils/usuario.js"></script>
+        <script src="js/vistas/cabeceraIndexVw.js"></script>
+        <script src="js/vistas/cuerpoIndexVw.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/utils/usuario.js"></script>
 	    <script src="js/libs/bootstrap.min.js"></script>
+
         <script>
         $(function() {
             $( "#txtfechanac" ).datepicker();

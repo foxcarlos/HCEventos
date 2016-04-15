@@ -28,9 +28,10 @@ Usuario = {
                 console.log(self.hola);
             },
 
-            error: function(errorResponse){
-                self.modeloDevolver = errorResponse;
-                alert('Error al hacer fetch');
+            error: function(jqXHR, status, errorThrown){
+                console.log(jqXHR);
+                console.log(status);
+                console.log(errorThrown);
             }
         });
         return this.hola  // modeloDevolver
