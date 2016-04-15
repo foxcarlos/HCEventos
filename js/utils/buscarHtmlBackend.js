@@ -6,7 +6,7 @@ Utils = {
             async: false,
             url: urlPasada,
             type: 'GET',
-            datatype: 'html',
+            datatype: 'text',
             success: function(response){
                 self.htmlDevuelto = response;
                 return self.devuelto

@@ -7,26 +7,6 @@
             console.log(idPasado)
             return _.template( $('#'+idPasado).html() )
         },
-
-        /*BuscarHtml: function(urlPasada){
-            // Si no hay sesion de usuario
-            self = this;
-            $.ajax({
-                async: false,
-                url: urlPasada,
-                type: 'GET',
-                datatype: 'html',
-                success: function(response){
-                    self.htmlDevuelto = response;
-                    return self.devuelto
-                },
-
-                error: function(respuesta){
-                    self.htmlDevuelto = respuesta;
-                }
-            })
-            return self.htmlDevuelto
-       }*/
     };
 
     // Models Index
@@ -280,13 +260,10 @@ App.Views.VistaLogin = Backbone.View.extend({
         var usuarioId = response.mensaje;
 
         if( estado ){
-            modelo = Usuario.BuscarUsuarioId(usuarioId);
-            console.log(modelo)
+            var modelo = Usuario.BuscarUsuarioId(usuarioId);
             htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
-            alert(htmlSesionActiva)
-            var loginOk =  _.template(htmlSesionActiva);
-            alert(loginOk)
-            self.plantillaLogin = loginOk( modelo );
+            var loginOk =  _.template(htmlSesionActiva.trim());
+            this.plantillaLogin = loginOk( modelo );
             this.render();
             alert('Sesion iniciada con Exito');
         }
