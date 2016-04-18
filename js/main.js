@@ -231,9 +231,9 @@ App.Views.VistaLogin = Backbone.View.extend({
 
         'click #olvidoClave': 'olvidoClave',
 
-        'click #registrate': 'registrarNuevo',
+        'click #registrate': 'registrarNuevo'
 
-        'click #editarPerfil': 'perfil'
+        //'click #editarPerfil': 'perfil'
     },
 
     perfil: function(){
@@ -276,20 +276,6 @@ App.Views.VistaLogin = Backbone.View.extend({
         return this;
     }
 
-});
-
-// Vista para el Cuerpo del Index:
-App.Views.VistaCuerpoIndex = Backbone.View.extend({
-    plantillaCuerpoIndex: App.Plantilla('cuerpoIndexPlantilla'),
-
-    initialize: function(){
-    this.render();
-    },
-
-    render: function(){
-    this.$el.html(this.plantillaCuerpoIndex(this.model.toJSON()));
-    return this;
-    }
 });
 
 // Vista para el Cuerpo del Index Parte 1:

@@ -4,7 +4,6 @@ Vista.CabeceraIndex = Backbone.View.extend({
     plantillaCabeceraIndex: _.template( Utils.BuscarHtml('tplCabeceraIndex') ),
 
     initialize: function(){
-        alert('entro')
         this.render();
     },
 

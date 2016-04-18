@@ -7,6 +7,14 @@ Vista.CuerpoIndex = Backbone.View.extend({
         this.render();
     },
 
+    events: {
+        'click #editarPerfil': 'perfil'
+    },
+
+    perfil: function(){
+        alert('click en perfil')
+    },
+
     render: function(){
         this.$el.html(this.plantilla(this.model.toJSON()));
         return this;
