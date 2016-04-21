@@ -9,7 +9,7 @@
         },
     };
 
-    // Models Index
+    // Models Inde
     App.Models.Index = Backbone.Model.extend({
         defaults:{
             cabeceraTitulo: 'EVENTOS HOSPITAL COROMOTO',
@@ -241,10 +241,10 @@ App.Views.VistaLogin = Backbone.View.extend({
         miSelector = '#divCuerpoIndex';
         alert($('#divCuerpoIndex').html())
         // var miVistaPerfil = new App.Views.Vista.Perfil({el: miSelector, model: this.model});
-        // this.$(miSelector).append(miVistaPerfil.render().el);
+        this.$(miSelector).html('<a>Hola</a>');
 
-        this.plantillaLogin = '<a>Hola</a>'
-        this.$(miSelector).html(this.plantillaLogin);
+        //this.plantillaLogin = '<a>Hola</a>'
+        //this.$(miSelector).html(this.plantillaLogin);
         //this.render();
 
     },
