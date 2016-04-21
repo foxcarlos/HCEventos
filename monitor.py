@@ -84,6 +84,11 @@ def cabeceraIndex():
     ''' '''
     return bottle.static_file("cuerpoIndex.html", root='js/templates/')
 
+@bottle.route('/tplPerfil')
+def cabeceraIndex():
+    ''' '''
+    return bottle.static_file("perfilNuevo.html", root='js/templates/')
+
 # ------------------------------------------------------------------------------
 # Por ahira no va
 # ------------------------------------------------------------------------------
