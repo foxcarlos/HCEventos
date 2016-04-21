@@ -231,19 +231,20 @@ App.Views.VistaLogin = Backbone.View.extend({
 
         'click #olvidoClave': 'olvidoClave',
 
-        'click #registrate': 'registrarNuevo'
+        'click #registrate': 'registrarNuevo',
 
-        //'click #editarPerfil': 'perfil'
+        'click #editarPerfil': 'perfil'
     },
 
     perfil: function(){
         alert('Editar');
-        miSelector = '#divCuerpoIndexParte2';
+        miSelector = '#divCuerpoIndex';
+        alert($('#divCuerpoIndex').html())
         // var miVistaPerfil = new App.Views.Vista.Perfil({el: miSelector, model: this.model});
         // this.$(miSelector).append(miVistaPerfil.render().el);
 
         this.plantillaLogin = '<a>Hola</a>'
-        this.$(miSelector).append(this.plantillaLogin);
+        this.$(miSelector).html(this.plantillaLogin);
         //this.render();
 
     },
@@ -520,7 +521,7 @@ App.Views.Index = Backbone.View.extend({
 
         miSelector = '#divInicioSesion'
         var miVistaLogin = new App.Views.VistaLogin({el: miSelector});
-        this.$(miSelector).append(miVistaLogin.render().el);
+        //this.$(miSelector).append(miVistaLogin.render().el);
 
         miSelector = '#divCuerpoIndexParte1'
         var miVistaCuerpoIndexParte1 = new App.Views.VistaCuerpoIndexParte1({el: miSelector, model: this.model});

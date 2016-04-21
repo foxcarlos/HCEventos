@@ -36,6 +36,13 @@ def raPUT(id):
     print('Entro al PUT',id)
     model = {'model': 'Modelo'}
     return  model
+
+@bottle.delete('/restapi/<id>')
+def raDEL(id):
+    print('Entro al DEL',id)
+    model = {'model': 'Modelo'}
+    return  model
+
 # ---------------------------------------
 
 @bottle.route('/congreso')
