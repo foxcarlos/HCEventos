@@ -237,10 +237,7 @@ App.Views.VistaLogin = Backbone.View.extend({
     },
 
     perfil: function(){
-        alert('Editar');
         var miVistaPerfil = new Vista.Perfil({});
-        //this.render();
-
     },
 
     iniciarSesion: function(){

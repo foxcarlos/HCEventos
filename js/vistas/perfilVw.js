@@ -5,6 +5,8 @@ Vista.Perfil = Backbone.View.extend({
 
     plantilla: _.template( Utils.BuscarHtml('tplPerfil') ),
 
+    plantillaCambiarClave: _.template( Utils.BuscarHtml( 'tplPerfilCambiarClave' ) )
+
     initialize: function(){
         this.render();
     },
@@ -13,8 +15,8 @@ Vista.Perfil = Backbone.View.extend({
     },
 
     render: function(){
-        // this.$el.html('<a>Editar</a>');
         this.$el.html( this.plantilla() );
+        vistaCambiarClave = new  Vista.PerfilCambiarClave({el: '#plantillaCambiarClave', plantilla: plantillaCambiarClave})
     return this;
     }
 
