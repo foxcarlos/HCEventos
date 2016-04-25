@@ -4,21 +4,30 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="usuario_id">Usuario ID</label>
             <div class="col-md-4">
-                <input id="usuario_id" name="usuario_id" type="text" placeholder="Usuario ID" class="form-control input-md">
+                <!--  <input id="usuario_id" name="usuario_id" type="text" placeholder="Usuario ID" class="form-control input-md" value=<%= id_usuario%> > -->
+                <label class="col-md-4 control-label"> <%= id_usuario%> </label>
             </div>
         </div>
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="nombre_usauio">Nombre de Usuario</label>
+            <label class="col-md-4 control-label" for="nombre_usauio">Nombre de Usuario:</label>
             <div class="col-md-4">
-                <input id="nombre_usauio" name="nombre_usauio" type="text" placeholder="Nombre de Usuario" class="form-control input-md">
+                <label class="col-md-4 control-label"> <%=nombre_usuario%> </label>
+            </div>
+        </div>
+
+        <!-- Password anterior-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="password1">Contraseña Anterior</label>
+            <div class="col-md-4">
+                <input id="password0" name="password1" type="password" placeholder="Password" class="form-control input-md">
             </div>
         </div>
 
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="password1">Password</label>
+            <label class="col-md-4 control-label" for="password1">Contraseña nueva</label>
             <div class="col-md-4">
                 <input id="password1" name="password1" type="password" placeholder="Password" class="form-control input-md">
             </div>
@@ -26,33 +35,35 @@
 
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="Password2">Confirme el Password</label>
+            <label class="col-md-4 control-label" for="Password2">Confirme la Contraseña nueva</label>
             <div class="col-md-4">
                 <input id="Password2" name="Password2" type="password" placeholder="Confirme el Password" class="form-control input-md">
             </div>
         </div>
 
-        <!-- Text input-->
+        <!--
         <div class="form-group">
             <label class="col-md-4 control-label" for="codigoverificacion">Codigo de Verificacion</label>
             <div class="col-md-4">
                 <input id="codigoverificacion" name="codigoverificacion" type="text" placeholder="Codigo de Verificacion" class="form-control input-md">
             </div>
-        </div>
+            </div> -->
 
-        <!-- Button (Double) -->
+        <hr />
         <div class="form-group">
             <label class="col-md-4 control-label" for="button1id"></label>
             <div class="col-md-8">
-                <button id="button1id" name="button1id" class="btn btn-success">Salvar</button>
-                <button id="button2id" name="button2id" class="btn btn-danger">Cancelar</button>
+                <a data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-save"></i></a>
+                <!-- <a data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon
+                    glyphicon-edit"></i></a> -->
+                <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
             </div>
         </div>
 
     </fieldset>
 </form>
 
-
+<!--
 id_tipo_identidad
 tipo_identidad
 cedula_passp
@@ -96,4 +107,4 @@ id_especialidad
 profesioninstitucion
 profesiondireccion
 id_usuario
-
+-->

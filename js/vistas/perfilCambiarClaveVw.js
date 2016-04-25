@@ -1,9 +1,8 @@
 var Vista = Vista || {};
 
-Vista.Perfil = Backbone.View.extend({
-    //el: '#',
+Vista.PerfilCambiarClave = Backbone.View.extend({
 
-    //plantilla: _.template( Utils.BuscarHtml('tplPerfil') ),
+    plantilla: _.template( Utils.BuscarHtml('tplPerfilCambiarClave') ),
 
     initialize: function(){
         this.render();
@@ -13,7 +12,8 @@ Vista.Perfil = Backbone.View.extend({
     },
 
     render: function(){
-        this.$el.html( this.plantilla() );
+        this.$el.html( this.plantilla(this.model) );
+        $("#password0").focus();
     return this;
     }
 

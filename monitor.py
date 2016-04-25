@@ -80,14 +80,19 @@ def cabeceraIndex():
     return bottle.static_file("cabeceraIndex.html", root='js/templates/')
 
 @bottle.route('/tplCuerpoIndex')
-def cabeceraIndex():
+def cuerpoIndex():
     ''' '''
     return bottle.static_file("cuerpoIndex.html", root='js/templates/')
 
 @bottle.route('/tplPerfil')
-def cabeceraIndex():
+def perfilx():
     ''' '''
     return bottle.static_file("perfilNuevo.html", root='js/templates/')
+
+@bottle.route('/tplPerfilCambiarClave')
+def cambiarClave():
+    ''' '''
+    return bottle.static_file("perfilCambiarClave.html", root='js/templates/')
 
 # ------------------------------------------------------------------------------
 # Por ahira no va

@@ -237,7 +237,7 @@ App.Views.VistaLogin = Backbone.View.extend({
     },
 
     perfil: function(){
-        var miVistaPerfil = new Vista.Perfil({});
+        var miVistaPerfil = new Vista.Perfil({model: this.modelo});
     },
 
     iniciarSesion: function(){
@@ -251,10 +251,10 @@ App.Views.VistaLogin = Backbone.View.extend({
         var usuarioId = response.mensaje;
 
         if( estado ){
-            var modelo = Usuario.BuscarUsuarioId(usuarioId);
+            this.modelo = Usuario.BuscarUsuarioId(usuarioId);
             htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
             var loginOk =  _.template(htmlSesionActiva.trim());
-            this.plantillaLogin = loginOk( modelo );
+            this.plantillaLogin = loginOk( this.modelo );
             this.render();
             alert('Sesion iniciada con Exito');
         }
