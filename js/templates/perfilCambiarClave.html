@@ -1,4 +1,4 @@
-<form class="form-horizontal">
+<form id="frmCambiarClave" class="form-horizontal">
     <fieldset>
         <!-- Text input-->
         <div class="form-group">
@@ -13,7 +13,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="nombre_usauio">Nombre de Usuario:</label>
             <div class="col-md-4">
-                <label class="col-md-4 control-label"> <%=nombre_usuario%> </label>
+                <label id="nombre_usuario" class="col-md-4 control-label"> <%=nombre_usuario%> </label>
             </div>
         </div>
 
@@ -21,7 +21,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="password1">Contraseña Anterior</label>
             <div class="col-md-4">
-                <input id="password0" name="password1" type="password" placeholder="Password" class="form-control input-md">
+                <input id="password0" name="password1" type="password" placeholder="Contraseña Anterior" class="form-control input-md">
             </div>
         </div>
 
@@ -29,7 +29,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="password1">Contraseña nueva</label>
             <div class="col-md-4">
-                <input id="password1" name="password1" type="password" placeholder="Password" class="form-control input-md">
+                <input id="password1" name="password1" type="password" placeholder="Contraseña Nueva" class="form-control input-md">
             </div>
         </div>
 
@@ -37,7 +37,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="Password2">Confirme la Contraseña nueva</label>
             <div class="col-md-4">
-                <input id="Password2" name="Password2" type="password" placeholder="Confirme el Password" class="form-control input-md">
+                <input id="password2" name="password2" type="password" placeholder="Confirmar contraseña" class="form-control input-md">
             </div>
         </div>
 
@@ -53,10 +53,10 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="button1id"></label>
             <div class="col-md-8">
-                <a data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-save"></i></a>
+                <a id="btnGuardarClave" data-original-title="Guardar" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-save"></i></a>
                 <!-- <a data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon
                     glyphicon-edit"></i></a> -->
-                <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                <a id="btnCancelarGuardar" data-original-title="Cancelar" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
             </div>
         </div>
 
