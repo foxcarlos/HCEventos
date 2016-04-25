@@ -13,12 +13,19 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
         'click #btnCancelarGuardar': 'cancelarGuardar'
     },
 
+    cancelarGuardar: function(){
+        this.limpiarCampos();
+    },
+
     guardarClave: function(){
-        this.validarCamposVacios();
+        alm = this.validarCamposVacios();
+        if ( alm ){
+            alert('Todo Bien Guardar el nuevo password')
+        }
     },
 
     verificaClaveAnterior: function(){
-        var inUsuario = this.model.get('nombre_usuario');
+        var inUsuario = this.model.nombre_usuario;
         var inClave = $('#password0').val();
 
         dataEnviar = {usuario: inUsuario, clave: inClave}
@@ -30,8 +37,25 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
         if( estado ){
             return true
         }
+        else{
+            return false
+        }
 
     },
+
+    limpiarCampos: function(){
+        /*Este metodo limpiar los camposn
+        del form */
+
+        // Lista todos los elementos input del Form
+        var lista = $("#frmCambiarClave :input");
+        var longitud = lista.length;
+
+        for(var i=0; i<longitud; i++){
+            selector = '#'+lista[i].id;
+            valor = $(selector).val('');
+        }
+      },
 
     validarCampos: function(objeto){
         /* Esta funcion permite validar algunos campos del
@@ -45,8 +69,10 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
         cla2 = $('#password2').val();
 
         if( objeto == '#password0' ){
-            x = this.verificaClaveAnterior();
-            console.log(x);
+            if( !this.verificaClaveAnterior()){
+                errorCampo.estado = true;
+                errorCampo.mensaje = 'La Contraseña anterior es incorrecta'
+            }
         }
 
         if( objeto == '#password2' ){

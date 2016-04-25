@@ -94,6 +94,11 @@ def cambiarClave():
     ''' '''
     return bottle.static_file("perfilCambiarClave.html", root='js/templates/')
 
+@bottle.route('/tplVentanaModal')
+def modal():
+    ''' '''
+    return bottle.static_file("ventanaModal.html", root='js/templates/')
+
 # ------------------------------------------------------------------------------
 # Por ahira no va
 # ------------------------------------------------------------------------------

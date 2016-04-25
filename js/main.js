@@ -256,7 +256,6 @@ App.Views.VistaLogin = Backbone.View.extend({
             var loginOk =  _.template(htmlSesionActiva.trim());
             this.plantillaLogin = loginOk( this.modelo );
             this.render();
-            alert('Sesion iniciada con Exito');
         }
         else{
             alert('Clave Incorrecta');
