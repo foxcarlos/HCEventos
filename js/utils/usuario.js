@@ -16,7 +16,7 @@ Usuario = {
     },
 
     BuscarUsuarioId: function(idBuscar){
-        var modeloDatosUsuario = new App.Models.DatosUsuario({
+        var modeloDatosUsuario = new Models.DatosUsuario({
             id: idBuscar
         });
 

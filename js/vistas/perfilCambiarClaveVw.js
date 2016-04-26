@@ -18,9 +18,11 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
     },
 
     guardarClave: function(){
-        alm = this.validarCamposVacios();
-        if ( alm ){
-            alert('Todo Bien Guardar el nuevo password')
+        if ( this.validarCamposVacios() ){
+
+            var id_usuario = this.model.id_usuario;
+            var cla = $('#password1').val();
+
         }
     },
 

@@ -186,6 +186,31 @@ def getUsuario(idUsuario):
     msg = registros  # mensajeDict
     return json.dumps(msg)
 
+@bottle.put('/usuario/<idUsuario>')
+def putUsuario(idUsuario):
+    '''Metodo que permite actualizar los datos del usuario '''
+
+    msg = {"status": 0, "mensaje": ''}
+    recibido = idUsuario
+    print(recibido)
+    print(bottle.request.json)
+
+    # Consulta la Base de Datos
+    ''' buscar = sql.buscarUsuario(recibido)
+
+    if buscar['status']:
+        # Si todo salio bien, obtengo el registro que devuelve
+        registros = buscar['mensaje'][0]
+        campos = ['id', 'usuario', 'nombre', 'apellido']
+
+        mensajeDict = dict(zip(campos, registros))
+        msg = {"status": buscar['status'], "mensaje": mensajeDict}
+    else:
+        msg = buscar
+
+    msg = registros  # mensajeDict'''
+    return json.dumps(msg)
+
 @bottle.post('/crearRegistroRapido')
 def registroPost():
     '''Metodo POST que recibe informacion del FrontEnd

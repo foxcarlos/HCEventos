@@ -38,59 +38,9 @@
         }
     });
 
-    // Modelo para datos del usuario
-    App.Models.DatosUsuario = Backbone.Model.extend({
-        urlRoot: 'datosUsuario',
-
-        defaults:{
-            id_tipo_identidad: '',
-            tipo_identidad: '',
-            cedula_passp: '',
-            nombres: '',
-            apellidos: '',
-            fechanac: '',
-            id_genero_sexo: '',
-            genero_sexo: '',
-            id_nacionalidad: '',
-            nacionalidad: '',
-            id_edo_civil: '',
-            edo_civil: '',
-            id_direccion: '',
-            id_pais: '',
-            pais: '',
-            id_estado: '',
-            estado: '',
-            id_ciudad: '',
-            ciudad: '',
-            direccion: '',
-            id_inf_personal: '',
-            inf_personal_telefono_movil: '',
-            inf_personal_telefono_habitacion: '',
-            inf_personal_email: '',
-            inf_personal_twitter: '',
-            inf_personal_instagram: '',
-            id_inf_laboral: '',
-            cargo: '',
-            institucionlaboral: '',
-            direccionlaboral: '',
-            telefonolaboral: '',
-            faxlaboral: '',
-            emaillaboral: '',
-            weblaboral: '',
-            twitterlaboral: '',
-            id_inf_profesional: '',
-            id_nivelacademico: '',
-            descripcion: '',
-            id_especialidad: '',
-            profesioninstitucion: '',
-            profesiondireccion: '',
-            id_usuario: ''
-        }
-    });
-
     // Coleccion para los datos de los usuarios
     App.Collections.DatosUsuarios = Backbone.Collection.extend({
-        model: App.Models.DatosUsuario,
+        model: Models.DatosUsuario,
     });
 
     // Modelo para el regitro rapido de cuentas nuevas
@@ -143,22 +93,6 @@ miColeccion.forEach(function(modelo, index, arreglo){
 })
 •
     */
-});
-
-// Otra Prueba para generar menus:
-App.Views.VistaCabeceraMenues = Backbone.View.extend({
-    plantillaCabeceraMenues: App.Plantilla('pru'),
-
-    initialize: function(){
-    this.render();
-    },
-
-    render: function(){
-    p = this.plantillaCabeceraMenues({nombreMenu: 'hola'});
-    console.log(p);
-    this.$el.html(p);
-    return this;
-    }
 });
 
 // Vista para el menu Configurar de la cabecera:
@@ -287,7 +221,6 @@ App.Views.VistaCuerpoIndexParte1 = Backbone.View.extend({
 // Vista para el Cuerpo del Index Parte 2:
 App.Views.VistaCuerpoIndexParte2 = Backbone.View.extend({
     plantillaCuerpoIndexParte2: App.Plantilla('cuerpoIndexParte2Plantilla'),
-    plantillaModal2: App.Plantilla('modal2'),
 
     initialize: function(){
         this.render();

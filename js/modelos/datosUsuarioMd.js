@@ -1,5 +1,7 @@
-    // Modelo para datos del usuario
-    App.Models.DatosUsuario = Backbone.Model.extend({
+var Models = Models || {};
+
+// Modelo para datos del usuario
+    Models.DatosUsuario = Backbone.Model.extend({
         urlRoot: 'datosUsuario',
 
         defaults:{
