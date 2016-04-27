@@ -203,22 +203,33 @@ def getUsuario(idUsuario):
 
 @bottle.put('/usuario/<idUsuario>')
 def putUsuario(idUsuario):
-    '''Metodo que permite actualizar los datos del usuario '''
+    '''Metodo que permite cambiar la contrasena del usuario '''
 
     msg = {"status": 0, "mensaje": ''}
     recibidoParam = (bottle.request.json)
     recibidoId = idUsuario
     recibidoClave = recibidoParam['clave']
+    movil = ''
 
     # Consulta la Base de Datos
     editar = sql.editarUsuarios(recibidoId, recibidoClave)
 
     if editar['status']:
-        # Si todo salio bien, obtengo el registro que devuelve
-        print('Todo Bien')
+        # Consulta la Base de Datos para buscar el movil
+        buscar = sql.buscarUsuario(recibidoId)
+
+        if buscar['status']:
+            # Si todo salio bien, obtengo el telefono movil
+            movil = buscar['mensaje'][0]['inf_personal_teefono_movil']
+            nombre_usuario = buscar['mensaje'][0]['nombre_usuario']
+            cuerpoMensaje = '{0}: Su clave fue cambiada con exito'.format(nombre_usuario)
+            if movil:
+                # notificar.sms(cuerpoMensaje, movil)
+                pass
+
         msg = {"status": editar['status'], "mensaje": "Todo OK"}
     else:
-        print('Algo no salio bien')
+        print('Algo no salio bien al intentar cambiar la clave del usuario')
         msg = editar
     return json.dumps(msg)
 
@@ -248,8 +259,8 @@ def registroPost():
         asuntoMensaje = 'Registro realizado con Exito'
 
         # Esto Ralentiza el front end
-        #notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
-        notificar.sms(cuerpoMensaje, movil)
+        # notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
+        # notificar.sms(cuerpoMensaje, movil)
     return json.dumps(insReg)
 
 def validaRegistroIncompleto(id=''):
