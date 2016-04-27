@@ -84,6 +84,21 @@ def cuerpoIndex():
     ''' '''
     return bottle.static_file("cuerpoIndex.html", root='js/templates/')
 
+@bottle.route('/tplCuerpoIndexParte1')
+def cuerpoIndexP1():
+    ''' '''
+    return bottle.static_file("cuerpoIndexParte1.html", root='js/templates/')
+
+@bottle.route('/tplCuerpoIndexParte2')
+def cuerpoIndexP2():
+    ''' '''
+    return bottle.static_file("cuerpoIndexParte2.html", root='js/templates/')
+
+@bottle.route('/tplPiePaginaIndex')
+def piePagina():
+    ''' '''
+    return bottle.static_file("piePaginaIndex.html", root='js/templates/')
+
 @bottle.route('/tplPerfil')
 def perfilx():
     ''' '''
@@ -200,8 +215,10 @@ def putUsuario(idUsuario):
 
     if editar['status']:
         # Si todo salio bien, obtengo el registro que devuelve
+        print('Todo Bien')
         msg = {"status": editar['status'], "mensaje": "Todo OK"}
     else:
+        print('Algo no salio bien')
         msg = editar
     return json.dumps(msg)
 
@@ -232,7 +249,7 @@ def registroPost():
 
         # Esto Ralentiza el front end
         #notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
-        #notificar.sms(cuerpoMensaje, movil)
+        notificar.sms(cuerpoMensaje, movil)
     return json.dumps(insReg)
 
 def validaRegistroIncompleto(id=''):
@@ -248,4 +265,4 @@ def validaRegistroIncompleto(id=''):
     return buscar
 
 # bottle.debug(True)
-bottle.run(host='127.0.0.1', port=8086, server=GeventWebSocketServer, reloader = True)
+bottle.run(host='0.0.0.0', port=8086, server=GeventWebSocketServer, reloader = True)

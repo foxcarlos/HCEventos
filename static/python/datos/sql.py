@@ -179,18 +179,14 @@ def editarUsuarios(idUsuario, clave):
     if not posg.estado['status']:
         devuelveMsg = {'status': estado, 'mensaje': mensaje}
     else:
-        sql = "UPDATE seguridad.usuarios set clave = '{0}' where id_usuario = {1}".format(clave, idUsuario)
+        sql = "UPDATE seguridad.usuarios set clave = '{0}' where id = {1}".format(clave, idUsuario)
         posg.ejecutar(sql)
+        print(sql)
 
         # Se verifica el estado del Select SQL
         if posg.estado["status"]:
-            registros = posg.cur.fetchall()
-            print(registros[0])
-
-            if registros:
-                devuelveMsg = {'status': 1, 'mensaje': registros[0]}
-            else:
-                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+            posg.conn.commit()
+            devuelveMsg = {'status': 1, 'mensaje': 'Clave de usuario cambiada con exito'}
         else:
             # Si falla el status de la Sentencia SQL
             estado = posg.estado['status']
