@@ -191,24 +191,18 @@ def putUsuario(idUsuario):
     '''Metodo que permite actualizar los datos del usuario '''
 
     msg = {"status": 0, "mensaje": ''}
-    recibido = idUsuario
-    print(recibido)
-    print(bottle.request.json)
+    recibidoParam = (bottle.request.json)
+    recibidoId = idUsuario
+    recibidoClave = recibidoParam['clave']
 
     # Consulta la Base de Datos
-    ''' buscar = sql.buscarUsuario(recibido)
+    editar = sql.editarUsuarios(recibidoId, recibidoClave)
 
-    if buscar['status']:
+    if editar['status']:
         # Si todo salio bien, obtengo el registro que devuelve
-        registros = buscar['mensaje'][0]
-        campos = ['id', 'usuario', 'nombre', 'apellido']
-
-        mensajeDict = dict(zip(campos, registros))
-        msg = {"status": buscar['status'], "mensaje": mensajeDict}
+        msg = {"status": editar['status'], "mensaje": "Todo OK"}
     else:
-        msg = buscar
-
-    msg = registros  # mensajeDict'''
+        msg = editar
     return json.dumps(msg)
 
 @bottle.post('/crearRegistroRapido')

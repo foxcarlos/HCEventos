@@ -158,3 +158,43 @@ def buscarUsuario(idUsuario):
             devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
 
     return devuelveMsg
+
+def editarUsuarios(idUsuario, clave):
+    '''parametros:2,
+    int ID usuario,
+    string: clave.
+    Metodo que cambiar la clave del usuario'''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        sql = "UPDATE seguridad.usuarios set clave = '{0}' where id_usuario = {1}".format(clave, idUsuario)
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+            print(registros[0])
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': registros[0]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg
