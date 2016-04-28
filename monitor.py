@@ -236,6 +236,28 @@ def putUsuario(idUsuario):
         msg = editar
     return json.dumps(msg)
 
+@bottle.post('/notificar')
+def notificarFrontEnd():
+    '''Metodo que permite enviar una notificacion al usuario '''
+
+    recibidoParam = (bottle.request.json)
+    print(recibidoParam)
+    id_usuario = recibidoParam['id']
+    mensaje = recibidoParam['mensaje']
+
+    movil = ''
+    msg = {"status": 0, "mensaje": 'No se envio el Mensaje'}
+
+    # Consulta la Base de Datos para buscar el movil
+    buscar = sql.buscarUsuario(id_usuario)
+    if buscar['status']:
+        movil = buscar['mensaje'][0]['inf_personal_telefono_movil']
+        if movil:
+            notificar.sms(mensaje, movil)
+            msg = {"status": 1, "mensaje": "Se envio el mensaje con exito"}
+
+    return json.dumps(msg)
+
 @bottle.post('/crearRegistroRapido')
 def registroPost():
     '''Metodo POST que recibe informacion del FrontEnd

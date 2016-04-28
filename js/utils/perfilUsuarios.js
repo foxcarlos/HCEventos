@@ -17,11 +17,7 @@ PerfilUsuarios = {
         }).done(function(data){
             console.log(data);
             alert(data.mensaje);
-            this.NotificarSms(id_usuario)
+            Notificar.Sms(id_usuario, 'Contraseña cambiada con Exito')
         });
     },
-
-    NotificarSms: function(id_usuario){
-       // 
-    }
 }
