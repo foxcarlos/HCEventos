@@ -1,20 +1,27 @@
 PerfilUsuarios = {
+
     PerfilCambiarClave: function(id_usuario, clave){
         var seguridad_usuarios = new Models.Usuarios({id: id_usuario, clave: clave});
         self = this;
         seguridad_usuarios.save({},{
-            async: false,  // false para que pueda retornar un valor al final
-            success: function(modelo, response){
-                self.devolver = response.status;
+            /*success: function(modelo, response){
+                alert('Clave cambiada con exito');
             },
 
             error: function(jqXHR, status, errorThrown){
-                self.devolver = 1;
+                alert('No se pudo cambiar la clave, intente ,mas tarde')
                 console.log(jqXHR);
                 console.log(status);
                 console.log(errorThrown);
-            }
+            }*/
+        }).done(function(data){
+            console.log(data);
+            alert(data.mensaje);
+            this.NotificarSms(id_usuario)
         });
-        return this.devolver
+    },
+
+    NotificarSms: function(id_usuario){
+       // 
     }
 }

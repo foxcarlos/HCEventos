@@ -1,11 +1,19 @@
 import smtplib
 from email.mime.text import MIMEText
 import requests
+import json
 
 def sms(mensaje='', numero=''):
     ''' Metodo para el envio de SMS'''
 
-    requests.post("http://10.121.0.110:9091/mensaje", data = {'var1':mensaje, 'var2':numero})
+    datos = {'numero': numero, 'mensaje': mensaje}
+    url = 'http://foxcarlos.no-ip.biz/externo'
+    cabecera = {'content-type': 'application/json'}
+
+    sms = requests.post(url, data=json.dumps(datos), headers=cabecera)
+    #return sms
+
+    #requests.post("http://10.121.0.110:9091/mensaje", data = {'var1':mensaje, 'var2':numero})
 
 def enviarEmail(destinatario, mensaje, remitente='pycondor@gmail.com', \
 asunto='Sin Asunto '):
