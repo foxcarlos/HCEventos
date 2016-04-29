@@ -111,6 +111,11 @@ def cambiarClave():
     ''' '''
     return bottle.static_file("perfilCambiarClave.html", root='js/templates/')
 
+@bottle.route('/tplPerfilCambiarDatosPersonales')
+def cambiarDatosP():
+    ''' '''
+    return bottle.static_file("perfilDatosPersonales.html", root='js/templates/')
+
 @bottle.route('/tplVentanaModal')
 def modal():
     ''' '''
@@ -242,6 +247,7 @@ def notificarFrontEnd():
         if movil:
             notificar.sms(mensaje, movil)
             msg = {"status": 1, "mensaje": "Se envio el mensaje con exito"}
+            print(msg)
 
     return json.dumps(msg)
 

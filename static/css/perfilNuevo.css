@@ -3,8 +3,8 @@
 /* written by riliwan balogun http://www.facebook.com/riliwan.rabo*/
 .board{
     width: 75%;
-margin: 60px auto;
-height: 550px;
+margin: 50px auto;
+height: 760px;
 background: #fff;
 /*box-shadow: 10px 10px #ccc,-10px 20px #ddd;*/
 }
@@ -184,7 +184,7 @@ li.active:after {
 }
 .tab-pane{
    position: relative;
-padding-top: 50px;
+padding-top: 25px; /*antes estaba en 50*/
 }
 .tab-content .head{
     font-family: 'Roboto Condensed', sans-serif;

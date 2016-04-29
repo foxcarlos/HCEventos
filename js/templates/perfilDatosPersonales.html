@@ -1,0 +1,128 @@
+<div class="container">
+
+<form id="frmDatosPersonales">
+<fieldset>
+
+<!-- Tipo y Numero de Indentidad-->
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-4">
+      <label  class="control-label" for="selectbasic">Tipo Identidad</label>
+      <select id="selectbasic" name="selectbasic" class="form-control">
+        <option value="1">Cedula</option>
+        <option value="2">Pasaporte</option>
+        <option value="3">DNI</option>
+        <option value="4">Otro</option>
+      </select>
+    </div>
+    
+    <div class="col-md-8">
+      <label class="control-label" for="tipo_identidad">Numero de Identificacion</label>
+      <input id="tipo_identidad" name="tipo_identidad" type="text" placeholder="Identificacion" class="form-control input-md">
+    </div>
+  </div>
+</div>
+<!-- FIN de Tipo y Numero de Indentidad-->
+
+<!-- Nombre y Apellido-->
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-6">
+      <label class="control-label" for="nombres">Nombre</label>
+      <input id="nombres" name="nombres" type="text" placeholder="Ingrese el Nombre" class="form-control input-md">
+    </div>
+    
+    
+    <div class="col-md-6">
+      <label class="control-label" for="apellidos">Apellidos</label>
+      <input id="apellidos" name="apellidos" type="text" placeholder="Ingrese los Apellidos" class="form-control input-md">
+    </div>
+  </div>
+</div>
+<!-- FIN de Nombre y Apellido-->
+
+<!-- Fecha Nac, Genero, Nacionalidad, Edo Civil-->
+<div class="form-group">
+  <div class="row">   
+    <div class="col-md-4">
+      <label class="control-label" for="fechanac">Fecha de Naciemiento</label>
+      <input type='text'  name='fechanac' id='fechanac' placeholder='Ingrese la fecha de Nacimiento DD/MM/AAAA' class='form-control input-md'>
+    </div>
+    
+    <div class="col-md-4">
+      <label  class="control-label" for="genero_sexo">Genero</label>
+      <select id="genero_sexo" name="genero_sexo" class="form-control">
+        <option value="1">Masculino</option>
+        <option value="2">Femenino</option>
+        <option value="3">Otro</option>
+      </select>
+    </div>
+    
+    <div class="col-md-4">
+      <label  class="control-label" for="nacionalidad">Nacionalidad</label>
+      <select id="nacionalidad" name="nacionalidad" class="form-control">
+        <option value="1">Venezolano</option>
+        <option value="2">Extranjero</option>
+      </select>
+    </div>
+    
+    <div class="col-md-4">
+      <label  class="control-label" for="edo_civil">Estado Civil</label>
+      <select id="edo_civil" name="edo_civil" class="form-control">
+        <option value="1">Casado(a)</option>
+        <option value="2">Soltero(a)</option>
+        <option value="3">Divorciado(a)</option>
+        <option value="3">Viudo(a)</option>
+      </select>
+    </div>
+  </div>
+</div>
+<!-- FIN de Fecha Nac, Genero, Nacionalidad, Edo Civil-->
+
+<!-- Pais, Estado, Ciudad, Direccion-->
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-4">
+      <label  class="control-label" for="pais">Pais</label>
+      <select id="pais" name="pais" class="form-control">
+        <option value="196">Venezuela</option>
+        <option value="2">Otros</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label  class="control-label" for="estado">Estado</label>
+      <select id="estado" name="estado" class="form-control">
+        <option value="24">Zulia</option>
+        <option value="2">Otro</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label  class="control-label" for="ciudad">Ciudad</label>
+      <select id="ciudad" name="ciudad" class="form-control">
+        <option value="322">Maracaibo</option>
+        <option value="336">Otra</option>
+      </select>
+    </div>
+   </div>
+  </div>
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-12">
+      <label class="control-label" for="area">Municipio, Area o Localidad</label>
+      <input id="area" name="area" type="text" placeholder="Municipio, Area o Localidad" class="form-control input-md">    
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-12">
+      <label class="control-label" for="direccion">Direccion de Habitacion</label>
+      <textarea class="form-control" id="dierccion" name="direccion">Direccion de Habitacion</textarea>
+    </div>
+  </div>
+</div>
+<!-- Fin Direccion-->
+</fieldset>
+</form>
+</div>
