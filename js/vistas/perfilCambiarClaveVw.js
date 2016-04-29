@@ -21,9 +21,10 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
         if ( this.validarCamposVacios() ){
             var id_usuario = this.model.id_usuario;
             var clave = $('#password1').val();
+            var nombre_usuario = this.model.nombre_usuario;
 
             // Este Metodo es el que cambia la clave
-            PerfilUsuarios.PerfilCambiarClave(id_usuario, clave)
+            PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario)
             this.limpiarCampos();
 
         }

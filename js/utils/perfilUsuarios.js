@@ -1,23 +1,18 @@
 PerfilUsuarios = {
 
-    PerfilCambiarClave: function(id_usuario, clave){
-        var seguridad_usuarios = new Models.Usuarios({id: id_usuario, clave: clave});
-        self = this;
-        seguridad_usuarios.save({},{
-            /*success: function(modelo, response){
-                alert('Clave cambiada con exito');
-            },
+    PerfilCambiarClave: function(id_usuario, clave, nombre_usuario){
 
-            error: function(jqXHR, status, errorThrown){
-                alert('No se pudo cambiar la clave, intente ,mas tarde')
-                console.log(jqXHR);
-                console.log(status);
-                console.log(errorThrown);
-            }*/
+        var seguridad_usuarios = new Models.Usuarios({id: id_usuario, clave: clave});
+        seguridad_usuarios.save({},{
         }).done(function(data){
-            console.log(data);
             alert(data.mensaje);
-            Notificar.Sms(id_usuario, 'Contraseña cambiada con Exito')
+            if( data.status ){
+                mensajeEnviar = nombre_usuario + ' Su contraseña de "Eventos Hospital Coromoto" se ha cambiado con exito'
+                Notificar.Sms(id_usuario, mensajeEnviar)
+            }
         });
     },
+
+    otro: function(){
+    }
 }
