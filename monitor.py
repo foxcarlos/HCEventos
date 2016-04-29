@@ -211,24 +211,11 @@ def putUsuario(idUsuario):
     recibidoParam = (bottle.request.json)
     recibidoId = idUsuario
     recibidoClave = recibidoParam['clave']
-    movil = ''
 
     # Consulta la Base de Datos
     editar = sql.editarUsuarios(recibidoId, recibidoClave)
 
     if editar['status']:
-        # Consulta la Base de Datos para buscar el movil
-        '''buscar = sql.buscarUsuario(recibidoId)
-
-        if buscar['status']:
-            # Si todo salio bien, obtengo el telefono movil
-            movil = buscar['mensaje'][0]['inf_personal_telefono_movil']
-            nombre_usuario = buscar['mensaje'][0]['nombre_usuario']
-            cuerpoMensaje = '{0}: Su clave fue cambiada con exito'.format(nombre_usuario)
-            if movil:
-                #notificar.sms(cuerpoMensaje, movil)
-                pass'''
-
         msg = {"status": editar['status'], "mensaje": "Contraseña cambiada con exito"}
         return json.dumps(msg)
     else:
@@ -238,7 +225,7 @@ def putUsuario(idUsuario):
 
 @bottle.post('/notificar')
 def notificarFrontEnd():
-    '''Metodo que permite enviar una notificacion al usuario '''
+    '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
 
     recibidoParam = (bottle.request.json)
     print(recibidoParam)
