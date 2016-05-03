@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'FoxCarlos'
 
+
 import time
 import os
 import json
@@ -20,32 +21,38 @@ HCEventos = bottle.Bottle()
 # ---------------------------------------
 # Ejemplo CRUD
 # ---------------------------------------
+
+
 @bottle.route('/restapi/<id>')
 def raget(id):
-    print('Entro al GET',id)
+    print('Entro al GET', id)
     model = {'model': 'Modelo'}
-    return  model
+    return model
+
 
 @bottle.post('/restapi')
 def rapost():
     recibido = bottle.request.json
-    print('Entro al POST',recibido)
+    print('Entro al POST', recibido)
     model = {'model': 'Modelo'}
-    return  model
+    return model
+
 
 @bottle.put('/restapi/<id>')
 def raPUT(id):
-    print('Entro al PUT',id)
+    print('Entro al PUT', id)
     model = {'model': 'Modelo'}
-    return  model
+    return model
+
 
 @bottle.delete('/restapi/<id>')
 def raDEL(id):
-    print('Entro al DEL',id)
+    print('Entro al DEL', id)
     model = {'model': 'Modelo'}
-    return  model
+    return model
 
 # ---------------------------------------
+
 
 @bottle.route('/congreso')
 def congreso():
@@ -53,68 +60,80 @@ def congreso():
     web = "http://congresoshospitalcoromoto.blogspot.com"
     bottle.redirect(web)
 
+
 @bottle.route('/static/<filename:path>')
 def static(filename):
     return bottle.static_file(filename, root='static/')
 
 
 @bottle.route('/js/<filename:path>')
-def static(filename):
+def static2(filename):
     return bottle.static_file(filename, root='js/')
 
 # ------------------------------------------------------------------------------
 # Plantillas HTML
 # ------------------------------------------------------------------------------
 
+
 @bottle.route('/tplSesionInactiva')
 def sesionInactiva():
     ''' '''
     return bottle.static_file("sesionInactiva.html", root='js/templates/')
+
 
 @bottle.route('/tplSesionActiva')
 def sesionActiva():
     ''' '''
     return bottle.static_file("sesionActiva.html", root='js/templates/')
 
+
 @bottle.route('/tplCabeceraIndex')
 def cabeceraIndex():
     ''' '''
     return bottle.static_file("cabeceraIndex.html", root='js/templates/')
+
 
 @bottle.route('/tplCuerpoIndex')
 def cuerpoIndex():
     ''' '''
     return bottle.static_file("cuerpoIndex.html", root='js/templates/')
 
+
 @bottle.route('/tplCuerpoIndexParte1')
 def cuerpoIndexP1():
     ''' '''
     return bottle.static_file("cuerpoIndexParte1.html", root='js/templates/')
+
 
 @bottle.route('/tplCuerpoIndexParte2')
 def cuerpoIndexP2():
     ''' '''
     return bottle.static_file("cuerpoIndexParte2.html", root='js/templates/')
 
+
 @bottle.route('/tplPiePaginaIndex')
 def piePagina():
     ''' '''
     return bottle.static_file("piePaginaIndex.html", root='js/templates/')
+
 
 @bottle.route('/tplPerfil')
 def perfilx():
     ''' '''
     return bottle.static_file("perfilNuevo.html", root='js/templates/')
 
+
 @bottle.route('/tplPerfilCambiarClave')
 def cambiarClave():
     ''' '''
     return bottle.static_file("perfilCambiarClave.html", root='js/templates/')
 
+
 @bottle.route('/tplPerfilCambiarDatosPersonales')
 def cambiarDatosP():
     ''' '''
     return bottle.static_file("perfilDatosPersonales.html", root='js/templates/')
+
 
 @bottle.route('/tplVentanaModal')
 def modal():
@@ -124,27 +143,32 @@ def modal():
 # ------------------------------------------------------------------------------
 # Por ahira no va
 # ------------------------------------------------------------------------------
+
+
 @route('/cargarPlantilla/<pagename>')
 def show_wiki_page(pagename):
     print(pagename)
     return bottle.static_file(pagename, root='js/templates/')
 
+
 @bottle.route('/')
 def index():
-    #usuario = ''
-    #bottle.response.set_cookie("account", usuario)
+    # usuario = ''
+    # bottle.response.set_cookie("account", usuario)
     username = bottle.request.get_cookie("account")
 
-    #print('usuario',username)
+    # print('usuario',username)
     return bottle.static_file("index.html", root='')
+
 
 @bottle.route('/salir')
 def salir():
     usuario = ''
     bottle.response.set_cookie("account", usuario)
     username = bottle.request.get_cookie("account")
-    print('usuario',username)
+    print('usuario', username)
     return bottle.template('index')
+
 
 @bottle.route('/consultarSesion')
 def login():
@@ -155,6 +179,7 @@ def login():
     username = bottle.request.get_cookie("account")
     respuesta = {'usuario': username}
     return json.dumps(respuesta)
+
 
 @bottle.post('/iniciarSesion')
 def loginp():
@@ -185,6 +210,7 @@ def loginp():
 
     return json.dumps(msg)
 
+
 @bottle.route('/datosUsuario/<idUsuario>')
 def getUsuario(idUsuario):
     '''Metodo que permite buscar datos del usaurio para el inicio de sesion '''
@@ -208,6 +234,7 @@ def getUsuario(idUsuario):
     msg = registros  # mensajeDict
     return json.dumps(msg)
 
+
 @bottle.put('/usuario/<idUsuario>')
 def putUsuario(idUsuario):
     '''Metodo que permite cambiar la contrasena del usuario '''
@@ -228,12 +255,12 @@ def putUsuario(idUsuario):
         msg = editar
     return json.dumps(msg)
 
+
 @bottle.post('/notificar')
 def notificarFrontEnd():
     '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
 
     recibidoParam = (bottle.request.json)
-    print(recibidoParam)
     id_usuario = recibidoParam['id']
     mensaje = recibidoParam['mensaje']
 
@@ -245,11 +272,15 @@ def notificarFrontEnd():
     if buscar['status']:
         movil = buscar['mensaje'][0]['inf_personal_telefono_movil']
         if movil:
-            notificar.sms(mensaje, movil)
-            msg = {"status": 1, "mensaje": "Se envio el mensaje con exito"}
-            print(msg)
+            msg = notificar.sms(mensaje, movil)
+            if msg['status']:
+                print('Mensaje enviado con exito al numero:{0}'.format(movil))
+            else:
+                print('No fue posible emviar el mesaje al numero:{0}'.format(movil))
+            # msg devuelve: {u'status': 1} si todo sale bien
 
     return json.dumps(msg)
+
 
 @bottle.post('/crearRegistroRapido')
 def registroPost():
@@ -267,19 +298,16 @@ def registroPost():
     genero = recibido['genero']
 
     print(nombre, apellido, correo, clave, movil, fechanac, genero)
-    insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero)
+    insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero, movil)
     print(insReg)
 
     if insReg['status']:
         cuerpoMensaje = 'Saludos {0}, Registro exitoso en Eventos del Hospital Coromoto, su usuario es: {1} y su clave de acceso es: {2}'.format(nombre, correo, clave)
-        # ' Lo invitamos a concluir su registro iniciando sesion y completando los datos faltantes'.format(nombre, apellido, correo, clave)
         remitenteMensaje = ''
         asuntoMensaje = 'Registro realizado con Exito'
 
-        # Esto Ralentiza el front end
-        # notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
-        # notificar.sms(cuerpoMensaje, movil)
     return json.dumps(insReg)
+
 
 def validaRegistroIncompleto(id=''):
     ''' '''
@@ -294,4 +322,4 @@ def validaRegistroIncompleto(id=''):
     return buscar
 
 # bottle.debug(True)
-bottle.run(host='0.0.0.0', port=8086, server=GeventWebSocketServer, reloader = True)
+bottle.run(host='0.0.0.0', port=8086, server=GeventWebSocketServer, reloader=True)

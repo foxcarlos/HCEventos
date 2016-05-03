@@ -13,7 +13,7 @@ Notificar = {
         });
 
         request.done(function( msg ) {
-            // alert( msg.mensaje );
+            //alert( msg.mensaje );
         });
 
         request.fail(function( jqXHR, textStatus ) {
@@ -22,7 +22,6 @@ Notificar = {
     },
 
     Email: function(id_usuario){
-       // 
        //
     }
 }
