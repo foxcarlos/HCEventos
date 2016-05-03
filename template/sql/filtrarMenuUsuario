@@ -1,8 +1,0 @@
-﻿-- Select para filtrar las opciones de Menu de un Usuario.
-
-select *from menu where id in (
-select menu_id from seguridad.permisos AS sp 
-where 
-sp.status = 1 and 
-sp.rol_id in (
-select rol_id from seguridad.usuario_rol AS ur where ur.usuario_id = 1 and ur.status = 1)) order by orden

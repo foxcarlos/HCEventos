@@ -1,14 +1,24 @@
+# -*- coding: utf-8 -*-
+
 import smtplib
 from email.mime.text import MIMEText
 import requests
+import json
+
 
 def sms(mensaje='', numero=''):
     ''' Metodo para el envio de SMS'''
 
-    requests.post("http://10.121.0.110:9091/mensaje", data = {'var1':mensaje, 'var2':numero})
+    datos = {'numero': numero, 'mensaje': mensaje}
+    url = 'http://foxcarlos.no-ip.biz/externo'
+    cabecera = {'content-type': 'application/json'}
 
-def enviarEmail(destinatario, mensaje, remitente='pycondor@gmail.com', \
-asunto='Sin Asunto '):
+    msg = requests.post(url, data=json.dumps(datos), headers=cabecera)
+    # msg.json() Devuelve {u'status': 1} si todo sale bien
+    return msg.json()
+
+
+def enviarEmail(destinatario, mensaje, remitente='pycondor@gmail.com', asunto='Sin Asunto '):
     '''
     El metodo enviar email recibe 3 parametros:
     Destinatario:uncorreo@gmail.com
@@ -34,8 +44,7 @@ asunto='Sin Asunto '):
     mailServer.login("pycondor@gmail.com", "shc21152115")
 
     # Enviamos
-    mailServer.sendmail(remitente, destinatario, \
-    msg.as_string())
+    mailServer.sendmail(remitente, destinatario, msg.as_string())
 
     # Cerramos conexion
     mailServer.close()

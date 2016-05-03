@@ -1,0 +1,116 @@
+<form id="frmCambiarClave" class="form-horizontal">
+    <fieldset>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="usuario_id">Usuario ID</label>
+            <div class="col-md-4">
+                <!--  <input id="usuario_id" name="usuario_id" type="text" placeholder="Usuario ID" class="form-control input-md" value=<%= id_usuario%> > -->
+                <label class="col-md-4 control-label"> <%= id_usuario%> </label>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="nombre_usauio">Nombre de Usuario:</label>
+            <div class="col-md-4">
+                <label id="nombre_usuario" class="col-md-4 control-label"> <%=nombre_usuario%> </label>
+            </div>
+        </div>
+
+        <!-- Password anterior-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="password1">Contraseña Anterior</label>
+            <div class="col-md-4">
+                <input id="password0" name="password1" type="password" placeholder="Contraseña Anterior" class="form-control input-md">
+            </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="password1">Contraseña nueva</label>
+            <div class="col-md-4">
+                <input id="password1" name="password1" type="password" placeholder="Contraseña Nueva" class="form-control input-md">
+            </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="Password2">Confirme la Contraseña</label>
+            <div class="col-md-4">
+                <input id="password2" name="password2" type="password" placeholder="Confirmar contraseña" class="form-control input-md">
+            </div>
+        </div>
+
+        <!--
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="codigoverificacion">Codigo de Verificacion</label>
+            <div class="col-md-4">
+                <input id="codigoverificacion" name="codigoverificacion" type="text" placeholder="Codigo de Verificacion" class="form-control input-md">
+            </div>
+            </div> -->
+
+        <hr />
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="button1id"></label>
+            <div class="col-md-8">
+                <a id="btnGuardarClave" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</a>
+                <a id="btnCancelarGuardar" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+             </div>
+        </div>
+    </fieldset>
+</form>
+
+<!--
+id_tipo_identidad
+tipo_identidad
+cedula_passp
+
+nombres
+apellidos
+
+fechanac
+id_genero_sexo
+genero_sexo
+id_nacionalidad
+nacionalidad
+id_edo_civil
+edo_civil
+
+id_direccion
+
+id_pais
+paisc
+
+id_estado
+estado
+
+id_ciudad
+ciudad
+
+localidad_area
+direccion
+
+id_inf_personal
+inf_personal_telefono_movil
+inf_personal_telefono_habitacion
+inf_personal_email
+inf_personal_twitter
+inf_personal_instagram
+id_inf_laboral
+cargo
+institucionlaboral
+direccionlaboral
+telefonolaboral
+faxlaboral
+emaillaboral
+weblaboral
+twitterlaboral
+id_inf_profesional
+id_nivelacademico
+descripcion
+id_especialidad
+profesioninstitucion
+profesiondireccion
+id_usuario
+-->

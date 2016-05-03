@@ -1,0 +1,47 @@
+﻿-- Forma 1:
+
+select p.id, p.nombres, p.apellidos, p.contacto, 
+c1.descripcion, 
+c2.descripcion,
+c3.descripcion, 
+c4.descripcion,
+c5.descripcion, 
+c6.descripcion,
+c7.descripcion, 
+c8.descripcion,
+c9.descripcion, 
+c10.descripcion,
+c11.descripcion, 
+c12.descripcion,
+c13.descripcion, 
+c14.descripcion,
+c15.descripcion, 
+c16.descripcion,
+c17.descripcion, 
+c18.descripcion
+FROM persona p
+LEFT JOIN contacto c1 on c1.persona = p.id and c1.tipo_contacto = 1
+LEFT JOIN contacto c2 on c2.persona = p.id  and c2.tipo_contacto = 2
+LEFT JOIN contacto c3 on c3.persona = p.id and c3.tipo_contacto = 3
+LEFT JOIN contacto c4 on c4.persona = p.id  and c4.tipo_contacto = 4
+LEFT JOIN contacto c5 on c5.persona = p.id and c5.tipo_contacto = 5
+LEFT JOIN contacto c6 on c6.persona = p.id  and c6.tipo_contacto = 6
+LEFT JOIN contacto c7 on c7.persona = p.id and c7.tipo_contacto = 7
+LEFT JOIN contacto c8 on c8.persona = p.id  and c8.tipo_contacto = 8
+LEFT JOIN contacto c9 on c9.persona = p.id and c9.tipo_contacto = 9
+LEFT JOIN contacto c10 on c10.persona = p.id  and c10.tipo_contacto = 10
+LEFT JOIN contacto c11 on c11.persona = p.id and c11.tipo_contacto = 11
+LEFT JOIN contacto c12 on c12.persona = p.id  and c12.tipo_contacto = 12
+LEFT JOIN contacto c13 on c13.persona = p.id and c13.tipo_contacto = 13
+LEFT JOIN contacto c14 on c14.persona = p.id  and c14.tipo_contacto = 14
+LEFT JOIN contacto c15 on c15.persona = p.id and c15.tipo_contacto = 15
+LEFT JOIN contacto c16 on c16.persona = p.id  and c16.tipo_contacto = 16
+LEFT JOIN contacto c17 on c17.persona = p.id and c17.tipo_contacto = 17
+LEFT JOIN contacto c18 on c18.persona = p.id  and c18.tipo_contacto = 18
+
+
+-- Forma 2:
+select p.id, p.nombres, p.apellidos, p.contacto, tipos_contacto.descripcion , c.descripcion
+FROM persona p
+LEFT JOIN contacto c on c.persona = p.id 
+LEFT JOIN tipos_contacto on tipos_contacto.id = c.tipo_contacto

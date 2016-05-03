@@ -1,4 +1,7 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 __author__ = 'FoxCarlos'
+
 
 import time
 import os
@@ -11,6 +14,44 @@ from bson.objectid import ObjectId
 from os.path import join, dirname
 from bottle import route, static_file, template
 import datetime
+from static.python.libs import pgSQL
+
+HCEventos = bottle.Bottle()
+
+# ---------------------------------------
+# Ejemplo CRUD
+# ---------------------------------------
+
+
+@bottle.route('/restapi/<id>')
+def raget(id):
+    print('Entro al GET', id)
+    model = {'model': 'Modelo'}
+    return model
+
+
+@bottle.post('/restapi')
+def rapost():
+    recibido = bottle.request.json
+    print('Entro al POST', recibido)
+    model = {'model': 'Modelo'}
+    return model
+
+
+@bottle.put('/restapi/<id>')
+def raPUT(id):
+    print('Entro al PUT', id)
+    model = {'model': 'Modelo'}
+    return model
+
+
+@bottle.delete('/restapi/<id>')
+def raDEL(id):
+    print('Entro al DEL', id)
+    model = {'model': 'Modelo'}
+    return model
+
+# ---------------------------------------
 
 
 @bottle.route('/congreso')
@@ -19,107 +60,96 @@ def congreso():
     web = "http://congresoshospitalcoromoto.blogspot.com"
     bottle.redirect(web)
 
+
 @bottle.route('/static/<filename:path>')
 def static(filename):
     return bottle.static_file(filename, root='static/')
 
 
 @bottle.route('/js/<filename:path>')
-def static(filename):
+def static2(filename):
     return bottle.static_file(filename, root='js/')
 
+# ------------------------------------------------------------------------------
+# Plantillas HTML
+# ------------------------------------------------------------------------------
 
-@bottle.route('/editarRegistro')
-def editarRegistro():
-    '''Permite consultar en la base de datos si el usuario
-    que inicio sesion tiene datos en el registro
-    Devuelve un json con la siguiente esctructura:
-        un json con una lista dentro que a su vez esta lista tiene 2
-        JSON dentro, EJ:
-        {"devuelto":[{'status':0, 'mensaje':'registros devuelto con exito'}, {campos con el registro}]}
-    '''
 
-    username = bottle.request.get_cookie("account").upper()
-    dicc = {}
-    diccionario = {}
+@bottle.route('/tplSesionInactiva')
+def sesionInactiva():
+    ''' '''
+    return bottle.static_file("sesionInactiva.html", root='js/templates/')
 
-    posg = pg()
-    posg.conectar()
-    print(posg.estado)
 
-    if posg.estado["status"]:
-        sql = "select id from usuario where upper(usuario) = '{0}'".format(username)
-        posg.ejecutar(sql)
+@bottle.route('/tplSesionActiva')
+def sesionActiva():
+    ''' '''
+    return bottle.static_file("sesionActiva.html", root='js/templates/')
 
-        if posg.estado["status"]:
-            registros = posg.cur.fetchall()
-            if registros:
-                idUsuario = registros[0][0]
-                sqlSelectVista = "select *from vdatospersona where usuario = {0}".format(idUsuario)
-                posg.ejecutar(sqlSelectVista)
 
-                vista = posg.cur.fetchall()
+@bottle.route('/tplCabeceraIndex')
+def cabeceraIndex():
+    ''' '''
+    return bottle.static_file("cabeceraIndex.html", root='js/templates/')
 
-                if vista:
-                    cabecera = [col[0] for col in posg.cur.description]
-                    dicc = dict(zip(cabecera, vista[0]))
-                    diccionario = {'status':1, 'mensaje':'OK', 'valores':dicc}
-                else:
-                    msgError = "El usaurio:{0}, no tiene registros en la vista 'vdatospersona'".format(username)
-                    diccionario = {'status':0, 'mensaje':msgError, 'valores':dicc}
-            else:
-                msgError = 'El usuario:{0} no tiene registros en la tabla "usuario"'.format(username)
-                diccionario = {'status':0, 'mensaje':msgError, 'valores':{}}
-    else:
-        msgError = posg.estado["mensaje"]
-        print(type(msgError))
-        diccionario = {'status':0, 'mensaje':msgError, 'valores': {}}
-        print(diccionario)
 
-    return json.dumps(diccionario)
+@bottle.route('/tplCuerpoIndex')
+def cuerpoIndex():
+    ''' '''
+    return bottle.static_file("cuerpoIndex.html", root='js/templates/')
 
-@bottle.route('/cargarRegistro')
-def registro():
 
-    return bottle.template('registro.html')
+@bottle.route('/tplCuerpoIndexParte1')
+def cuerpoIndexP1():
+    ''' '''
+    return bottle.static_file("cuerpoIndexParte1.html", root='js/templates/')
 
-@bottle.route('/cargarJumbotron')
-def jumbotron():
-    return bottle.template('index')
 
-@bottle.route('/cargarMenuOtro')
-def menuPrincipal():
-    return bottle.template('menuOtro.html')
+@bottle.route('/tplCuerpoIndexParte2')
+def cuerpoIndexP2():
+    ''' '''
+    return bottle.static_file("cuerpoIndexParte2.html", root='js/templates/')
 
-@bottle.route('/cargarPiePagina')
+
+@bottle.route('/tplPiePaginaIndex')
 def piePagina():
-    return bottle.template('piePaginaPrincipal.html')
+    ''' '''
+    return bottle.static_file("piePaginaIndex.html", root='js/templates/')
 
-@bottle.route('/cargarInicioSesion')
-def inicioSesion():
-    '''Este metodo se ejecuta cuando se inicia
-    el index y no se consigue ningun usuario en la cookie
-    qquw haya iniciado sesion, entonces procede a cargar
-    mediante un load de jquery el form para que pueda
-    iniciar sesion'''
-    # nota: mas adelante de  hara en un solo metodo
 
-    # username = bottle.request.get_cookie("account")
-    return bottle.template('frmInicioSesion.html')
+@bottle.route('/tplPerfil')
+def perfilx():
+    ''' '''
+    return bottle.static_file("perfilNuevo.html", root='js/templates/')
 
-@bottle.route('/cargarCerrarSesion')
-def cerrarSesion():
-    username = bottle.request.get_cookie("account")
 
-    return bottle.template('cerrarSesion.html', {'usuario':username})
+@bottle.route('/tplPerfilCambiarClave')
+def cambiarClave():
+    ''' '''
+    return bottle.static_file("perfilCambiarClave.html", root='js/templates/')
 
-@bottle.route('/salir')
-def salir():
-    usuario = ''
-    bottle.response.set_cookie("account", usuario)
-    username = bottle.request.get_cookie("account")
-    print('usuario',username)
-    return bottle.template('index')
+
+@bottle.route('/tplPerfilCambiarDatosPersonales')
+def cambiarDatosP():
+    ''' '''
+    return bottle.static_file("perfilDatosPersonales.html", root='js/templates/')
+
+
+@bottle.route('/tplVentanaModal')
+def modal():
+    ''' '''
+    return bottle.static_file("ventanaModal.html", root='js/templates/')
+
+# ------------------------------------------------------------------------------
+# Por ahira no va
+# ------------------------------------------------------------------------------
+
+
+@route('/cargarPlantilla/<pagename>')
+def show_wiki_page(pagename):
+    print(pagename)
+    return bottle.static_file(pagename, root='js/templates/')
+
 
 @bottle.route('/')
 def index():
@@ -128,211 +158,129 @@ def index():
     username = bottle.request.get_cookie("account")
 
     # print('usuario',username)
-    #return bottle.template('index', {'usuario':username})
     return bottle.static_file("index.html", root='')
 
-@bottle.route('/login')
+
+@bottle.route('/salir')
+def salir():
+    usuario = ''
+    bottle.response.set_cookie("account", usuario)
+    username = bottle.request.get_cookie("account")
+    print('usuario', username)
+    return bottle.template('index')
+
+
+@bottle.route('/consultarSesion')
 def login():
+    '''API REST que permite obtener la cookie
+    del usuario que tiene la sesion activa
+    actualmente'''
 
     username = bottle.request.get_cookie("account")
-    print('El usuario es:',username)
-    return bottle.template('login')
+    respuesta = {'usuario': username}
+    return json.dumps(respuesta)
 
-@bottle.post('/login')
+
+@bottle.post('/iniciarSesion')
 def loginp():
     ''' Metodo para el inicio de Sesion'''
 
     usuario = ''
     clave = ''
-    idUsuario = False
+    msg = {"status": 0, "mensaje": ''}
 
-    usuario = bottle.request.forms.get('txtEmail')
-    clave = bottle.request.forms.get('txtClave')
+    recibido = bottle.request.json
 
-    acceso, idUsuario = validaLogin(usuario, clave)
+    usuario = recibido['usuario']
+    clave = recibido['clave']
 
-    if acceso:
+    # Consulta la Base de Datos
+    acceso = sql.validaLogin(usuario, clave)
+    print(acceso)
+
+    if acceso['status']:
         # Verifica si el usuario tiene datos del registro incompleto
         # incompleto = validaRegistroIncompleto(int(idUsuario[0][0]))
 
-        msg = 'Sesion iniciada con exito'
-        stat = 1
+        bottle.response.set_cookie("account", usuario)
+        msg = acceso
     else:
-        stat = 0
-        msg = 'El usuario o la clave es invalida'
-    return json.dumps({'status':stat, 'mensaje':msg})
+        bottle.response.set_cookie("account", '')
+        msg = acceso
 
-@bottle.route('/ciudad/:idEstado')
-def ciudad(idEstado=0):
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
+    return json.dumps(msg)
 
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
+
+@bottle.route('/datosUsuario/<idUsuario>')
+def getUsuario(idUsuario):
+    '''Metodo que permite buscar datos del usaurio para el inicio de sesion '''
+
+    msg = {"status": 0, "mensaje": ''}
+    recibido = idUsuario
+
+    # Consulta la Base de Datos
+    buscar = sql.buscarUsuario(recibido)
+
+    if buscar['status']:
+        # Si todo salio bien, obtengo el registro que devuelve
+        registros = buscar['mensaje'][0]
+        campos = ['id', 'usuario', 'nombre', 'apellido']
+
+        mensajeDict = dict(zip(campos, registros))
+        msg = {"status": buscar['status'], "mensaje": mensajeDict}
     else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.ciudad where id_estado='{0}' order by descripcion".format(idEstado)
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
+        msg = buscar
 
-@bottle.route('/menu/:id')
-def estado(id=0):
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
+    msg = registros  # mensajeDict
+    return json.dumps(msg)
 
-    if not clasePG.estado['status']:
-        print('error')
-        pass  # por ahora no se enviara nimgun mensaje de error
+
+@bottle.put('/usuario/<idUsuario>')
+def putUsuario(idUsuario):
+    '''Metodo que permite cambiar la contrasena del usuario '''
+
+    msg = {"status": 0, "mensaje": ''}
+    recibidoParam = (bottle.request.json)
+    recibidoId = idUsuario
+    recibidoClave = recibidoParam['clave']
+
+    # Consulta la Base de Datos
+    editar = sql.editarUsuarios(recibidoId, recibidoClave)
+
+    if editar['status']:
+        msg = {"status": editar['status'], "mensaje": "Contraseña cambiada con exito"}
+        return json.dumps(msg)
     else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = '''select id, orden,nombre,depende_menu_id from menu where id in (
-                select menu_id from seguridad.permisos AS sp
-                where
-                sp.status = 1 and
-                sp.rol_id in (
-                    select rol_id from seguridad.usuario_rol AS ur where ur.usuario_id = {0} and ur.status = 1)) order by orden
-        '''.format(id)
+        print('Algo no salio bien al intentar cambiar la clave del usuario')
+        msg = editar
+    return json.dumps(msg)
 
 
-        # sqlVerificaDatos = "select id, descripcion from referencias.estado where id_pais='{0}' order by descripcion".format(id)
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'orden':i[1], 'nombre':i[2], 'depende_menu_id':i[3]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
+@bottle.post('/notificar')
+def notificarFrontEnd():
+    '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
 
-@bottle.route('/estado/:id')
-def estado(id=0):
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
+    recibidoParam = (bottle.request.json)
+    id_usuario = recibidoParam['id']
+    mensaje = recibidoParam['mensaje']
 
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.estado where id_pais='{0}' order by descripcion".format(id)
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
+    movil = ''
+    msg = {"status": 0, "mensaje": 'No se envio el Mensaje'}
 
-@bottle.route('/especialidad')
-def especialidad():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
+    # Consulta la Base de Datos para buscar el movil
+    buscar = sql.buscarUsuario(id_usuario)
+    if buscar['status']:
+        movil = buscar['mensaje'][0]['inf_personal_telefono_movil']
+        if movil:
+            msg = notificar.sms(mensaje, movil)
+            if msg['status']:
+                print('Mensaje enviado con exito al numero:{0}'.format(movil))
+            else:
+                print('No fue posible emviar el mesaje al numero:{0}'.format(movil))
+            # msg devuelve: {u'status': 1} si todo sale bien
 
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.especialidad "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
+    return json.dumps(msg)
 
-@bottle.route('/nivelacademico')
-def profesion():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.nivelacademico "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/pais')
-def pais():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.pais "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/edoCivil')
-def edoCivil():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.edo_civil "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/nacionalidad')
-def nacionalidad():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.nacionalidad "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
-
-@bottle.route('/genero')
-def genero():
-    clasePG = pg()
-    clasePG.conectar()
-    List2Dict = {}
-
-    if not clasePG.estado['status']:
-        pass  # por ahora no se enviara nimgun mensaje de error
-    else:
-        # Verifica los datos en a tabla persona para el ID pasado como parametro
-        sqlVerificaDatos = "select id, descripcion from referencias.genero_sexo "
-        clasePG.ejecutar(sqlVerificaDatos)
-        if clasePG.estado['status']:
-            buscar = clasePG.cur.fetchall()
-            de_Lista_a_Diccionario = [{'id':i[0], 'descripcion':i[1]} for i in buscar]
-            List2Dict = de_Lista_a_Diccionario
-    return json.dumps(List2Dict)
 
 @bottle.post('/crearRegistroRapido')
 def registroPost():
@@ -350,35 +298,16 @@ def registroPost():
     genero = recibido['genero']
 
     print(nombre, apellido, correo, clave, movil, fechanac, genero)
-    insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero)
+    insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero, movil)
     print(insReg)
 
     if insReg['status']:
         cuerpoMensaje = 'Saludos {0}, Registro exitoso en Eventos del Hospital Coromoto, su usuario es: {1} y su clave de acceso es: {2}'.format(nombre, correo, clave)
-        # ' Lo invitamos a concluir su registro iniciando sesion y completando los datos faltantes'.format(nombre, apellido, correo, clave)
         remitenteMensaje = ''
         asuntoMensaje = 'Registro realizado con Exito'
 
-        # notificar.enviarEmail(correo, cuerpoMensaje, remitenteMensaje, asuntoMensaje)
-        notificar.sms(cuerpoMensaje, movil)
-
-    # Se envian los datos a guardar en PostGres y devuelve una tupla
-    # (numerico,cadena) donde 0 indica que hubo un error y uno que
-    # se ejecuto satisfatoriamente y otro elemento con el mensaje
-    # bien sea giardado con exito o usuario ya existe
-
-    # Tabla Usuarios guardar los campos:
-    # login, clave
-
-    # De la tabla personas guadar los campos:
-    # nombres, apellidos, fechanac, genero_sexo
-
-    # De l tabla personas es necesario agregarle el campo relacion con
-    # la tabla usuarios
-
-    # De la tabla usuario es necesario elminar el campo persona_id
-
     return json.dumps(insReg)
+
 
 def validaRegistroIncompleto(id=''):
     ''' '''
@@ -392,65 +321,5 @@ def validaRegistroIncompleto(id=''):
     print(buscar)
     return buscar
 
-
-@bottle.get('/grid')
-def grid():
-    # Busca en mongodb el objetoId del usuario que inicio sesion
-    usuario = bottle.request.get_cookie("account")
-    objetoUsuarioId = buscarUsuarioId(usuario)
-
-    appBuscar = consultaM()
-    appBuscar.abrirColeccion('contactos')
-
-    camposMostrar = ('_id', 'nombre', 'apellido')
-    condicion = {'usuario_id':objetoUsuarioId}
-    ordenadoPor = 'nombre'
-
-    # appBuscar realiza la consulta y devuelve una lista con diccionarios por cada registro
-
-    doc = appBuscar.consulta(camposMostrar, condicion, ordenadoPor)
-    listaFinal = [f.values() for f in doc]
-
-    return bottle.template('grid1', {'grid':listaFinal, 'cabecera':camposMostrar})
-
-"""
-@bottle.route('/mensaje')
-def mensaje():
-    return '''
-        <form action="/mensaje" method="post"'>
-            Numero: <input name="numero" type="text" />
-            Mensaje: <input name="mensaje" type="text" />
-            <input value="Enviar Sms" type="submit" />
-        </form>
-    '''
-"""
-
-@route('/my_ip')
-def show_ip():
-    ip = bottle.request.environ.get('REMOTE_ADDR')
-    # or ip = request.get('REMOTE_ADDR')
-    # or ip = request['REMOTE_ADDR']
-    print(ip)
-    return template("Your IP is: {{ip}}", ip=ip)
-
-def validaSms(num, msg):
-    devuelve = True
-    if not num:
-        devuelve = False
-    elif not msg:
-        devuelve = False
-    elif len(num) !=11:
-        devuelve = False
-    elif num[:4] not in ['0426', '0416', '0414', '0424', '0412']:
-        devuelve = False
-
-    # Esta Opcion es temporal para poder enviar yo Mensajes Internacionales
-    usuario = bottle.request.get_cookie("account")
-    if usuario == 'foxcarlos':
-        devuelve = True
-
-    return devuelve
-
-
 # bottle.debug(True)
-bottle.run(host='0.0.0.0', port=8086, server=GeventWebSocketServer, reloader = True)
+bottle.run(host='0.0.0.0', port=8086, server=GeventWebSocketServer, reloader=True)
