@@ -9,15 +9,15 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
     },
 
     events:{
-        'click #btnGuardarClave': 'guardarClave',
-        'click #btnCancelarGuardar': 'cancelarGuardar'
+        'click #btnGuardarDatosP': 'guardarDatosP',
+        'click #btnCancelarDatosP': 'cancelarDatosP'
     },
 
-    cancelarGuardar: function(){
+    cancelarDatosP: function(){
         this.limpiarCampos();
     },
 
-    guardarClave: function(){
+    guardarDatosP: function(){
         if ( this.validarCamposVacios() ){
             var id_usuario = this.model.id_usuario;
             var clave = $('#password1').val();

@@ -149,7 +149,9 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
                         alert(response.mensaje);
                         self.limpiarCampos();
 
-                        mensajeEnviar = nombre_usuario + ' Se ha registrado con exito en la plataforma de Eventos del Hospital Coromoto, su usuario es:xx y su contraseña es:xx'
+                        alert( mo.get('nombre') )
+
+                        mensajeEnviar = mo.get('nombre') + ' Te has registrado con exito en la plataforma de Eventos del Hospital Coromoto, su usuario es:xx y su contraseña es:xx'
                         Notificar.Sms(response.id_usuario, mensajeEnviar)
                     }
                 },

@@ -77,6 +77,18 @@ def crearRegRapido(nombre='', apellido='', correo='', clave='', fechanac='', gen
                         else:
                             posg.conn.commit()
                             devuelveMsg = {'status': 1, 'id_usuario': idUsuario ,'mensaje': 'Usuario registrado con exito, ahora puede iniciar sesion'}
+                    # Se obtiene el Id unico que se genero automaticamente en PGSQL
+                    obtenerPersonaID = "SELECT currval(pg_get_serial_sequence('persona','id'))"
+                    posg.ejecutar(obtenerPersonaID)
+
+                    # Si falla al obntener el ID Unico
+                    if not posg.estado['status']:
+                        devuelveMsg = posg.estado
+                    else:
+                        idPersonaDevuelto = posg.cur.fetchall()
+                        idPersona = idPersonaDevuelto[0][0]
+                        # Insertamos el correo y el telefmo en la tabla inf_personal
+
     return devuelveMsg
 
 def validaLogin(usuario='', clave=''):
