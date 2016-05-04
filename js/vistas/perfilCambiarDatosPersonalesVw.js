@@ -30,31 +30,12 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         }
     },
 
-    verificaClaveAnterior: function(){
-        var inUsuario = this.model.nombre_usuario;
-        var inClave = $('#password0').val();
-
-        dataEnviar = {usuario: inUsuario, clave: inClave}
-        response = Usuario.IniciarSesion(dataEnviar)
-
-        var estado = response.status;
-        var usuarioId = response.mensaje;
-
-        if( estado ){
-            return true
-        }
-        else{
-            return false
-        }
-
-    },
-
     limpiarCampos: function(){
         /*Este metodo limpiar los camposn
         del form */
 
         // Lista todos los elementos input del Form
-        var lista = $("#frmCambiarClave :input");
+        var lista = $("#frmDatosPersonales :input");
         var longitud = lista.length;
 
         for(var i=0; i<longitud; i++){
@@ -101,7 +82,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         var errorCampo = {estado: false, mensaje: ''}
 
         // Lista todos los elementos input del Form
-        var lista = $("#frmCambiarClave :input");
+        var lista = $("#frmDatosPersonales :input");
         var longitud = lista.length;
 
         for(var i=0; i<longitud; i++){

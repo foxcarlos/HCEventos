@@ -256,6 +256,27 @@ def putUsuario(idUsuario):
     return json.dumps(msg)
 
 
+@bottle.get('/usuario/tipo_identidad')
+def GetTipoIdentidad():
+    '''Metodo que permite Buscar todos los registros de la tabla tipo_identidad '''
+
+    msg = {"status": 0, "mensaje": ''}
+    recibidoParam = (bottle.request.json)
+    recibidoId = idUsuario
+    recibidoClave = recibidoParam['clave']
+
+    # Consulta la Base de Datos
+    editar = sql.editarUsuarios(recibidoId, recibidoClave)
+
+    if editar['status']:
+        msg = {"status": editar['status'], "mensaje": "Contraseña cambiada con exito"}
+        return json.dumps(msg)
+    else:
+        print('Algo no salio bien al intentar cambiar la clave del usuario')
+        msg = editar
+    return json.dumps(msg)
+
+
 @bottle.post('/notificar')
 def notificarFrontEnd():
     '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
