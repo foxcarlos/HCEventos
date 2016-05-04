@@ -18,7 +18,7 @@ background: #fff;
 }
 
 .board > div.board-inner{
-    background: #fafafa url(http://subtlepatterns.com/patterns/geometry2.png);
+    background: #fafafa url(../img/geometry2.png) /*url(http://subtlepatterns.com/patterns/geometry2.png)*/;
     background-size: 30%;
     border-bottom: 1px solid #DDD;
 }
