@@ -259,6 +259,19 @@ def putUsuario(idUsuario):
 @bottle.get('/usuario/tipo_identidad')
 def GetTipoIdentidad():
     '''Metodo que permite Buscar todos los registros de la tabla tipo_identidad '''
+'''SELECT row_to_json(tipo_identidad) FROM referencias.tipo_identidad
+
+SELECT row_to_json(genero_sexo) FROM referencias.genero_sexo
+
+SELECT row_to_json(nacionalidad) FROM referencias.nacionalidad
+
+SELECT row_to_json(edo_civil) FROM referencias.edo_civil
+
+SELECT row_to_json(pais) FROM referencias.pais
+
+SELECT row_to_json(estado) FROM referencias.estado
+
+SELECT row_to_json(ciudad) FROM referencias.ciudad'''
 
     msg = {"status": 0, "mensaje": ''}
     recibidoParam = (bottle.request.json)
