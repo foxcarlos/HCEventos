@@ -17,7 +17,7 @@ Notificar = {
         });
 
         request.fail(function( jqXHR, textStatus ) {
-            // alert( "Peticion SMS fallo: " + textStatus );
+            alert( "Peticion SMS fallo: " + textStatus );
         });
     },
 
