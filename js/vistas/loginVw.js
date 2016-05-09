@@ -56,12 +56,7 @@ Vista.Login = Backbone.View.extend({
             this.render();
         }
         else{
-            var modelo = new Models.okModalMd();
-            modelo.set('titulo', 'Atencion ...');
-            modelo.set('cuerpo1', 'Clave Incorrecta');
-            modelo.set('cuerpo2', 'Intente de nuevo');
-            var vmodal = new Vista.OkModal({model: modelo});
-            $("#okModal").modal('show');
+            Notificar.modalOk('Atencion ...', 'Contraseña incorrecta', '#modal-danger');
         }
     },
 

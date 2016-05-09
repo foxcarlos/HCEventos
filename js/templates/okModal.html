@@ -1,23 +1,70 @@
-<!-- Modal HTML -->
-<div id="okModal" class="modal fade">
-    <div class="container">
+<!--Success Modal Templates-->
+    <div id="modal-success" class="modal modal-message modal-success fade" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title"><%= titulo %></h4>
+                    <i class="glyphicon glyphicon-check"></i>
                 </div>
-
-                <div class="modal-body">
-                    <p><h3><%= cuerpo1%></p></h3>
-                    <p class="text-warning">
-                    <h4><%= cuerpo2%></h4>
-                    </p>
-                </div>
+                <div class="modal-title"><%= titulo%></div>
+                <div class="modal-body"><%= cuerpo1 %></div>
                 <div class="modal-footer">
-                    <button id ="btnModalOk" type="button" class="btn btn-primary" data-dismiss="modal" >Ok</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
                 </div>
-            </div>
-        </div>
+            </div> <!-- / .modal-content -->
+        </div> <!-- / .modal-dialog -->
     </div>
-</div>
+    <!--End Success Modal Templates-->
+
+    <!--Info Modal Templates-->
+    <div id="modal-info" class="modal modal-message modal-info fade" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </div>
+                <div class="modal-title"><%= titulo%></div>
+
+                <div class="modal-body"><%= cuerpo1%></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+                </div>
+            </div> <!-- / .modal-content -->
+        </div> <!-- / .modal-dialog -->
+    </div>
+    <!--End Info Modal Templates-->
+
+    <!--Danger Modal Templates-->
+    <div id="modal-danger" class="modal modal-message modal-danger fade" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="glyphicon glyphicon-fire"></i>
+                </div>
+                <div class="modal-title"><%= titulo %></div>
+
+                <div class="modal-body"><%= cuerpo1%></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                </div>
+            </div> <!-- / .modal-content -->
+        </div> <!-- / .modal-dialog -->
+    </div>
+    <!--End Danger Modal Templates-->
+
+    <!--Danger Modal Templates-->
+    <div id="modal-warning" class="modal modal-message modal-warning fade" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="glyphicon glyphicon-warning-sign"></i>
+                </div>
+                <div class="modal-title"><%= titulo%></div>
+
+                <div class="modal-body"><%= cuerpo1%></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+                </div>
+            </div> <!-- / .modal-content -->
+        </div> <!-- / .modal-dialog -->
+    </div>
+    <!--End Danger Modal Templates-->

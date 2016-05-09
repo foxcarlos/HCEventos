@@ -23,5 +23,17 @@ Notificar = {
 
     Email: function(id_usuario){
        //
+    },
+
+    modalOk: function(titulo, cuerpo, tipoMsg){
+        var modelo = new Models.okModalMd();
+        modelo.set('titulo', titulo);
+        modelo.set('cuerpo1', cuerpo);
+
+        var vmodal = new Vista.OkModal({model: modelo});
+        $(tipoMsg).modal({
+            backdrop: 'static'
+        });
+
     }
 }
