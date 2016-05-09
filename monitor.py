@@ -135,10 +135,10 @@ def cambiarDatosP():
     return bottle.static_file("perfilDatosPersonales.html", root='js/templates/')
 
 
-@bottle.route('/tplVentanaModal')
+@bottle.route('/tplOkModal')
 def modal():
     ''' '''
-    return bottle.static_file("ventanaModal.html", root='js/templates/')
+    return bottle.static_file("okModal.html", root='js/templates/')
 
 # ------------------------------------------------------------------------------
 # Por ahira no va
