@@ -7,6 +7,8 @@ Vista.Login = Backbone.View.extend({
          si el usuario tiene una sesion abierta, dependiendo de esto
          muestra una plantilla HTML */
 
+        console.log('entro ' + usuario)
+
         if( !usuario ){
             htmlSesionInactiva = Utils.BuscarHtml('tplSesionInactiva');
             this.plantillaLogin = htmlSesionInactiva;
@@ -18,8 +20,10 @@ Vista.Login = Backbone.View.extend({
     },
 
     initialize: function(){
+        self = this;
         $.getJSON('consultarSesion', function(respuesta){
-            this.user = respuesta.usuario;
+            self.user = respuesta.usuario;
+            console.log(self.user)
         });
         this.verificaSesion(this.user);
     },
