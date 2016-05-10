@@ -3,7 +3,7 @@ var Vista = Vista || {};
 
 Vista.ComboBox = Backbone.View.extend({
 
-    plantilla: _.template( Utils.BuscarHtml('tplPerfil') ),
+    plantilla: _.template( Utils.BuscarHtml('tplNoCreadoAun') ),
 
     initialize: function(){
         this.render();

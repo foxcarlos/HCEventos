@@ -8,6 +8,7 @@ import bottle
 from bottle.ext.websocket import GeventWebSocketServer
 from static.python.datos import sql
 from static.python.notificar import notificar
+import time
 
 # ---------------------------------------
 # Ejemplo CRUD
@@ -150,8 +151,7 @@ def index():
 def salir():
     usuario = ''
     bottle.response.set_cookie("account", usuario)
-    username = bottle.request.get_cookie("account")
-    print('usuario', username)
+    # username = bottle.request.get_cookie("account")
     return bottle.template('index')
 
 
@@ -163,7 +163,9 @@ def login():
 
     username = bottle.request.get_cookie("account")
     respuesta = {'usuario': username}
+    print('##########################################################')
     print('consultar sesion devuelve la cookie {0}'.format(respuesta))
+    print('##########################################################')
     return json.dumps(respuesta)
 
 
@@ -182,7 +184,10 @@ def loginp():
 
     # Consulta la Base de Datos
     acceso = sql.validaLogin(usuario, clave)
-    print(acceso)
+
+    print('##########################################################')
+    print('Lo que devuelve /iniciarSesion', acceso)
+    print('##########################################################')
 
     if acceso['status']:
         # Verifica si el usuario tiene datos del registro incompleto
@@ -190,7 +195,7 @@ def loginp():
 
         # Lo que devuelev eel metodo validaLogin()
         IdUsuario = acceso['mensaje']
-        bottle.response.set_cookie("account", str(IdUsuario))
+        bottle.response.set_cookie("account", str(IdUsuario), expires=(int(time.time()) + 3600))
         msg = acceso
     else:
         bottle.response.set_cookie("account", '')
@@ -262,18 +267,17 @@ def GetTipoIdentidad():
     SELECT row_to_json(ciudad) FROM referencias.ciudad'''
 
     msg = {"status": 0, "mensaje": ''}
-    recibidoParam = (bottle.request.json)
-    recibidoId = idUsuario
-    recibidoClave = recibidoParam['clave']
 
     # Consulta la Base de Datos
-    editar = sql.editarUsuarios(recibidoId, recibidoClave)
+    editar = sql.tipo_identidad_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.tipo_identidad_listar()', editar)
+    print('###################################################################################')
 
     if editar['status']:
-        msg = {"status": editar['status'], "mensaje": "Contraseña cambiada con exito"}
+        msg = {"status": editar['status'], "mensaje": editar['mensaje']}
         return json.dumps(msg)
     else:
-        print('Algo no salio bien al intentar cambiar la clave del usuario')
         msg = editar
     return json.dumps(msg)
 
@@ -321,7 +325,10 @@ def registroPost():
 
     print(nombre, apellido, correo, clave, movil, fechanac, genero)
     insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero, movil)
-    print(insReg)
+
+    print('####################################################')
+    print('Lo que develve el insert de /crearRegistroRapido', insReg)
+    print('####################################################')
 
     if insReg['status']:
         cuerpoMensaje = 'Saludos {0}, Registro exitoso en Eventos del Hospital Coromoto, su usuario es: {1} y su clave de acceso es: {2}'.format(nombre, correo, clave)
@@ -338,7 +345,9 @@ def validaRegistroIncompleto(id=''):
 
     # Verifica los datos en a tabla persona para el ID pasado como parametro
     sqlVerificaDatos = "select *from persona where usuario = '{0}'".format(idUsuario)
-    print(sqlVerificaDatos)
+    print('##########################################################')
+    print('Validar registro incompleto', sqlVerificaDatos)
+    print('##########################################################')
     buscar = clasePG.ejecutar(sqlVerificaDatos)
     print(buscar)
     return buscar

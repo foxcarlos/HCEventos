@@ -96,7 +96,6 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
                 if( errorCampoDevuelto.estado ){
                     todoBien = false
                     Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-info');
-                    // alert( errorCampoDevuelto.mensaje );
                     $(selector).focus();
                     break
                 }
@@ -105,7 +104,6 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
             if(!valor.trim()){
                 todoBien = false;
                 Notificar.modalOk('Atencion ...', 'Campo vacio' + descripcion, '#modal-info');
-                // alert('Campo vacio: '+ descripcion);
                 $(selector).focus();
                 break
             }
