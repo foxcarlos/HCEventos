@@ -15,6 +15,14 @@ Usuario = {
         return this.a
     },
 
+    CerrarSesion: function(){
+        self = this;
+        $.ajax({
+            url:'salir',
+            type:"GET",
+        })
+    },
+
     BuscarUsuarioId: function(idBuscar){
         var modeloDatosUsuario = new Models.DatosUsuario({
             id: idBuscar

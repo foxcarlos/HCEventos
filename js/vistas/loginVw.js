@@ -7,15 +7,19 @@ Vista.Login = Backbone.View.extend({
          si el usuario tiene una sesion abierta, dependiendo de esto
          muestra una plantilla HTML */
 
-        console.log('entro ' + usuario)
+        var usuarioId = this.user;
 
-        if( !usuario ){
+        if( !usuarioId ){
             htmlSesionInactiva = Utils.BuscarHtml('tplSesionInactiva');
             this.plantillaLogin = htmlSesionInactiva;
             this.render();
         }
         else{
-            self.plantillaLogin = '<a>sesionActiva</a>';
+            this.modelo = Usuario.BuscarUsuarioId(usuarioId);
+            htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
+            var loginOk =  _.template(htmlSesionActiva.trim());
+            this.plantillaLogin = loginOk( this.modelo );
+            this.render();
         }
     },
 
@@ -23,9 +27,9 @@ Vista.Login = Backbone.View.extend({
         self = this;
         $.getJSON('consultarSesion', function(respuesta){
             self.user = respuesta.usuario;
-            console.log(self.user)
+            console.log('entro al getJSON()'+self.user);
+            self.verificaSesion(this.user);
         });
-        this.verificaSesion(this.user);
     },
 
     events:{
@@ -35,11 +39,18 @@ Vista.Login = Backbone.View.extend({
 
         'click #registrate': 'registrarNuevo',
 
-        'click #editarPerfil': 'perfil'
+        'click #editarPerfil': 'perfil',
+        'click #cerrarSesion': 'cerrarSesion',
     },
 
     perfil: function(){
         var miVistaPerfil = new Vista.Perfil({model: this.modelo});
+    },
+
+    cerrarSesion: function(){
+        Usuario.CerrarSesion()
+        var indexModelo = new Models.Index()
+        var indexView = new App.Views.Index({model: indexModelo});
     },
 
     iniciarSesion: function(){

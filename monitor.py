@@ -3,20 +3,11 @@
 __author__ = 'FoxCarlos'
 
 
-import time
-import os
 import json
 import bottle
 from bottle.ext.websocket import GeventWebSocketServer
 from static.python.datos import sql
 from static.python.notificar import notificar
-from bson.objectid import ObjectId
-from os.path import join, dirname
-from bottle import route, static_file, template
-import datetime
-from static.python.libs import pgSQL
-
-HCEventos = bottle.Bottle()
 
 # ---------------------------------------
 # Ejemplo CRUD
@@ -145,17 +136,11 @@ def modal():
 # ------------------------------------------------------------------------------
 
 
-@route('/cargarPlantilla/<pagename>')
-def show_wiki_page(pagename):
-    print(pagename)
-    return bottle.static_file(pagename, root='js/templates/')
-
-
 @bottle.route('/')
 def index():
     # usuario = ''
     # bottle.response.set_cookie("account", usuario)
-    username = bottle.request.get_cookie("account")
+    # username = bottle.request.get_cookie("account")
 
     # print('usuario',username)
     return bottle.static_file("index.html", root='')
@@ -178,6 +163,7 @@ def login():
 
     username = bottle.request.get_cookie("account")
     respuesta = {'usuario': username}
+    print('consultar sesion devuelve la cookie {0}'.format(respuesta))
     return json.dumps(respuesta)
 
 
@@ -202,7 +188,9 @@ def loginp():
         # Verifica si el usuario tiene datos del registro incompleto
         # incompleto = validaRegistroIncompleto(int(idUsuario[0][0]))
 
-        bottle.response.set_cookie("account", usuario)
+        # Lo que devuelev eel metodo validaLogin()
+        IdUsuario = acceso['mensaje']
+        bottle.response.set_cookie("account", str(IdUsuario))
         msg = acceso
     else:
         bottle.response.set_cookie("account", '')
