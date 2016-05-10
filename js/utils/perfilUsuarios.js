@@ -18,6 +18,27 @@ PerfilUsuarios = {
         });
     },
 
-    otro: function(){
+    PerfilTipoIdentidad: function(){
+        var Tipos_identidad = new Collections.Tipos_identidad();
+        self = this;
+        respuesta = Tipos_identidad.fetch({async: false});
+
+        respuesta.always(function(respon){
+            console.log('always '+respon.mensaje);
+            self.d = respon.mensaje;
+        });
+
+        respuesta.done(function(respon){
+            console.log('donde ' + respon.mensaje);
+            self.d = respon.mensaje;
+            return self.d
+        });
+        respuesta.always(function(respon){
+            console.log('always '+respon.mensaje);
+            self.d = respon.mensaje;
+        });
+
+        console.log(this.d)
+        return this.d
     }
 }
