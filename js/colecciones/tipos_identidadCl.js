@@ -7,7 +7,6 @@ var Collections = Collections || {};
         model: Models.Tipo_identidad,
 
         initialize: function(options){
-
         }
     });
 
