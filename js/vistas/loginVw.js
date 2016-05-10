@@ -15,20 +15,33 @@ Vista.Login = Backbone.View.extend({
             this.render();
         }
         else{
-            this.modelo = Usuario.BuscarUsuarioId(usuarioId);
-            htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
-            var loginOk =  _.template(htmlSesionActiva.trim());
-            this.plantillaLogin = loginOk( this.modelo );
-            this.render();
+            this.sesionActiva(this.user);
         }
+    },
+
+    sesionActiva: function(usuarioId){
+        /* Esta opcion activa la plantilla de la sesion activa*/
+        this.modelo = Usuario.BuscarUsuarioId(usuarioId);
+        htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
+        var loginOk =  _.template(htmlSesionActiva.trim());
+        this.plantillaLogin = loginOk( this.modelo );
+
+        /* Esta Opcion cambia el screen central y elimina la opcion de crear registro rapido*/
+        var indexModelo = new Models.Index()
+        miSelector = '#contenedorCentral'
+        var miVistaCuerpoIndexParte1 = new Vista.CuerpoIndexParte1( {el: miSelector, model: indexModelo} );
+        console.log(miVistaCuerpoIndexParte1.render().el)
+        this.$(miSelector).append(miVistaCuerpoIndexParte1.render().el);
+
+        this.render();
     },
 
     initialize: function(){
         self = this;
         $.getJSON('consultarSesion', function(respuesta){
             self.user = respuesta.usuario;
-            console.log('entro al getJSON()'+self.user);
-            self.verificaSesion(this.user);
+            console.log('Function Initialize, entro al getJSON()'+self.user);
+            self.verificaSesion(self.user);
         });
     },
 
@@ -40,6 +53,7 @@ Vista.Login = Backbone.View.extend({
         'click #registrate': 'registrarNuevo',
 
         'click #editarPerfil': 'perfil',
+
         'click #cerrarSesion': 'cerrarSesion',
     },
 
@@ -64,11 +78,7 @@ Vista.Login = Backbone.View.extend({
         var usuarioId = response.mensaje;
 
         if( estado ){
-            this.modelo = Usuario.BuscarUsuarioId(usuarioId);
-            htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
-            var loginOk =  _.template(htmlSesionActiva.trim());
-            this.plantillaLogin = loginOk( this.modelo );
-            this.render();
+            this.sesionActiva(usuarioId);
         }
         else{
             Notificar.modalOk('Atencion ...', 'Contraseña incorrecta', '#modal-danger');
