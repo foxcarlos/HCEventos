@@ -113,6 +113,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
     render: function(){
         this.$el.html( this.plantilla(this.model) );
+        $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
     return this;
     }
 
