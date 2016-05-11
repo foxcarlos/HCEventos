@@ -7,8 +7,8 @@ Utils.Varias = {
         respuesta = Tipos_identidad.fetch({async: false});
 
         respuesta.done(function(respon){
-            if( respon.status ){
-                self.d = respon.mensaje;
+            if( respon ){
+                self.d = respon;
             }
         });
 

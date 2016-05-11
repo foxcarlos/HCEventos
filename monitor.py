@@ -275,7 +275,8 @@ def GetTipoIdentidad():
     print('###################################################################################')
 
     if editar['status']:
-        msg = {"status": editar['status'], "mensaje": editar['mensaje']}
+        #  msg = {"status": editar['status'], "mensaje": editar['mensaje']}
+        msg = editar['mensaje']
         return json.dumps(msg)
     else:
         msg = editar

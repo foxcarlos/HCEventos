@@ -113,9 +113,13 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
     render: function(){
         this.$el.html( this.plantilla(this.model) );
-        valor = this.model.id_tipo_identidad;
-        $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
-        $("select#slcTipoIdentidad").val(valor);
+
+        valorDefault = this.model.id_tipo_identidad;
+        data = Utils.Varias.BuscarReg_TipoIdentidad();
+        cbx = new Vista.ComboBox({el: '#slcGeneroSexo', collections: data, default: valorDefault})
+
+        // $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
+        // $("select#slcTipoIdentidad").val(valor);
     return this;
     }
 
