@@ -95,7 +95,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
                 if( errorCampoDevuelto.estado ){
                     todoBien = false
-                    Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-info');
+                    Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-warning');
                     $(selector).focus();
                     break
                 }
@@ -103,7 +103,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
             if(!valor.trim()){
                 todoBien = false;
-                Notificar.modalOk('Atencion ...', 'Campo vacio' + descripcion, '#modal-info');
+                Notificar.modalOk('Atencion ...', 'Campo vacio' + descripcion, '#modal-warning');
                 $(selector).focus();
                 break
             }
@@ -120,4 +120,3 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
     }
 
 });
-
