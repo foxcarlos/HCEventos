@@ -3,31 +3,31 @@ var Vista = Vista || {};
 
 Vista.ComboBox = Backbone.View.extend({
 
-    plantilla: _.template( this.htmlComboBox( this.options.collections ) ),
+    // plantilla: _.template( this.htmlComboBox( this.options.collections ) ),
 
-    initialize: function(options){
-        this.miCollections = this.options.collections;
-        /*// console.log(this.miCollections);
+    initialize: function(){
+        this.data = this.options.collections;
         this.valor = this.options.defaultValue
-        this.elemento = this.options.el*/
+        this.elemento = this.options.el
         this.render();
     },
 
     events:{
     },
 
-    htmlComboBox: function(dataRecibida){
+    htmlComboBox: function(){
         /*Parametro recibido: data objeto json
          Functiom que recorre un json y arma
          un objeto Select (comboBox)
         */
 
-        var datos = dataRecibida  // this.options.collections  // this.BuscarReg_TipoIdentidad();
+        var datos = this.data  // this.BuscarReg_TipoIdentidad();
         var htmlSelectArmar= '';
-        console.log(datos)
+        seleccionado = '';
+        console.log(datos);
 
         for (var i=0;i<datos.length;i++){
-            if( datos[i].id = this.valor){
+            if( datos[i].id == this.valor){
                 seleccionado = ' selected="selected" ';
             }else{
                 seleccionado = '';
@@ -41,10 +41,8 @@ Vista.ComboBox = Backbone.View.extend({
     },
 
     render: function(){
-        //this.$el.html( );
-        // slc = "select"+this.elemento;
-        console.log( this.plantilla() );
-        // $(slc).val(this.valor);
+        this.$el.html( this.htmlComboBox() ) ;
+        console.log( this.htmlComboBox() );
         return this;
     }
 

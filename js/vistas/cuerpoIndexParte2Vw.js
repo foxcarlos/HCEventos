@@ -156,6 +156,8 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
                         mensajeEnviar2 = 'Recuerde que al volver a ingresar al sistema de Eventos Hospital Coromoto, debe ingresar lo siguiente:'+'Usuario:'+ mo.get('correo')+ ' y Clave:'+ mo.get('clave')
                         Notificar.Sms(response.id_usuario, mensajeEnviar1)
                         Notificar.Sms(response.id_usuario, mensajeEnviar2)
+                    }else{
+                        Notificar.modalOk('Alerta ...', response.mensaje, '#modal-danger');
                     }
                 },
 

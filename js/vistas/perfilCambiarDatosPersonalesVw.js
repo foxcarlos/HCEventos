@@ -111,13 +111,16 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         return todoBien;
       },
 
+      combos: function(){
+
+      },
+
     render: function(){
         this.$el.html( this.plantilla(this.model) );
 
-        valorDefault = this.model.id_tipo_identidad;
-        console.log(valorDefault)
+        valorTipoIdentidad = this.model.id_tipo_identidad;
         data = Utils.Varias.BuscarReg_TipoIdentidad();
-        cbx = new Vista.ComboBox({el: '#slcTipoIdentidad', collections: data, default: valorDefault})
+        cbx = new Vista.ComboBox({el: '#slcTipoIdentidad', collections: data, defaultValue: valorTipoIdentidad})
 
         // $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
         // $("select#slcTipoIdentidad").val(valor);
