@@ -277,7 +277,7 @@ def tipo_identidad_listar():
 
 
 def genero_sexo_listar():
-    ''' permite listar todos los registros que tiene la tabla Genero_Sexo
+    '''Permite listar todos los registros que tiene la tabla Genero_Sexo
     Valores devuelto 1: json'''
 
     registros = []
