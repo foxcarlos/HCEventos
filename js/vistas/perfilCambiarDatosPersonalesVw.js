@@ -111,16 +111,28 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         return todoBien;
       },
 
-      combos: function(){
+    cbxTipoIdentidad: function(){
+        valorTipoIdentidad = this.model.id_tipo_identidad;
+        data = Utils.Varias.BuscarReg_TipoIdentidad();
+        cbx = new Vista.ComboBox({el: '#slcTipoIdentidad', collections: data, defaultValue: valorTipoIdentidad});
+    },
 
-      },
+    cbxGenero: function(){
+        valorGenero = this.model.id_genero_sexo;
+        data = Utils.Varias.BuscarReg_Genero();
+        cbx = new Vista.ComboBox({el: '#slcGeneroSexo', collections: data, defaultValue: valorGenero})
+    },
+
+    cbxNacionalidad: function(){
+        valorNacion = this.model.id_nacionalidad;
+        data = Utils.Varias.BuscarReg_Nacionalidad();
+        cbx = new Vista.ComboBox({el: '#slcNacionalidad', collections: data, defaultValue: valorNacion})
+    },
 
     render: function(){
         this.$el.html( this.plantilla(this.model) );
-
-        valorTipoIdentidad = this.model.id_tipo_identidad;
-        data = Utils.Varias.BuscarReg_TipoIdentidad();
-        cbx = new Vista.ComboBox({el: '#slcTipoIdentidad', collections: data, defaultValue: valorTipoIdentidad})
+        this.cbxTipoIdentidad();
+        this.cbxGenero()
 
         // $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
         // $("select#slcTipoIdentidad").val(valor);

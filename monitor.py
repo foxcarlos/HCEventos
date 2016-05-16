@@ -283,6 +283,28 @@ def GetTipoIdentidad():
     return json.dumps(msg)
 
 
+@bottle.get('/genero_sexo')
+def GetGeneroSexo():
+    '''Metodo que permite Buscar todos los registros de la tabla genero_sexo'''
+
+    '''SELECT row_to_json(genero_sexo) FROM referencias.genero_sexo'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.genero_sexo_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.genero_sexo_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
 @bottle.post('/notificar')
 def notificarFrontEnd():
     '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
