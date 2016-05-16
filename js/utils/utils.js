@@ -18,27 +18,4 @@ Utils.Varias = {
 
         return this.d
     },
-
-    ArmarComboBox_Id_Descripcion: function(data){
-        /*Parametro recibido: data objeto json
-         Functiom que recorre un json y arma
-         un objeto Select (comboBox)
-        */
-
-        var datos = data  // this.BuscarReg_TipoIdentidad();
-        var htmlSelectArmar= '';
-
-        for (var i=0;i<datos.length;i++){
-            var id = "'"+datos[i].id+"'";
-            var descripcion = datos[i].descripcion;
-            var htmlSelectArmar = htmlSelectArmar + "<option value="+ id +">"+ descripcion +"</option>" ;
-        }
-        return htmlSelectArmar
-    },
-
-    ComboBox_TipoIdentidad: function(){
-        data = this.BuscarReg_TipoIdentidad();
-        htmlDevuelto = this.ArmarComboBox_Id_Descripcion(data);
-        return htmlDevuelto
-    }
 }

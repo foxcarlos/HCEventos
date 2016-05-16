@@ -115,8 +115,9 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         this.$el.html( this.plantilla(this.model) );
 
         valorDefault = this.model.id_tipo_identidad;
+        console.log(valorDefault)
         data = Utils.Varias.BuscarReg_TipoIdentidad();
-        cbx = new Vista.ComboBox({el: '#slcGeneroSexo', collections: data, default: valorDefault})
+        cbx = new Vista.ComboBox({el: '#slcTipoIdentidad', collections: data, default: valorDefault})
 
         // $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
         // $("select#slcTipoIdentidad").val(valor);
