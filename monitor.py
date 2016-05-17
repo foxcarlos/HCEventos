@@ -85,6 +85,12 @@ def cabeceraIndex():
     return bottle.static_file("cabeceraIndex.html", root='js/templates/')
 
 
+@bottle.route('/tplMenuPrincipal')
+def menuPrincipal():
+    ''' '''
+    return bottle.static_file("menuPrincipal.html", root='js/templates/')
+
+
 @bottle.route('/tplCuerpoIndex')
 def cuerpoIndex():
     ''' '''
@@ -334,9 +340,10 @@ def notificarFrontEnd():
     msg = {"status": 0, "mensaje": 'No se envio el Mensaje'}
 
     # Consulta la Base de Datos para buscar el movil
-    buscar = sql.buscarUsuario(id_usuario)
+    buscar = sql.buscarTelefono(id_usuario)
     if buscar['status']:
-        movil = buscar['mensaje'][0]['inf_personal_telefono_movil']
+        movil = buscar['mensaje'][0]['telefono_movil']  # buscar['mensaje'][0]['inf_personal_telefono_movil']
+        print('el movil a enviar es:', movil)
         if movil:
             msg = notificar.sms(mensaje, movil)
             if msg['status']:

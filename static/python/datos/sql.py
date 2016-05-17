@@ -161,6 +161,52 @@ def validaLogin(usuario='', clave=''):
     return devuelveMsg
 
 
+def buscarTelefono(idUsuario):
+    '''parametros:int ID usuario,
+    Metodo que permite buscar el telefono de un usuario
+    recibe un ID como parametro'''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        # sql = "SELECT row_to_json(vdatospersona) FROM vdatospersona where id_usuario = {0}".format(idUsuario)
+
+        sql = "Select row_to_json(t) from (\
+                select ip.telefono_movil from persona p \
+                   left join informacion_personal ip on ip.id_persona = p.id \
+                   where usuario = {0}) t".format(idUsuario)
+
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+            print(registros[0])
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': registros[0]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg
+
+
 def buscarUsuario(idUsuario):
     '''parametros:int ID usuario,
     Metodo que permite buscar toda la informacion de un usuario
