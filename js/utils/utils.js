@@ -37,4 +37,22 @@ Utils.Varias = {
         return this.d
     },
 
+    BuscarReg_Nacionalidad: function(){
+        var Nacional = new Collections.Nacionalidad();
+        self = this;
+        respuesta = Nacional.fetch({async: false});
+
+        respuesta.done(function(respon){
+            if( respon ){
+                self.d = respon;
+            }
+        });
+
+        respuesta.fail(function(respon){
+            console.log('fail '+respon);
+        });
+
+        return this.d
+    },
+
 }
