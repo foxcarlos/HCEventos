@@ -254,9 +254,6 @@ def GetTipoIdentidad():
     '''Metodo que permite Buscar todos los registros de la tabla tipo_identidad '''
     '''SELECT row_to_json(tipo_identidad) FROM referencias.tipo_identidad
 
-    SELECT row_to_json(genero_sexo) FROM referencias.genero_sexo
-
-    SELECT row_to_json(nacionalidad) FROM referencias.nacionalidad
 
     SELECT row_to_json(edo_civil) FROM referencias.edo_civil
 
@@ -295,6 +292,26 @@ def GetGeneroSexo():
     editar = sql.genero_sexo_listar()
     print('###################################################################################')
     print('Lo que devuelve sql.genero_sexo_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
+@bottle.get('/nacionalidad')
+def GetNacionalidad():
+    '''Metodo que permite Buscar todos los registros de la tabla Nacionalidad'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.nacionalidad_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.nacionalidad_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
