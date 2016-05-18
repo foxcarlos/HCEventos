@@ -17,10 +17,15 @@ Usuario = {
 
     CerrarSesion: function(){
         self = this;
-        $.ajax({
+        terminado = $.ajax({
             url:'salir',
             type:"GET",
-        })
+        });
+
+        terminado.done( function(){
+            var url = '/';
+            $(location).attr('href',url);
+        });
     },
 
     BuscarUsuarioId: function(idBuscar){

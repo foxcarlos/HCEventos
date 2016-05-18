@@ -158,7 +158,8 @@ def salir():
     usuario = ''
     bottle.response.set_cookie("account", usuario)
     # username = bottle.request.get_cookie("account")
-    return bottle.template('index')
+    # return bottle.template('index')
+    return
 
 
 @bottle.route('/consultarSesion')

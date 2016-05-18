@@ -62,8 +62,8 @@ Vista.Login = Backbone.View.extend({
     },
 
     cerrarSesion: function(){
-        this.user = ''
-        Usuario.CerrarSesion()
+        this.user = '';
+        Usuario.CerrarSesion();
         /*var indexModelo = new Models.Index()
         var indexView = new App.Views.Index({model: indexModelo});*/
     },
