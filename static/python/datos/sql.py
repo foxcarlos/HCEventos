@@ -161,6 +161,52 @@ def validaLogin(usuario='', clave=''):
     return devuelveMsg
 
 
+def buscarTelefono(idUsuario):
+    '''parametros:int ID usuario,
+    Metodo que permite buscar el telefono de un usuario
+    recibe un ID como parametro'''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        # sql = "SELECT row_to_json(vdatospersona) FROM vdatospersona where id_usuario = {0}".format(idUsuario)
+
+        sql = "Select row_to_json(t) from (\
+                select ip.telefono_movil from persona p \
+                   left join informacion_personal ip on ip.id_persona = p.id \
+                   where usuario = {0}) t".format(idUsuario)
+
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+            print(registros[0])
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': registros[0]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg
+
+
 def buscarUsuario(idUsuario):
     '''parametros:int ID usuario,
     Metodo que permite buscar toda la informacion de un usuario
@@ -229,6 +275,196 @@ def editarUsuarios(idUsuario, clave):
         if posg.estado["status"]:
             posg.conn.commit()
             devuelveMsg = {'status': 1, 'mensaje': 'Clave de usuario cambiada con exito'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg
+
+
+def tipo_identidad_listar():
+    ''' permite listar todos los registros que tiene la tabla tipo de indentidad
+    Valores devuelto 1: json'''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        sql = "SELECT row_to_json(tipo_identidad) FROM referencias.tipo_identidad "
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg
+
+
+def genero_sexo_listar():
+    '''Permite listar todos los registros que tiene la tabla Genero_Sexo
+    Valores devuelto 1: json'''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        sql = "SELECT row_to_json(genero_sexo) FROM referencias.genero_sexo "
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg
+
+
+def nacionalidad_listar():
+    '''Permite listar todos los registros que tiene la tabla Naconalidad
+    Valores devuelto 1: json'''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        sql = "SELECT row_to_json(nacionalidad) FROM referencias.nacionalidad "
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg
+
+
+def edo_civil_listar():
+    '''Permite listar todos los registros que tiene la tabla edo_civil
+    Valores devuelto 1: json'''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        sql = "SELECT row_to_json(edo_civil) FROM referencias.edo_civil "
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg
+
+
+def pais_listar():
+    '''Permite listar todos los registros que tiene la tabla pais
+    Valores devuelto 1: json'''
+
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        sql = "SELECT row_to_json(pais) FROM referencias.pais "
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
         else:
             # Si falla el status de la Sentencia SQL
             estado = posg.estado['status']

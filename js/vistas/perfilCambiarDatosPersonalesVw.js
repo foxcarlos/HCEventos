@@ -30,31 +30,12 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         }
     },
 
-    verificaClaveAnterior: function(){
-        var inUsuario = this.model.nombre_usuario;
-        var inClave = $('#password0').val();
-
-        dataEnviar = {usuario: inUsuario, clave: inClave}
-        response = Usuario.IniciarSesion(dataEnviar)
-
-        var estado = response.status;
-        var usuarioId = response.mensaje;
-
-        if( estado ){
-            return true
-        }
-        else{
-            return false
-        }
-
-    },
-
     limpiarCampos: function(){
         /*Este metodo limpiar los camposn
         del form */
 
         // Lista todos los elementos input del Form
-        var lista = $("#frmCambiarClave :input");
+        var lista = $("#frmDatosPersonales :input");
         var longitud = lista.length;
 
         for(var i=0; i<longitud; i++){
@@ -101,7 +82,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         var errorCampo = {estado: false, mensaje: ''}
 
         // Lista todos los elementos input del Form
-        var lista = $("#frmCambiarClave :input");
+        var lista = $("#frmDatosPersonales :input");
         var longitud = lista.length;
 
         for(var i=0; i<longitud; i++){
@@ -114,7 +95,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
                 if( errorCampoDevuelto.estado ){
                     todoBien = false
-                    alert( errorCampoDevuelto.mensaje );
+                    Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-warning');
                     $(selector).focus();
                     break
                 }
@@ -122,7 +103,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
             if(!valor.trim()){
                 todoBien = false;
-                alert('Campo vacio: '+ descripcion);
+                Notificar.modalOk('Atencion ...', 'Campo vacio' + descripcion, '#modal-warning');
                 $(selector).focus();
                 break
             }
@@ -130,10 +111,47 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         return todoBien;
       },
 
+    cbxTipoIdentidad: function(){
+        valorTipoIdentidad = this.model.id_tipo_identidad;
+        data = Utils.Varias.BuscarReg_TipoIdentidad();
+        cbx = new Vista.ComboBox({el: '#slcTipoIdentidad', collections: data, defaultValue: valorTipoIdentidad});
+    },
+
+    cbxGenero: function(){
+        valorGenero = this.model.id_genero_sexo;
+        data = Utils.Varias.BuscarReg_Genero();
+        cbx = new Vista.ComboBox({el: '#slcGeneroSexo', collections: data, defaultValue: valorGenero})
+    },
+
+    cbxNacionalidad: function(){
+        valorNacion = this.model.id_nacionalidad;
+        data = Utils.Varias.BuscarReg_Nacionalidad();
+        cbx = new Vista.ComboBox({el: '#slcNacionalidad', collections: data, defaultValue: valorNacion})
+    },
+
+    cbxEdoCivil: function(){
+        valorEdoCivil = this.model.id_edo_civil;
+        data = Utils.Varias.BuscarReg_EdoCivil();
+        cbx = new Vista.ComboBox({el: '#slcEdoCivil', collections: data, defaultValue: valorEdoCivil})
+    },
+
+    cbxPais: function(){
+        valorPais = this.model.id_pais;
+        data = Utils.Varias.BuscarReg_Pais();
+        cbx = new Vista.ComboBox({el: '#slcPais', collections: data, defaultValue: valorPais})
+    },
+
     render: function(){
         this.$el.html( this.plantilla(this.model) );
+        this.cbxTipoIdentidad();
+        this.cbxGenero();
+        this.cbxNacionalidad();
+        this.cbxEdoCivil();
+        this.cbxPais();
+
+        // $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
+        // $("select#slcTipoIdentidad").val(valor);
     return this;
     }
 
 });
-

@@ -45,21 +45,6 @@ miColeccion.forEach(function(modelo, index, arreglo){
     */
 });
 
-// Vista para el menu Configurar de la cabecera:
-App.Views.VistaCabeceraMenu = Backbone.View.extend({
-    plantillaCabeceraMenu: App.Plantilla('pruebaPlantilla'),
-    plantillaCabeceraMenu2: App.Plantilla('prueba2Plantilla'),
-
-    initialize: function(){
-    this.render();
-    },
-
-    render: function(){
-    suma = this.plantillaCabeceraMenu() + this.plantillaCabeceraMenu2();
-    this.$el.html(suma);
-    return this;
-    }
-});
 
 // Vista para el Index:
 App.Views.Index = Backbone.View.extend({
@@ -99,7 +84,7 @@ App.Views.Index = Backbone.View.extend({
         this.$(miSelector).append(miVistaPiePaginaIndex.render().el);
 
         miSelector = '#ulMenu';
-        var miVistaCabeceraMenu = new App.Views.VistaCabeceraMenu({el: miSelector, model: this.model});
+        var miVistaCabeceraMenu = new Vista.MenuPrincipal({el: miSelector, model: this.model});
         var renderizar = miVistaCabeceraMenu.render().el;
         this.$(miSelector).append(miVistaCabeceraMenu.render().el);
 

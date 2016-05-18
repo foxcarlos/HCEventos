@@ -2,40 +2,32 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<link rel="apple-touch-icon" sizes="57x57" href="/static/img/favicon/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/static/img/favicon/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/static/img/favicon/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/static/img/favicon/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/static/img/favicon/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/static/img/favicon/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/static/img/favicon/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/static/img/favicon/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="/static/img/favicon/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/static/img/favicon/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png">
+		<link rel="manifest" href="/static/img/favicon/manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/static/img/favicon/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
 
 		<title>Registro de participantes</title>
         <link rel='stylesheet' href='js/libs/jquery-ui-1.11.4/jquery-ui.css'>
         <link rel="stylesheet" href="static/css/bootstrap.css">
         <link rel="stylesheet" href="static/css/perfilNuevo.css">
+        <link rel="stylesheet" href="static/css/modalOk.css">
 
 	</head>
 	<body>
-
-        <script id="pruebaPlantilla" type="text/template">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configurar Sistema<span class="caret"></span></a>
-                    <ul id="pruebaul" class="dropdown-menu" role="menu">
-                        <li><a href="#">Usuarios</a></li>
-                        <li><a href="#">Roles</a></li>
-                        <li><a href="#">Asignar Roles a Usuario</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Asignar Permisos al Menu</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Agregar Menu y SubMenu</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configurar Eventos<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Crear Eventos</a></li>
-                        <li><a href="#">Crear Programas</a></li>
-                        <li><a href="#">Crear Contenidos Programaticos</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Listar todos los eventos</a></li>
-                    </ul>
-                </li>
-        </script>
 
         <script id="prueba2Plantilla" type="text/template">
                 <li class="dropdown">
@@ -53,18 +45,20 @@
         </script>
 
 		<script id="index" type="text/template">
-            <div id="indexInicial">
-			<div id='divCabeceraIndex'>
-				<!-- Aqui se carga la plantilla de la cabecera del Index (menu nav Bar)-->
-			</div>
+            <div class="container-fluid" id="indexInicial">
+                <div id="divModal">
+                </div>
+                <div id='divCabeceraIndex'>
+                    <!-- Aqui se carga la plantilla de la cabecera del Index (menu nav Bar)-->
+                </div>
 
-            <div id="divCuerpoIndex">
-				<!-- Aqui se carga la plantilla del cuerpo del Index-->
-			</div>
+                <div id="divCuerpoIndex">
+                    <!-- Aqui se carga la plantilla del cuerpo del Index-->
+                </div>
 
-			<div id="divPiePaginaIndex">
-				<!-- Aqui se carga la plantilla del pie de pagina del Index-->
-			</div>
+                <div id="divPiePaginaIndex">
+                    <!-- Aqui se carga la plantilla del pie de pagina del Index-->
+                </div>
             </div>
 		</script>
 
@@ -80,16 +74,34 @@
         <script src="js/modelos/usuariosMd.js"></script>
         <script src="js/modelos/datosUsuarioMd.js"></script>
         <script src="js/modelos/registroRapidoMd.js"></script>
+        <script src="js/modelos/tipo_identidadMd.js"></script>
+        <script src="js/modelos/genero_sexoMd.js"></script>
+        <script src="js/modelos/nacionalidadMd.js"></script>
+        <script src="js/modelos/edo_civilMd.js"></script>
+        <script src="js/modelos/paisMd.js"></script>
+        <script src="js/modelos/okModalMd.js"></script>
+
+        <!--Colecciones -->
+        <script src="js/colecciones/tipos_identidadCl.js"></script>
+        <script src="js/colecciones/generos_sexoCl.js"></script>
+        <script src="js/colecciones/nacionalidadCl.js"></script>
+        <script src="js/colecciones/edo_civilCl.js"></script>
+        <script src="js/colecciones/paisCl.js"></script>
 
         <!--Utilidad para cargar los templates-->
         <script src="js/utils/buscarHtmlBackend.js"></script>
+        <script src="js/utils/utils.js"></script>
 
         <!--Iniciar el Index con todo su contenido Interno-->
         <script src="js/vistas/cabeceraIndexVw.js"></script>
+        <script src="js/vistas/menuPrincipalVw.js"></script>
+        <script src="js/vistas/okModalVw.js"></script>
+
         <script src="js/vistas/cuerpoIndexVw.js"></script>
         <script src="js/vistas/cuerpoIndexParte1Vw.js"></script>
         <script src="js/vistas/cuerpoIndexParte2Vw.js"></script>
         <script src="js/vistas/piePaginaIndexVw.js"></script>
+        <script src="js/vistas/comboBoxVw.js"></script>
 
         <!--Vista para el Login de inisio de Sesion-->
         <script src="js/vistas/loginVw.js"></script>

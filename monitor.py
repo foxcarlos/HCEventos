@@ -3,20 +3,12 @@
 __author__ = 'FoxCarlos'
 
 
-import time
-import os
 import json
 import bottle
 from bottle.ext.websocket import GeventWebSocketServer
 from static.python.datos import sql
 from static.python.notificar import notificar
-from bson.objectid import ObjectId
-from os.path import join, dirname
-from bottle import route, static_file, template
-import datetime
-from static.python.libs import pgSQL
-
-HCEventos = bottle.Bottle()
+import time
 
 # ---------------------------------------
 # Ejemplo CRUD
@@ -93,6 +85,12 @@ def cabeceraIndex():
     return bottle.static_file("cabeceraIndex.html", root='js/templates/')
 
 
+@bottle.route('/tplMenuPrincipal')
+def menuPrincipal():
+    ''' '''
+    return bottle.static_file("menuPrincipal.html", root='js/templates/')
+
+
 @bottle.route('/tplCuerpoIndex')
 def cuerpoIndex():
     ''' '''
@@ -135,27 +133,21 @@ def cambiarDatosP():
     return bottle.static_file("perfilDatosPersonales.html", root='js/templates/')
 
 
-@bottle.route('/tplVentanaModal')
+@bottle.route('/tplOkModal')
 def modal():
     ''' '''
-    return bottle.static_file("ventanaModal.html", root='js/templates/')
+    return bottle.static_file("okModal.html", root='js/templates/')
 
 # ------------------------------------------------------------------------------
-# Por ahira no va
+# FIN de Plantillas
 # ------------------------------------------------------------------------------
-
-
-@route('/cargarPlantilla/<pagename>')
-def show_wiki_page(pagename):
-    print(pagename)
-    return bottle.static_file(pagename, root='js/templates/')
 
 
 @bottle.route('/')
 def index():
     # usuario = ''
     # bottle.response.set_cookie("account", usuario)
-    username = bottle.request.get_cookie("account")
+    # username = bottle.request.get_cookie("account")
 
     # print('usuario',username)
     return bottle.static_file("index.html", root='')
@@ -165,9 +157,9 @@ def index():
 def salir():
     usuario = ''
     bottle.response.set_cookie("account", usuario)
-    username = bottle.request.get_cookie("account")
-    print('usuario', username)
-    return bottle.template('index')
+    # username = bottle.request.get_cookie("account")
+    # return bottle.template('index')
+    return
 
 
 @bottle.route('/consultarSesion')
@@ -178,6 +170,9 @@ def login():
 
     username = bottle.request.get_cookie("account")
     respuesta = {'usuario': username}
+    print('##########################################################')
+    print('consultar sesion devuelve la cookie {0}'.format(respuesta))
+    print('##########################################################')
     return json.dumps(respuesta)
 
 
@@ -196,13 +191,18 @@ def loginp():
 
     # Consulta la Base de Datos
     acceso = sql.validaLogin(usuario, clave)
-    print(acceso)
+
+    print('##########################################################')
+    print('Lo que devuelve /iniciarSesion', acceso)
+    print('##########################################################')
 
     if acceso['status']:
         # Verifica si el usuario tiene datos del registro incompleto
         # incompleto = validaRegistroIncompleto(int(idUsuario[0][0]))
 
-        bottle.response.set_cookie("account", usuario)
+        # Lo que devuelev eel metodo validaLogin()
+        IdUsuario = acceso['mensaje']
+        bottle.response.set_cookie("account", str(IdUsuario), expires=(int(time.time()) + 3600))
         msg = acceso
     else:
         bottle.response.set_cookie("account", '')
@@ -256,6 +256,119 @@ def putUsuario(idUsuario):
     return json.dumps(msg)
 
 
+@bottle.get('/tipo_identidad')
+def GetTipoIdentidad():
+    '''Metodo que permite Buscar todos los registros de la tabla tipo_identidad '''
+    '''SELECT row_to_json(tipo_identidad) FROM referencias.tipo_identidad
+
+
+    SELECT row_to_json(edo_civil) FROM referencias.edo_civil
+
+    SELECT row_to_json(pais) FROM referencias.pais
+
+    SELECT row_to_json(estado) FROM referencias.estado
+
+    SELECT row_to_json(ciudad) FROM referencias.ciudad'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.tipo_identidad_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.tipo_identidad_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        #  msg = {"status": editar['status'], "mensaje": editar['mensaje']}
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
+@bottle.get('/genero_sexo')
+def GetGeneroSexo():
+    '''Metodo que permite Buscar todos los registros de la tabla genero_sexo'''
+
+    '''SELECT row_to_json(genero_sexo) FROM referencias.genero_sexo'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.genero_sexo_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.genero_sexo_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
+@bottle.get('/nacionalidad')
+def GetNacionalidad():
+    '''Metodo que permite Buscar todos los registros de la tabla Nacionalidad'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.nacionalidad_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.nacionalidad_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
+@bottle.get('/edocivil')
+def GetEdoCivil():
+    '''Metodo que permite Buscar todos los registros de la tabla Estado Civil'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.edo_civil_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.edo_civil_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
+@bottle.get('/pais')
+def GetPais():
+    '''Metodo que permite Buscar todos los registros de la tabla Pais'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.pais_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.pais_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
 @bottle.post('/notificar')
 def notificarFrontEnd():
     '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
@@ -268,9 +381,10 @@ def notificarFrontEnd():
     msg = {"status": 0, "mensaje": 'No se envio el Mensaje'}
 
     # Consulta la Base de Datos para buscar el movil
-    buscar = sql.buscarUsuario(id_usuario)
+    buscar = sql.buscarTelefono(id_usuario)
     if buscar['status']:
-        movil = buscar['mensaje'][0]['inf_personal_telefono_movil']
+        movil = buscar['mensaje'][0]['telefono_movil']  # buscar['mensaje'][0]['inf_personal_telefono_movil']
+        print('el movil a enviar es:', movil)
         if movil:
             msg = notificar.sms(mensaje, movil)
             if msg['status']:
@@ -299,7 +413,10 @@ def registroPost():
 
     print(nombre, apellido, correo, clave, movil, fechanac, genero)
     insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero, movil)
-    print(insReg)
+
+    print('####################################################')
+    print('Lo que develve el insert de /crearRegistroRapido', insReg)
+    print('####################################################')
 
     if insReg['status']:
         cuerpoMensaje = 'Saludos {0}, Registro exitoso en Eventos del Hospital Coromoto, su usuario es: {1} y su clave de acceso es: {2}'.format(nombre, correo, clave)
@@ -316,7 +433,9 @@ def validaRegistroIncompleto(id=''):
 
     # Verifica los datos en a tabla persona para el ID pasado como parametro
     sqlVerificaDatos = "select *from persona where usuario = '{0}'".format(idUsuario)
-    print(sqlVerificaDatos)
+    print('##########################################################')
+    print('Validar registro incompleto', sqlVerificaDatos)
+    print('##########################################################')
     buscar = clasePG.ejecutar(sqlVerificaDatos)
     print(buscar)
     return buscar

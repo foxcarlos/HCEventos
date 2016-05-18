@@ -15,6 +15,19 @@ Usuario = {
         return this.a
     },
 
+    CerrarSesion: function(){
+        self = this;
+        terminado = $.ajax({
+            url:'salir',
+            type:"GET",
+        });
+
+        terminado.done( function(){
+            var url = '/';
+            $(location).attr('href',url);
+        });
+    },
+
     BuscarUsuarioId: function(idBuscar){
         var modeloDatosUsuario = new Models.DatosUsuario({
             id: idBuscar

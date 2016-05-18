@@ -9,7 +9,6 @@ Utils = {
             datatype: 'text',
             success: function(response){
                 self.htmlDevuelto = response;
-                return self.devuelto
             },
 
             error: function(respuesta){

@@ -84,7 +84,8 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
 
                 if( errorCampoDevuelto.estado ){
                     todoBien = false
-                    alert( errorCampoDevuelto.mensaje );
+                    Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-warning');
+                    // alert( errorCampoDevuelto.mensaje );
                     $(selector).focus();
                     break
                 }
@@ -92,7 +93,8 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
 
             if(!valor.trim()){
                 todoBien = false;
-                alert('Campo vacio: '+ descripcion);
+                Notificar.modalOk('Atencion ...', 'Campo vacio:'+descripcion, '#modal-warning');
+                //alert('Campo vacio: '+ descripcion);
                 $(selector).focus();
                 break
             }
@@ -146,18 +148,22 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
             mo.save({},{
                 success: function(model, response){
                     if( response.status ){
-                        alert(response.mensaje);
+                        Notificar.modalOk('Felicidades ...', response.mensaje, '#modal-success');
+                        // alert(response.mensaje);
                         self.limpiarCampos();
 
                         mensajeEnviar1 = 'Estimado(a) Sr(a) '+ mo.get('nombre') + ', ' + mo.get('apellido') + ' La afiliacion a Eventos Hospital Coromoto fue realizada con exito'
                         mensajeEnviar2 = 'Recuerde que al volver a ingresar al sistema de Eventos Hospital Coromoto, debe ingresar lo siguiente:'+'Usuario:'+ mo.get('correo')+ ' y Clave:'+ mo.get('clave')
                         Notificar.Sms(response.id_usuario, mensajeEnviar1)
                         Notificar.Sms(response.id_usuario, mensajeEnviar2)
+                    }else{
+                        Notificar.modalOk('Alerta ...', response.mensaje, '#modal-danger');
                     }
                 },
 
                 error: function(model, response){
-                    alert(response.mensaje);
+                    Notificar.modalOk('Alerta ...', response.mensaje, '#modal-danger');
+                    // alert(response.mensaje);
                     self.limpiarCampos();
                 }
             });

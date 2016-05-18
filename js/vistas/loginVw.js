@@ -7,21 +7,42 @@ Vista.Login = Backbone.View.extend({
          si el usuario tiene una sesion abierta, dependiendo de esto
          muestra una plantilla HTML */
 
-        if( !usuario ){
+        var usuarioId = this.user;
+
+        if( !usuarioId ){
             htmlSesionInactiva = Utils.BuscarHtml('tplSesionInactiva');
             this.plantillaLogin = htmlSesionInactiva;
             this.render();
         }
         else{
-            self.plantillaLogin = '<a>sesionActiva</a>';
+            this.sesionActiva(this.user);
         }
     },
 
+    sesionActiva: function(usuarioId){
+        /* Esta opcion activa la plantilla de la sesion activa*/
+        this.modelo = Usuario.BuscarUsuarioId(usuarioId);
+        htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
+        var loginOk =  _.template(htmlSesionActiva.trim());
+        this.plantillaLogin = loginOk( this.modelo );
+
+        /* Esta Opcion cambia el screen central y elimina la opcion de crear registro rapido*/
+        var indexModelo = new Models.Index()
+        miSelector = '#contenedorCentral'
+        var miVistaCuerpoIndexParte1 = new Vista.CuerpoIndexParte1( {el: miSelector, model: indexModelo} );
+        console.log(miVistaCuerpoIndexParte1.render().el)
+        this.$(miSelector).append(miVistaCuerpoIndexParte1.render().el);
+
+        this.render();
+    },
+
     initialize: function(){
+        self = this;
         $.getJSON('consultarSesion', function(respuesta){
-            this.user = respuesta.usuario;
+            self.user = respuesta.usuario;
+            console.log('Function Initialize, entro al getJSON()'+self.user);
+            self.verificaSesion(self.user);
         });
-        this.verificaSesion(this.user);
     },
 
     events:{
@@ -31,11 +52,20 @@ Vista.Login = Backbone.View.extend({
 
         'click #registrate': 'registrarNuevo',
 
-        'click #editarPerfil': 'perfil'
+        'click #editarPerfil': 'perfil',
+
+        'click #cerrarSesion': 'cerrarSesion',
     },
 
     perfil: function(){
         var miVistaPerfil = new Vista.Perfil({model: this.modelo});
+    },
+
+    cerrarSesion: function(){
+        this.user = '';
+        Usuario.CerrarSesion();
+        /*var indexModelo = new Models.Index()
+        var indexView = new App.Views.Index({model: indexModelo});*/
     },
 
     iniciarSesion: function(){
@@ -49,14 +79,10 @@ Vista.Login = Backbone.View.extend({
         var usuarioId = response.mensaje;
 
         if( estado ){
-            this.modelo = Usuario.BuscarUsuarioId(usuarioId);
-            htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
-            var loginOk =  _.template(htmlSesionActiva.trim());
-            this.plantillaLogin = loginOk( this.modelo );
-            this.render();
+            this.sesionActiva(usuarioId);
         }
         else{
-            alert('Clave Incorrecta');
+            Notificar.modalOk('Atencion ...', 'Contraseña incorrecta', '#modal-danger');
         }
     },
 

@@ -114,7 +114,8 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
 
                 if( errorCampoDevuelto.estado ){
                     todoBien = false
-                    alert( errorCampoDevuelto.mensaje );
+					Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-warning');
+                    // alert( errorCampoDevuelto.mensaje );
                     $(selector).focus();
                     break
                 }
@@ -122,7 +123,8 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
 
             if(!valor.trim()){
                 todoBien = false;
-                alert('Campo vacio: '+ descripcion);
+				Notificar.modalOk('Alerta ...', 'Campo vacio: '+ descripcion, '#modal-warning');
+                // alert('Campo vacio: '+ descripcion);
                 $(selector).focus();
                 break
             }
