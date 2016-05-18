@@ -72,4 +72,23 @@ Utils.Varias = {
 
         return this.d
     },
+
+    BuscarReg_Pais: function(){
+        var Edos = new Collections.Pais();
+        self = this;
+        respuesta = Edos.fetch({async: false});
+
+        respuesta.done(function(respon){
+            if( respon ){
+                self.d = respon;
+            }
+        });
+
+        respuesta.fail(function(respon){
+            console.log('fail '+respon);
+        });
+
+        return this.d
+    },
+
 }
