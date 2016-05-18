@@ -373,7 +373,29 @@ def GetPais():
 def GetEstado():
     '''Metodo que permite Buscar todos los registros de la tabla Estado'''
 
-    paisId = bottle.request.json
+    paisId = ''  # id_pais
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.estado_listar(paisId)
+    print('###################################################################################')
+    print('Lo que devuelve sql.estado_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
+@bottle.get('/estado/<id_pais>')
+def GetEstadoId(id_pais):
+    '''Metodo que permite Buscar todos los registros de la tabla Estado'''
+
+    paisId = id_pais
 
     msg = {"status": 0, "mensaje": ''}
 
@@ -440,27 +462,7 @@ def registroPost():
     print('Lo que develve el insert de /crearRegistroRapido', insReg)
     print('####################################################')
 
-    if insReg['status']:
-        cuerpoMensaje = 'Saludos {0}, Registro exitoso en Eventos del Hospital Coromoto, su usuario es: {1} y su clave de acceso es: {2}'.format(nombre, correo, clave)
-        remitenteMensaje = ''
-        asuntoMensaje = 'Registro realizado con Exito'
-
     return json.dumps(insReg)
-
-
-def validaRegistroIncompleto(id=''):
-    ''' '''
-    idUsuario = id
-    clasePG = ConectarPG("host='10.121.6.4' dbname='evento' user='admhc' password='shc21152115'")
-
-    # Verifica los datos en a tabla persona para el ID pasado como parametro
-    sqlVerificaDatos = "select *from persona where usuario = '{0}'".format(idUsuario)
-    print('##########################################################')
-    print('Validar registro incompleto', sqlVerificaDatos)
-    print('##########################################################')
-    buscar = clasePG.ejecutar(sqlVerificaDatos)
-    print(buscar)
-    return buscar
 
 # bottle.debug(True)
 bottle.run(host='0.0.0.0', port=8086, server=GeventWebSocketServer, reloader=True)

@@ -91,8 +91,8 @@ Utils.Varias = {
         return this.d
     },
 
-    BuscarReg_Estado: function(){
-        var Edos = new Collections.Estado();
+    BuscarReg_Estado: function(id_pais){
+        var Edos = new Models.Estado({id: id_pais});
         self = this;
         respuesta = Edos.fetch({async: false});
 
