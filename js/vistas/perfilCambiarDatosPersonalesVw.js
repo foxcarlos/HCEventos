@@ -141,6 +141,13 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         cbx = new Vista.ComboBox({el: '#slcPais', collections: data, defaultValue: valorPais})
     },
 
+    cbxEstado: function(){
+        valorPais = this.model.id_pais;
+        valorEstado = this.model.id_estado;
+        data = Utils.Varias.BuscarReg_Estado(valorPais);
+        cbx = new Vista.ComboBox({el: '#slcPais', collections: data, defaultValue: valorPais})
+    },
+
     render: function(){
         this.$el.html( this.plantilla(this.model) );
         this.cbxTipoIdentidad();

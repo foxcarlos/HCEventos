@@ -369,6 +369,28 @@ def GetPais():
     return json.dumps(msg)
 
 
+@bottle.get('/estado')
+def GetEstado():
+    '''Metodo que permite Buscar todos los registros de la tabla Estado'''
+
+    paisId = bottle.request.json
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.estado_listar(paisId)
+    print('###################################################################################')
+    print('Lo que devuelve sql.estado_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
 @bottle.post('/notificar')
 def notificarFrontEnd():
     '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
