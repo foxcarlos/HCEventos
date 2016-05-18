@@ -511,3 +511,42 @@ def estado_listar(pais=0):
             devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
 
     return devuelveMsg
+
+
+def ciudad_listar(estado=0):
+    '''Permite listar todos los registros que tiene la tabla ciudad
+    Valores devuelto 1: json'''
+
+    estadoId = estado
+    registros = []
+    devuelveMsg = {'status': 0, 'mensaje': ''}
+
+    posg = pgSQL.PG()
+    posg.conectar()
+
+    # El status de la conexio a la base de datos
+    estado = posg.estado['status']
+    mensaje = posg.estado['mensaje']
+
+    # Si la comnexion a la base de datos falla
+    if not posg.estado['status']:
+        devuelveMsg = {'status': estado, 'mensaje': mensaje}
+    else:
+        sql = "SELECT row_to_json(ciudad) FROM referencias.ciudad where id_estado = {0}".format(estadoId)
+        posg.ejecutar(sql)
+
+        # Se verifica el estado del Select SQL
+        if posg.estado["status"]:
+            registros = posg.cur.fetchall()
+
+            if registros:
+                devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
+            else:
+                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+        else:
+            # Si falla el status de la Sentencia SQL
+            estado = posg.estado['status']
+            mensaje = posg.estado['mensaje']
+            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+
+    return devuelveMsg

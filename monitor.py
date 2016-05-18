@@ -415,16 +415,16 @@ def GetEstadoId(id_pais):
 
 @bottle.get('/ciudad/<id_estado>')
 def GetCiudadId(id_estado):
-    '''Metodo que permite Buscar todos los registros de la tabla Estado'''
+    '''Metodo que permite Buscar todos los registros de la tabla Ciudad'''
 
-    paisId = id_estado
+    estadoId = id_estado
 
     msg = {"status": 0, "mensaje": ''}
 
     # Consulta la Base de Datos
-    editar = sql.estado_listar(paisId)
+    editar = sql.ciudad_listar(estadoId)
     print('###################################################################################')
-    print('Lo que devuelve sql.estado_listar()', editar)
+    print('Lo que devuelve sql.ciudad_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
