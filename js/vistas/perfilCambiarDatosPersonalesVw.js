@@ -148,6 +148,13 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         cbx = new Vista.ComboBox({el: '#slcEstado', collections: data, defaultValue: valorEstado})
     },
 
+    cbxCiudad: function(){
+        valorEstado = this.model.id_estado;
+        valorCiudad = this.model.id_ciudad;
+        data = Utils.Varias.BuscarReg_Ciudad(valorEstado);
+        cbx = new Vista.ComboBox({el: '#slcCiudad', collections: data, defaultValue: valorCiudad})
+    },
+
     render: function(){
         this.$el.html( this.plantilla(this.model) );
         this.cbxTipoIdentidad();
@@ -156,6 +163,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         this.cbxEdoCivil();
         this.cbxPais();
         this.cbxEstado();
+        this.cbxCiudad();
 
         // $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
         // $("select#slcTipoIdentidad").val(valor);

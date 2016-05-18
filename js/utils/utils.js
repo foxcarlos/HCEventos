@@ -108,4 +108,23 @@ Utils.Varias = {
 
         return this.d
     },
+
+    BuscarReg_Ciudad: function(id_estado){
+        var ciudad = new Models.Ciudad({id: id_estado});
+        self = this;
+        respuesta = ciudad.fetch({async: false});
+
+        respuesta.done(function(respon){
+            if( respon ){
+                self.d = respon;
+            }
+        });
+
+        respuesta.fail(function(respon){
+            console.log('fail '+respon);
+        });
+
+        return this.d
+    },
+
 }
