@@ -349,6 +349,26 @@ def GetEdoCivil():
     return json.dumps(msg)
 
 
+@bottle.get('/pais')
+def GetPais():
+    '''Metodo que permite Buscar todos los registros de la tabla Pais'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.pais_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.pais_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
 @bottle.post('/notificar')
 def notificarFrontEnd():
     '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
