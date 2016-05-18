@@ -328,6 +328,26 @@ def GetNacionalidad():
     return json.dumps(msg)
 
 
+@bottle.get('/edocivil')
+def GetEdoCivil():
+    '''Metodo que permite Buscar todos los registros de la tabla Estado Civil'''
+
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.edo_civil_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.edo_civil_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
 @bottle.post('/notificar')
 def notificarFrontEnd():
     '''Metodo que recibe desde el FrontEnd y permite enviar una notificacion SMS al usuario '''
