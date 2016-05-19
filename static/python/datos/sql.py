@@ -464,7 +464,7 @@ def pais_listar():
             if registros:
                 devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
             else:
-                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+                devuelveMsg = {'status': 0, 'mensaje': ''}
         else:
             # Si falla el status de la Sentencia SQL
             estado = posg.estado['status']
@@ -479,6 +479,7 @@ def estado_listar(pais=0):
     Valores devuelto 1: json'''
 
     paisId = pais
+    condicionWhere = 'where id_pais = {0}'.format(paisId) if paisId else ''
     registros = []
     devuelveMsg = {'status': 0, 'mensaje': ''}
 
@@ -493,7 +494,7 @@ def estado_listar(pais=0):
     if not posg.estado['status']:
         devuelveMsg = {'status': estado, 'mensaje': mensaje}
     else:
-        sql = "SELECT row_to_json(estado) FROM referencias.estado where id_pais = {0}".format(paisId)
+        sql = "SELECT row_to_json(estado) FROM referencias.estado {0} ".format(condicionWhere)
         posg.ejecutar(sql)
 
         # Se verifica el estado del Select SQL
@@ -503,12 +504,12 @@ def estado_listar(pais=0):
             if registros:
                 devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
             else:
-                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+                devuelveMsg = {'status': 0, 'mensaje': ''}
         else:
             # Si falla el status de la Sentencia SQL
             estado = posg.estado['status']
             mensaje = posg.estado['mensaje']
-            devuelveMsg = {'status': estado, 'mensaje': mensaje[0]}
+            devuelveMsg = {'status': estado, 'mensaje': mensaje}
 
     return devuelveMsg
 
@@ -518,6 +519,8 @@ def ciudad_listar(estado=0):
     Valores devuelto 1: json'''
 
     estadoId = estado
+    condicionWhere = 'where id_estado = {0}'.format(estadoId) if estadoId else ''
+
     registros = []
     devuelveMsg = {'status': 0, 'mensaje': ''}
 
@@ -532,7 +535,7 @@ def ciudad_listar(estado=0):
     if not posg.estado['status']:
         devuelveMsg = {'status': estado, 'mensaje': mensaje}
     else:
-        sql = "SELECT row_to_json(ciudad) FROM referencias.ciudad where id_estado = {0}".format(estadoId)
+        sql = "SELECT row_to_json(ciudad) FROM referencias.ciudad {0} ".format(condicionWhere)
         posg.ejecutar(sql)
 
         # Se verifica el estado del Select SQL
@@ -542,7 +545,7 @@ def ciudad_listar(estado=0):
             if registros:
                 devuelveMsg = {'status': 1, 'mensaje': [f[0] for f in registros]}
             else:
-                devuelveMsg = {'status': 0, 'mensaje': 'Sin Informacion'}
+                devuelveMsg = {'status': 0, 'mensaje': ''}
         else:
             # Si falla el status de la Sentencia SQL
             estado = posg.estado['status']

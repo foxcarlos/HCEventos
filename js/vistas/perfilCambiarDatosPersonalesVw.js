@@ -19,9 +19,12 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
     guardarDatosP: function(){
         if ( this.validarCamposVacios() ){
+
             var id_usuario = this.model.id_usuario;
-            var clave = $('#password1').val();
-            var nombre_usuario = this.model.nombre_usuario;
+
+            var id_tipo_identidad = $("#slcTipoIdentidad").val();
+            var cedula_passp = $("#tipo_identidad").val();
+
 
             // Este Metodo es el que cambia la clave
             PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario)
@@ -103,7 +106,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
             if(!valor.trim()){
                 todoBien = false;
-                Notificar.modalOk('Atencion ...', 'Campo vacio' + descripcion, '#modal-warning');
+                Notificar.modalOk('Atencion ...', 'Campo vacio: ' + descripcion, '#modal-warning');
                 $(selector).focus();
                 break
             }

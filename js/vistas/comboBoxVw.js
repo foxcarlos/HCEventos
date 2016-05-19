@@ -42,7 +42,6 @@ Vista.ComboBox = Backbone.View.extend({
 
     render: function(){
         this.$el.html( this.htmlComboBox() ) ;
-        // console.log( this.htmlComboBox() );
         return this;
     }
 

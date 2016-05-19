@@ -64,7 +64,6 @@ App.Views.Index = Backbone.View.extend({
     mostrarMenu: function(e){
         e.preventDefault()
         // this.$('#wrapper').toggleClass('toggled');
-        alert('hola');
 
     },
 
@@ -94,12 +93,10 @@ App.Views.Index = Backbone.View.extend({
 
         miSelector = '#divCuerpoIndexParte1'
         var miVistaCuerpoIndexParte1 = new Vista.CuerpoIndexParte1( {el: miSelector, model: this.model} );
-        console.log(miVistaCuerpoIndexParte1.render().el)
         this.$(miSelector).append(miVistaCuerpoIndexParte1.render().el);
 
         miSelector = '#divCuerpoIndexParte2'
         var miVistaCuerpoIndexParte2 = new Vista.CuerpoIndexParte2({el: miSelector, model: this.model});
-        console.log(miVistaCuerpoIndexParte2.render().el)
         this.$(miSelector).append(miVistaCuerpoIndexParte2.render().el);
     }
 });

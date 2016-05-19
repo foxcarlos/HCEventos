@@ -373,12 +373,11 @@ def GetPais():
 def GetEstado():
     '''Metodo que permite Buscar todos los registros de la tabla Estado'''
 
-    paisId = ''  # id_pais
-
+    print('Entro en GetEstado')
     msg = {"status": 0, "mensaje": ''}
 
     # Consulta la Base de Datos
-    editar = sql.estado_listar(paisId)
+    editar = sql.estado_listar()
     print('###################################################################################')
     print('Lo que devuelve sql.estado_listar()', editar)
     print('###################################################################################')
@@ -396,6 +395,7 @@ def GetEstadoId(id_pais):
     '''Metodo que permite Buscar todos los registros de la tabla Estado'''
 
     paisId = id_pais
+    print('Entro GetEstadoId')
 
     msg = {"status": 0, "mensaje": ''}
 
@@ -403,6 +403,27 @@ def GetEstadoId(id_pais):
     editar = sql.estado_listar(paisId)
     print('###################################################################################')
     print('Lo que devuelve sql.estado_listar()', editar)
+    print('###################################################################################')
+
+    if editar['status']:
+        msg = editar['mensaje']
+        return json.dumps(msg)
+    else:
+        msg = editar
+    return json.dumps(msg)
+
+
+@bottle.get('/ciudad')
+def GetCiudad():
+    '''Metodo que permite Buscar todos los registros de la tabla Ciudad'''
+
+    print('Entro en GetEstado')
+    msg = {"status": 0, "mensaje": ''}
+
+    # Consulta la Base de Datos
+    editar = sql.ciudad_listar()
+    print('###################################################################################')
+    print('Lo que devuelve sql.ciudad_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
