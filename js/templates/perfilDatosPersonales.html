@@ -96,7 +96,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label class="control-label" for="area">Municipio, Area o Localidad</label>
-                        <input id="area" name="area" type="text" placeholder="Municipio, Area o Localidad" class="form-control input-md">
+                        <!-- <input type="text" id="area" placeholder="Municipio, Area o Localidad" class="form-control" value=<%=direcc_direccion%> /> -->
+                        <textarea class="form-control" id="area"><%= direcc_localidad_area%></textarea>
+
                     </div>
                 </div>
             </div>
@@ -106,7 +108,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label class="control-label" for="direccion">Direccion de Habitacion</label>
-                        <textarea class="form-control" id="dierccion" name="direccion"></textarea>
+                        <textarea class="form-control" id="dierccion" name="direccion"><%= direcc_direccion%></textarea>
                     </div>
                 </div>
             </div> <!--Fin Direccion-->

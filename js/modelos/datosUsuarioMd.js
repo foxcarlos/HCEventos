@@ -5,7 +5,7 @@ var Models = Models || {};
         urlRoot: 'datosUsuario',
 
         defaults:{
-            id_tipo_identidad: '',
+            /*id_tipo_identidad: '',
             tipo_identidad: '',
             cedula_passp: '',
             nombres: '',
@@ -46,55 +46,65 @@ var Models = Models || {};
             id_especialidad: '',
             profesioninstitucion: '',
             profesiondireccion: '',
-            id_usuario: ''
+            id_usuario: ''*/
         }
     });
 
 /*
-id_tipo_identidad
-tipo_identidad
-cedula_passp
-nombres
-apellidos
-fechanac
-id_genero_sexo
-genero_sexo
-id_nacionalidad
-nacionalidad
-id_edo_civil
-edo_civil
-id_direccion
-id_pais
-pais
-id_estado
-estado
-id_ciudad
-ciudad
-localidad_area
-direccion
-id_inf_personal
-inf_personal_telefono_movil
-inf_personal_telefono_habitacion
-inf_personal_email
-inf_personal_twitter
-inf_personal_instagram
-id_inf_laboral
-cargo
-institucionlaboral
-direccionlaboral
-telefonolaboral
-faxlaboral
-emaillaboral
-weblaboral
-twitterlaboral
-id_inf_profesional
-id_nivelacademico
-descripcion
-id_especialidad
-profesioninstitucion
-profesiondireccion
-id_usuario
 
-nombre_usuario
-
+apellidos: "",
+cargo: "",
+cedula_passp: "",
+ciudad: "",
+descripcion: "",
+direcc_direccion: "",
+direcc_localidad_area: "",
+direccion: "",
+direccionlaboral: "",
+edo_civil: "",
+emaillaboral: "",
+estado: "",
+faxlaboral: "",
+fechanac: "",
+genero_sexo: "",
+id_ciudad: "",
+id_direccion: "",
+id_edo_civil: "",
+id_especialidad: "",
+id_estado: "",
+id_genero_sexo: "",
+id_inf_laboral: "",
+id_inf_personal: "",
+id_inf_profesional: "",
+id_nacionalidad: "",
+id_nivelacademico: "",
+id_pais: "",
+id_tipo_identidad: "",
+id_usuario: "",
+inf_laboral_direccion: "",
+inf_laboral_email: "",
+inf_laboral_fax: "",
+inf_laboral_institucion: "",
+inf_laboral_telefono: "",
+inf_laboral_twitter: "",
+inf_laboral_web: "",
+inf_personal_email: "",
+inf_personal_instagram: "",
+inf_personal_telefono_habitacion: "",
+inf_personal_telefono_movil: "",
+inf_personal_twitter: "",
+infprofesional_direccion: "",
+infprofesional_institucion: "",
+institucionlaboral: "",
+nacionalidad: "",
+nivelacademico_descripcion: "",
+nombre_usuario: "",
+nombres: "",
+pais: "",
+profesiondireccion: "",
+profesioninstitucion: "",
+telefonolaboral: "",
+tipo_identidad: "",
+twitterlaboral: "",
+weblaboral: "",
 */

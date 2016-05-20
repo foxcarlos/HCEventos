@@ -1,0 +1,3536 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.4.5
+-- Dumped by pg_dump version 9.4.5
+-- Started on 2016-05-19 20:27:58 VET
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+DROP DATABASE "HCeventos";
+--
+-- TOC entry 2355 (class 1262 OID 41116)
+-- Name: HCeventos; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "HCeventos" WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'es_VE.UTF-8' LC_CTYPE = 'es_VE.UTF-8';
+
+
+ALTER DATABASE "HCeventos" OWNER TO postgres;
+
+\connect "HCeventos"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 2356 (class 1262 OID 41116)
+-- Dependencies: 2355
+-- Name: HCeventos; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE "HCeventos" IS 'Sistema para Eventos del Hospital Coromoto
+
+Carlos Alberto Garcia Diaz
+Jose Ignacio Luengo
+';
+
+
+--
+-- TOC entry 7 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- TOC entry 2357 (class 0 OID 0)
+-- Dependencies: 7
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
+-- TOC entry 6 (class 2615 OID 41117)
+-- Name: referencias; Type: SCHEMA; Schema: -; Owner: admhc
+--
+
+CREATE SCHEMA referencias;
+
+
+ALTER SCHEMA referencias OWNER TO admhc;
+
+--
+-- TOC entry 8 (class 2615 OID 41118)
+-- Name: seguridad; Type: SCHEMA; Schema: -; Owner: admhc
+--
+
+CREATE SCHEMA seguridad;
+
+
+ALTER SCHEMA seguridad OWNER TO admhc;
+
+--
+-- TOC entry 2359 (class 0 OID 0)
+-- Dependencies: 8
+-- Name: SCHEMA seguridad; Type: COMMENT; Schema: -; Owner: admhc
+--
+
+COMMENT ON SCHEMA seguridad IS 'Esquema para todas las tablas que tengan que ver con la seguridad del Sistema';
+
+
+--
+-- TOC entry 228 (class 3079 OID 11861)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2361 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 174 (class 1259 OID 41119)
+-- Name: contacto; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE contacto (
+    id bigint NOT NULL,
+    tipo_contacto bigint,
+    descripcion character varying,
+    detalle character varying,
+    persona bigint
+);
+
+
+ALTER TABLE contacto OWNER TO admhc;
+
+--
+-- TOC entry 2362 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: COLUMN contacto.tipo_contacto; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN contacto.tipo_contacto IS 'Relacion tipo contacto';
+
+
+--
+-- TOC entry 2363 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: COLUMN contacto.descripcion; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN contacto.descripcion IS 'dato del contacto, ejemṕlo, correo o telefono o red social';
+
+
+--
+-- TOC entry 2364 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: COLUMN contacto.detalle; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN contacto.detalle IS 'Alguna descripcion para el tipo de contacto, ejemplo
+
+- Otro  Telefono
+- Telefono de mi esposa
+- Correo temporal';
+
+
+--
+-- TOC entry 2365 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: COLUMN contacto.persona; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN contacto.persona IS 'ID de Persona';
+
+
+--
+-- TOC entry 175 (class 1259 OID 41125)
+-- Name: contacto_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE contacto_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE contacto_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2367 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: contacto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE contacto_id_seq OWNED BY contacto.id;
+
+
+--
+-- TOC entry 176 (class 1259 OID 41127)
+-- Name: contenido_programatico; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE contenido_programatico (
+    id bigint NOT NULL,
+    id_programa bigint,
+    tema character varying,
+    id_ponente bigint,
+    hora_inicio timestamp without time zone,
+    hora_final timestamp without time zone
+);
+
+
+ALTER TABLE contenido_programatico OWNER TO admhc;
+
+--
+-- TOC entry 177 (class 1259 OID 41133)
+-- Name: contenido_programatico_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE contenido_programatico_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE contenido_programatico_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2368 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: contenido_programatico_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE contenido_programatico_id_seq OWNED BY contenido_programatico.id;
+
+
+--
+-- TOC entry 178 (class 1259 OID 41135)
+-- Name: direccion; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE direccion (
+    id bigint NOT NULL,
+    id_pais bigint,
+    id_estado bigint,
+    id_ciudad bigint,
+    localidad_area character varying,
+    direccion character varying,
+    id_persona bigint
+);
+
+
+ALTER TABLE direccion OWNER TO admhc;
+
+--
+-- TOC entry 179 (class 1259 OID 41141)
+-- Name: direccion_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE direccion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE direccion_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2369 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: direccion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE direccion_id_seq OWNED BY direccion.id;
+
+
+--
+-- TOC entry 180 (class 1259 OID 41143)
+-- Name: evento; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE evento (
+    id bigint NOT NULL,
+    descripcion character varying,
+    fecha_inicio date,
+    fecha_final date,
+    id_direccion bigint,
+    id_contacto bigint,
+    motivo character varying,
+    objetivo character varying
+);
+
+
+ALTER TABLE evento OWNER TO admhc;
+
+--
+-- TOC entry 181 (class 1259 OID 41149)
+-- Name: evento_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE evento_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE evento_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2370 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: evento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE evento_id_seq OWNED BY evento.id;
+
+
+--
+-- TOC entry 182 (class 1259 OID 41151)
+-- Name: informacion_personal; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE informacion_personal (
+    id bigint NOT NULL,
+    id_persona bigint,
+    telefono_movil character varying,
+    telefono_habitacion character varying,
+    email character varying,
+    twitter character varying,
+    instagram character varying
+);
+
+
+ALTER TABLE informacion_personal OWNER TO admhc;
+
+--
+-- TOC entry 183 (class 1259 OID 41157)
+-- Name: informacion_contacto_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE informacion_contacto_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE informacion_contacto_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2371 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: informacion_contacto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE informacion_contacto_id_seq OWNED BY informacion_personal.id;
+
+
+--
+-- TOC entry 184 (class 1259 OID 41159)
+-- Name: informacion_laboral; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE informacion_laboral (
+    id bigint NOT NULL,
+    id_persona bigint,
+    institucion character varying,
+    direccion character varying,
+    telefono character varying,
+    fax character varying,
+    email character varying,
+    web character varying,
+    twitter character varying,
+    cargo character varying
+);
+
+
+ALTER TABLE informacion_laboral OWNER TO admhc;
+
+--
+-- TOC entry 185 (class 1259 OID 41165)
+-- Name: informacion_laboral_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE informacion_laboral_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE informacion_laboral_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2372 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: informacion_laboral_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE informacion_laboral_id_seq OWNED BY informacion_laboral.id;
+
+
+--
+-- TOC entry 186 (class 1259 OID 41167)
+-- Name: informacion_profesional; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE informacion_profesional (
+    id bigint NOT NULL,
+    id_persona bigint,
+    id_nivelacademico bigint,
+    id_especialidad bigint,
+    institucion character varying,
+    direccion character varying
+);
+
+
+ALTER TABLE informacion_profesional OWNER TO admhc;
+
+--
+-- TOC entry 187 (class 1259 OID 41173)
+-- Name: informacion_personal_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE informacion_personal_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE informacion_personal_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2373 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: informacion_personal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE informacion_personal_id_seq OWNED BY informacion_profesional.id;
+
+
+--
+-- TOC entry 188 (class 1259 OID 41175)
+-- Name: menu; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE menu (
+    id bigint NOT NULL,
+    orden integer DEFAULT 0 NOT NULL,
+    nombre character varying(100),
+    descripcion character varying(100),
+    depende_menu_id integer DEFAULT 0 NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    fecha_creacion timestamp without time zone DEFAULT now(),
+    usuario_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE menu OWNER TO admhc;
+
+--
+-- TOC entry 2374 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: COLUMN menu.id; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN menu.id IS 'Id unico';
+
+
+--
+-- TOC entry 2375 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: COLUMN menu.nombre; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN menu.nombre IS 'Nombre del Rol';
+
+
+--
+-- TOC entry 2376 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: COLUMN menu.descripcion; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN menu.descripcion IS 'Una breve descripcion del Rol';
+
+
+--
+-- TOC entry 2377 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: COLUMN menu.depende_menu_id; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN menu.depende_menu_id IS 'ID el cual el menu depende, o ID del menui padre';
+
+
+--
+-- TOC entry 2378 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: COLUMN menu.status; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN menu.status IS 'Estatus o estado , activo o inactivo 1 o 0';
+
+
+--
+-- TOC entry 2379 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: COLUMN menu.fecha_creacion; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN menu.fecha_creacion IS 'Fecha en la cual  se creo el registro';
+
+
+--
+-- TOC entry 2380 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: COLUMN menu.usuario_id; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN menu.usuario_id IS 'ID del usuario que creo el registro, si es creado por fuera del sistema el usuario es 0';
+
+
+--
+-- TOC entry 189 (class 1259 OID 41183)
+-- Name: menu_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE menu_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE menu_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2382 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: menu_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE menu_id_seq OWNED BY menu.id;
+
+
+--
+-- TOC entry 190 (class 1259 OID 41185)
+-- Name: persona; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE persona (
+    id bigint NOT NULL,
+    tipo_identidad bigint,
+    cedula_passp character varying,
+    nombres character varying,
+    apellidos character varying,
+    fechanac date,
+    genero_sexo bigint,
+    nacionalidad bigint,
+    edo_civil bigint,
+    direccion bigint,
+    usuario bigint
+);
+
+
+ALTER TABLE persona OWNER TO admhc;
+
+--
+-- TOC entry 191 (class 1259 OID 41191)
+-- Name: persona_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE persona_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE persona_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2383 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: persona_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE persona_id_seq OWNED BY persona.id;
+
+
+--
+-- TOC entry 192 (class 1259 OID 41193)
+-- Name: persona_tipo_identidad_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE persona_tipo_identidad_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE persona_tipo_identidad_seq OWNER TO admhc;
+
+--
+-- TOC entry 2384 (class 0 OID 0)
+-- Dependencies: 192
+-- Name: persona_tipo_identidad_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE persona_tipo_identidad_seq OWNED BY persona.tipo_identidad;
+
+
+--
+-- TOC entry 193 (class 1259 OID 41195)
+-- Name: programa; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE programa (
+    id bigint NOT NULL,
+    id_evento bigint,
+    id_tipo_programa bigint,
+    descripcion character varying,
+    fecha_inicio_programa date,
+    fecha_final_programa date,
+    fecha_inicio_inscripcion date,
+    fecha_final_inscripcion date,
+    id_direccion bigint,
+    id_salon bigint,
+    observaciones character varying
+);
+
+
+ALTER TABLE programa OWNER TO admhc;
+
+--
+-- TOC entry 194 (class 1259 OID 41201)
+-- Name: programa_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE programa_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE programa_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2385 (class 0 OID 0)
+-- Dependencies: 194
+-- Name: programa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE programa_id_seq OWNED BY programa.id;
+
+
+--
+-- TOC entry 195 (class 1259 OID 41203)
+-- Name: salon; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE salon (
+    id bigint NOT NULL,
+    descripcion character varying,
+    capacidad integer,
+    observaciones character varying
+);
+
+
+ALTER TABLE salon OWNER TO admhc;
+
+--
+-- TOC entry 196 (class 1259 OID 41209)
+-- Name: salon_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE salon_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE salon_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2386 (class 0 OID 0)
+-- Dependencies: 196
+-- Name: salon_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE salon_id_seq OWNED BY salon.id;
+
+
+--
+-- TOC entry 197 (class 1259 OID 41211)
+-- Name: tipos_contacto; Type: TABLE; Schema: public; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE tipos_contacto (
+    id bigint NOT NULL,
+    descripcion character varying
+);
+
+
+ALTER TABLE tipos_contacto OWNER TO admhc;
+
+--
+-- TOC entry 2387 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: COLUMN tipos_contacto.descripcion; Type: COMMENT; Schema: public; Owner: admhc
+--
+
+COMMENT ON COLUMN tipos_contacto.descripcion IS 'Descripcion para el tipo de Contacto, Ej: 
+email personal
+email laboral
+direccion habitacion
+direccion laboral
+telefono movil
+telefono habitacion';
+
+
+--
+-- TOC entry 198 (class 1259 OID 41217)
+-- Name: tipos_contacto_id_seq; Type: SEQUENCE; Schema: public; Owner: admhc
+--
+
+CREATE SEQUENCE tipos_contacto_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tipos_contacto_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2389 (class 0 OID 0)
+-- Dependencies: 198
+-- Name: tipos_contacto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admhc
+--
+
+ALTER SEQUENCE tipos_contacto_id_seq OWNED BY tipos_contacto.id;
+
+
+SET search_path = referencias, pg_catalog;
+
+--
+-- TOC entry 199 (class 1259 OID 41219)
+-- Name: ciudad; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE ciudad (
+    id bigint NOT NULL,
+    id_pais bigint,
+    id_estado bigint,
+    descripcion character varying
+);
+
+
+ALTER TABLE ciudad OWNER TO admhc;
+
+--
+-- TOC entry 200 (class 1259 OID 41225)
+-- Name: edo_civil; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE edo_civil (
+    id bigint NOT NULL,
+    descripcion character varying
+);
+
+
+ALTER TABLE edo_civil OWNER TO admhc;
+
+--
+-- TOC entry 201 (class 1259 OID 41231)
+-- Name: estado; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE estado (
+    id bigint NOT NULL,
+    descripcion character varying,
+    id_pais bigint
+);
+
+
+ALTER TABLE estado OWNER TO admhc;
+
+--
+-- TOC entry 202 (class 1259 OID 41237)
+-- Name: genero_sexo; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE genero_sexo (
+    id bigint NOT NULL,
+    descripcion character varying
+);
+
+
+ALTER TABLE genero_sexo OWNER TO admhc;
+
+--
+-- TOC entry 203 (class 1259 OID 41243)
+-- Name: nacionalidad; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE nacionalidad (
+    id bigint NOT NULL,
+    descripcion character varying
+);
+
+
+ALTER TABLE nacionalidad OWNER TO admhc;
+
+--
+-- TOC entry 204 (class 1259 OID 41249)
+-- Name: nivelacademico; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE nivelacademico (
+    id bigint NOT NULL,
+    descripcion character varying
+);
+
+
+ALTER TABLE nivelacademico OWNER TO admhc;
+
+--
+-- TOC entry 205 (class 1259 OID 41255)
+-- Name: pais; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE pais (
+    id bigint NOT NULL,
+    descripcion character varying,
+    nombre_corto character varying
+);
+
+
+ALTER TABLE pais OWNER TO admhc;
+
+--
+-- TOC entry 206 (class 1259 OID 41261)
+-- Name: tipo_identidad; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE tipo_identidad (
+    id bigint NOT NULL,
+    descripcion character varying
+);
+
+
+ALTER TABLE tipo_identidad OWNER TO admhc;
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 207 (class 1259 OID 41267)
+-- Name: usuarios; Type: TABLE; Schema: seguridad; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE usuarios (
+    id bigint NOT NULL,
+    login character varying NOT NULL,
+    clave character varying NOT NULL,
+    rol_id integer DEFAULT 0 NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    fecha_creacion timestamp without time zone DEFAULT now() NOT NULL,
+    creado_por_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE usuarios OWNER TO admhc;
+
+--
+-- TOC entry 2390 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: COLUMN usuarios.id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN usuarios.id IS 'ID Unico';
+
+
+--
+-- TOC entry 2391 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: COLUMN usuarios.creado_por_id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN usuarios.creado_por_id IS 'ID del usuario que creo el registro, si es creado por fuera del sistema el usuario es 0';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 227 (class 1259 OID 41530)
+-- Name: vdatospersona; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW vdatospersona AS
+ SELECT p.id,
+    p.tipo_identidad AS id_tipo_identidad,
+    identidad.descripcion AS tipo_identidad,
+    p.cedula_passp,
+    p.nombres,
+    p.apellidos,
+    to_char((p.fechanac)::timestamp with time zone, 'YYYY-MM-DD'::text) AS fechanac,
+    p.genero_sexo AS id_genero_sexo,
+    sexo.descripcion AS genero_sexo,
+    p.nacionalidad AS id_nacionalidad,
+    nacional.descripcion AS nacionalidad,
+    p.edo_civil AS id_edo_civil,
+    edocivil.descripcion AS edo_civil,
+    direcc.id AS id_direccion,
+    direcc.id_pais,
+    pais.descripcion AS pais,
+    direcc.id_estado,
+    estado.descripcion AS estado,
+    direcc.id_ciudad,
+    ciudad.descripcion AS ciudad,
+    direcc.localidad_area AS direcc_localidad_area,
+    direcc.direccion AS direcc_direccion,
+    infpersonal.id AS id_inf_personal,
+    infpersonal.telefono_movil AS inf_personal_telefono_movil,
+    infpersonal.telefono_habitacion AS inf_personal_telefono_habitacion,
+    infpersonal.email AS inf_personal_email,
+    infpersonal.twitter AS inf_personal_twitter,
+    infpersonal.instagram AS inf_personal_instagram,
+    inflaboral.id AS id_inf_laboral,
+    inflaboral.cargo,
+    inflaboral.institucion AS inf_laboral_institucion,
+    inflaboral.direccion AS inf_laboral_direccion,
+    inflaboral.telefono AS inf_laboral_telefono,
+    inflaboral.fax AS inf_laboral_fax,
+    inflaboral.email AS inf_laboral_email,
+    inflaboral.web AS inf_laboral_web,
+    inflaboral.twitter AS inf_laboral_twitter,
+    infprofesional.id AS id_inf_profesional,
+    infprofesional.id_nivelacademico,
+    nivelacademico.descripcion AS nivelacademico_descripcion,
+    infprofesional.id_especialidad,
+    infprofesional.institucion AS infprofesional_institucion,
+    infprofesional.direccion AS infprofesional_direccion,
+    p.usuario AS id_usuario,
+    usu.login AS nombre_usuario
+   FROM (((((((((((((persona p
+     LEFT JOIN referencias.tipo_identidad identidad ON ((p.tipo_identidad = identidad.id)))
+     LEFT JOIN referencias.genero_sexo sexo ON ((p.genero_sexo = sexo.id)))
+     LEFT JOIN referencias.nacionalidad nacional ON ((p.nacionalidad = nacional.id)))
+     LEFT JOIN referencias.edo_civil edocivil ON ((p.edo_civil = edocivil.id)))
+     LEFT JOIN direccion direcc ON ((p.id = direcc.id_persona)))
+     LEFT JOIN referencias.pais pais ON ((pais.id = direcc.id_pais)))
+     LEFT JOIN referencias.estado estado ON ((estado.id = direcc.id_estado)))
+     LEFT JOIN referencias.ciudad ciudad ON ((ciudad.id = direcc.id_ciudad)))
+     LEFT JOIN informacion_personal infpersonal ON ((p.id = infpersonal.id_persona)))
+     LEFT JOIN informacion_laboral inflaboral ON ((p.id = inflaboral.id_persona)))
+     LEFT JOIN informacion_profesional infprofesional ON ((p.id = infprofesional.id_persona)))
+     LEFT JOIN referencias.nivelacademico nivelacademico ON ((nivelacademico.id = infprofesional.id_nivelacademico)))
+     LEFT JOIN seguridad.usuarios usu ON ((p.usuario = usu.id)));
+
+
+ALTER TABLE vdatospersona OWNER TO postgres;
+
+SET search_path = referencias, pg_catalog;
+
+--
+-- TOC entry 208 (class 1259 OID 41282)
+-- Name: cargo; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE cargo (
+    id bigint NOT NULL,
+    descripcion character varying
+);
+
+
+ALTER TABLE cargo OWNER TO admhc;
+
+--
+-- TOC entry 209 (class 1259 OID 41288)
+-- Name: cargo_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE cargo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cargo_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2393 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: cargo_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE cargo_id_seq OWNED BY cargo.id;
+
+
+--
+-- TOC entry 210 (class 1259 OID 41290)
+-- Name: ciudad_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE ciudad_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE ciudad_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2394 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: ciudad_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE ciudad_id_seq OWNED BY ciudad.id;
+
+
+--
+-- TOC entry 211 (class 1259 OID 41292)
+-- Name: edo_civil_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE edo_civil_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE edo_civil_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2395 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: edo_civil_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE edo_civil_id_seq OWNED BY edo_civil.id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 41294)
+-- Name: especialidad; Type: TABLE; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE especialidad (
+    id bigint NOT NULL,
+    descripcion character varying
+);
+
+
+ALTER TABLE especialidad OWNER TO admhc;
+
+--
+-- TOC entry 213 (class 1259 OID 41300)
+-- Name: especialidad_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE especialidad_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE especialidad_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2396 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: especialidad_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE especialidad_id_seq OWNED BY especialidad.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 41302)
+-- Name: estado_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE estado_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE estado_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2397 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: estado_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE estado_id_seq OWNED BY estado.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 41304)
+-- Name: genero_sexo_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE genero_sexo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE genero_sexo_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2398 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: genero_sexo_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE genero_sexo_id_seq OWNED BY genero_sexo.id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 41306)
+-- Name: nacionalidad_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE nacionalidad_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE nacionalidad_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2399 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: nacionalidad_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE nacionalidad_id_seq OWNED BY nacionalidad.id;
+
+
+--
+-- TOC entry 217 (class 1259 OID 41308)
+-- Name: pais_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE pais_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE pais_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2400 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: pais_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE pais_id_seq OWNED BY pais.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 41310)
+-- Name: profesion_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE profesion_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE profesion_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2401 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: profesion_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE profesion_id_seq OWNED BY nivelacademico.id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 41312)
+-- Name: tipo_identidad_id_seq; Type: SEQUENCE; Schema: referencias; Owner: admhc
+--
+
+CREATE SEQUENCE tipo_identidad_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tipo_identidad_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2402 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: tipo_identidad_id_seq; Type: SEQUENCE OWNED BY; Schema: referencias; Owner: admhc
+--
+
+ALTER SEQUENCE tipo_identidad_id_seq OWNED BY tipo_identidad.id;
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 220 (class 1259 OID 41314)
+-- Name: permisos; Type: TABLE; Schema: seguridad; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE permisos (
+    id bigint NOT NULL,
+    menu_id integer DEFAULT 0 NOT NULL,
+    rol_id integer DEFAULT 0 NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    fecha_creacion timestamp without time zone DEFAULT now(),
+    creado_por_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE permisos OWNER TO admhc;
+
+--
+-- TOC entry 2403 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN permisos.id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN permisos.id IS 'Id Unico';
+
+
+--
+-- TOC entry 2404 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN permisos.menu_id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN permisos.menu_id IS 'ID del menu que se le asignara el permiso';
+
+
+--
+-- TOC entry 2405 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN permisos.rol_id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN permisos.rol_id IS 'ID del Rol que se le asignara el permiso';
+
+
+--
+-- TOC entry 2406 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN permisos.status; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN permisos.status IS 'Status o estado del Registro, activo o inactivo 1 o 0 por defecto es activo 1';
+
+
+--
+-- TOC entry 2407 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN permisos.fecha_creacion; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN permisos.fecha_creacion IS 'Fecha en la cual  se creo el registro';
+
+
+--
+-- TOC entry 2408 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: COLUMN permisos.creado_por_id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN permisos.creado_por_id IS 'ID del usuario que creo el registro, si es creado por fuera del sistema el usuario es 0';
+
+
+--
+-- TOC entry 221 (class 1259 OID 41322)
+-- Name: permisos_id_seq; Type: SEQUENCE; Schema: seguridad; Owner: admhc
+--
+
+CREATE SEQUENCE permisos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE permisos_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2410 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: permisos_id_seq; Type: SEQUENCE OWNED BY; Schema: seguridad; Owner: admhc
+--
+
+ALTER SEQUENCE permisos_id_seq OWNED BY permisos.id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 41324)
+-- Name: roles; Type: TABLE; Schema: seguridad; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE roles (
+    id bigint NOT NULL,
+    nombre character varying(100),
+    descripcion character varying(100),
+    status integer DEFAULT 1 NOT NULL,
+    fecha_creacion timestamp without time zone DEFAULT now(),
+    usuario_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE roles OWNER TO admhc;
+
+--
+-- TOC entry 223 (class 1259 OID 41330)
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: seguridad; Owner: admhc
+--
+
+CREATE SEQUENCE roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE roles_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2412 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: seguridad; Owner: admhc
+--
+
+ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 41332)
+-- Name: usuario_rol; Type: TABLE; Schema: seguridad; Owner: admhc; Tablespace: 
+--
+
+CREATE TABLE usuario_rol (
+    id bigint NOT NULL,
+    usuario_id integer DEFAULT 0 NOT NULL,
+    rol_id integer DEFAULT 0 NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    fecha_creacion timestamp without time zone DEFAULT now(),
+    creado_por_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE usuario_rol OWNER TO admhc;
+
+--
+-- TOC entry 2413 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: COLUMN usuario_rol.id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN usuario_rol.id IS 'Id Unico';
+
+
+--
+-- TOC entry 2414 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: COLUMN usuario_rol.usuario_id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN usuario_rol.usuario_id IS 'ID del usuario que tiene el Rol';
+
+
+--
+-- TOC entry 2415 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: COLUMN usuario_rol.rol_id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN usuario_rol.rol_id IS 'ID del Rol asociado el usuario';
+
+
+--
+-- TOC entry 2416 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: COLUMN usuario_rol.status; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN usuario_rol.status IS 'Status o estado del Registro, activo o inactivo 1 o 0 por defecto es activo 1';
+
+
+--
+-- TOC entry 2417 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: COLUMN usuario_rol.fecha_creacion; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN usuario_rol.fecha_creacion IS 'Fecha en la cual  se creo el registro';
+
+
+--
+-- TOC entry 2418 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: COLUMN usuario_rol.creado_por_id; Type: COMMENT; Schema: seguridad; Owner: admhc
+--
+
+COMMENT ON COLUMN usuario_rol.creado_por_id IS 'ID del usuario que creo el registro, si es creado por fuera del sistema el usuario es 0';
+
+
+--
+-- TOC entry 225 (class 1259 OID 41341)
+-- Name: usuario_rol_id_seq; Type: SEQUENCE; Schema: seguridad; Owner: admhc
+--
+
+CREATE SEQUENCE usuario_rol_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE usuario_rol_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2420 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: usuario_rol_id_seq; Type: SEQUENCE OWNED BY; Schema: seguridad; Owner: admhc
+--
+
+ALTER SEQUENCE usuario_rol_id_seq OWNED BY usuario_rol.id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 41343)
+-- Name: usuarios_id_seq; Type: SEQUENCE; Schema: seguridad; Owner: admhc
+--
+
+CREATE SEQUENCE usuarios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE usuarios_id_seq OWNER TO admhc;
+
+--
+-- TOC entry 2421 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: seguridad; Owner: admhc
+--
+
+ALTER SEQUENCE usuarios_id_seq OWNED BY usuarios.id;
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 2067 (class 2604 OID 41345)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY contacto ALTER COLUMN id SET DEFAULT nextval('contacto_id_seq'::regclass);
+
+
+--
+-- TOC entry 2068 (class 2604 OID 41346)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY contenido_programatico ALTER COLUMN id SET DEFAULT nextval('contenido_programatico_id_seq'::regclass);
+
+
+--
+-- TOC entry 2069 (class 2604 OID 41347)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY direccion ALTER COLUMN id SET DEFAULT nextval('direccion_id_seq'::regclass);
+
+
+--
+-- TOC entry 2070 (class 2604 OID 41348)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY evento ALTER COLUMN id SET DEFAULT nextval('evento_id_seq'::regclass);
+
+
+--
+-- TOC entry 2072 (class 2604 OID 41349)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY informacion_laboral ALTER COLUMN id SET DEFAULT nextval('informacion_laboral_id_seq'::regclass);
+
+
+--
+-- TOC entry 2071 (class 2604 OID 41350)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY informacion_personal ALTER COLUMN id SET DEFAULT nextval('informacion_contacto_id_seq'::regclass);
+
+
+--
+-- TOC entry 2073 (class 2604 OID 41351)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY informacion_profesional ALTER COLUMN id SET DEFAULT nextval('informacion_personal_id_seq'::regclass);
+
+
+--
+-- TOC entry 2079 (class 2604 OID 41352)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY menu ALTER COLUMN id SET DEFAULT nextval('menu_id_seq'::regclass);
+
+
+--
+-- TOC entry 2080 (class 2604 OID 41353)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY persona ALTER COLUMN id SET DEFAULT nextval('persona_id_seq'::regclass);
+
+
+--
+-- TOC entry 2081 (class 2604 OID 41354)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY programa ALTER COLUMN id SET DEFAULT nextval('programa_id_seq'::regclass);
+
+
+--
+-- TOC entry 2082 (class 2604 OID 41355)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY salon ALTER COLUMN id SET DEFAULT nextval('salon_id_seq'::regclass);
+
+
+--
+-- TOC entry 2083 (class 2604 OID 41356)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY tipos_contacto ALTER COLUMN id SET DEFAULT nextval('tipos_contacto_id_seq'::regclass);
+
+
+SET search_path = referencias, pg_catalog;
+
+--
+-- TOC entry 2097 (class 2604 OID 41357)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY cargo ALTER COLUMN id SET DEFAULT nextval('cargo_id_seq'::regclass);
+
+
+--
+-- TOC entry 2084 (class 2604 OID 41358)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY ciudad ALTER COLUMN id SET DEFAULT nextval('ciudad_id_seq'::regclass);
+
+
+--
+-- TOC entry 2085 (class 2604 OID 41359)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY edo_civil ALTER COLUMN id SET DEFAULT nextval('edo_civil_id_seq'::regclass);
+
+
+--
+-- TOC entry 2098 (class 2604 OID 41360)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY especialidad ALTER COLUMN id SET DEFAULT nextval('especialidad_id_seq'::regclass);
+
+
+--
+-- TOC entry 2086 (class 2604 OID 41361)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY estado ALTER COLUMN id SET DEFAULT nextval('estado_id_seq'::regclass);
+
+
+--
+-- TOC entry 2087 (class 2604 OID 41362)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY genero_sexo ALTER COLUMN id SET DEFAULT nextval('genero_sexo_id_seq'::regclass);
+
+
+--
+-- TOC entry 2088 (class 2604 OID 41363)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY nacionalidad ALTER COLUMN id SET DEFAULT nextval('nacionalidad_id_seq'::regclass);
+
+
+--
+-- TOC entry 2089 (class 2604 OID 41364)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY nivelacademico ALTER COLUMN id SET DEFAULT nextval('profesion_id_seq'::regclass);
+
+
+--
+-- TOC entry 2090 (class 2604 OID 41365)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY pais ALTER COLUMN id SET DEFAULT nextval('pais_id_seq'::regclass);
+
+
+--
+-- TOC entry 2091 (class 2604 OID 41366)
+-- Name: id; Type: DEFAULT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY tipo_identidad ALTER COLUMN id SET DEFAULT nextval('tipo_identidad_id_seq'::regclass);
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 2104 (class 2604 OID 41367)
+-- Name: id; Type: DEFAULT; Schema: seguridad; Owner: admhc
+--
+
+ALTER TABLE ONLY permisos ALTER COLUMN id SET DEFAULT nextval('permisos_id_seq'::regclass);
+
+
+--
+-- TOC entry 2108 (class 2604 OID 41368)
+-- Name: id; Type: DEFAULT; Schema: seguridad; Owner: admhc
+--
+
+ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
+
+
+--
+-- TOC entry 2114 (class 2604 OID 41369)
+-- Name: id; Type: DEFAULT; Schema: seguridad; Owner: admhc
+--
+
+ALTER TABLE ONLY usuario_rol ALTER COLUMN id SET DEFAULT nextval('usuario_rol_id_seq'::regclass);
+
+
+--
+-- TOC entry 2096 (class 2604 OID 41370)
+-- Name: id; Type: DEFAULT; Schema: seguridad; Owner: admhc
+--
+
+ALTER TABLE ONLY usuarios ALTER COLUMN id SET DEFAULT nextval('usuarios_id_seq'::regclass);
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 2298 (class 0 OID 41119)
+-- Dependencies: 174
+-- Data for Name: contacto; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY contacto (id, tipo_contacto, descripcion, detalle, persona) FROM stdin;
+1	20	foxcarlos@gmail.com	Correo Personal	47
+2	20	garciacau@pdvsa.com	Correo Laboral	47
+6	22	Urb San Francisco Av 40	Direccion de Habitacion	47
+7	22	Av 2C Sector La Lago Hospital Coromoto	Direccion de Oficina	47
+8	23	@foxcarlos	Instagram	47
+9	23	@foxcarlos	Twitter	47
+10	23	foxcarlos@gmail.com	Facebook	47
+11	23	foxcarlos@hotmail.com	Skype	47
+12	23	foxcarlos@gmail.com	G+	47
+13	23	foxcarlos@gmail.com	YouTube	47
+14	23	foxcarlos@gmail.com	LinkedIn	47
+15	23	04165602966	Whatsapp	47
+3	25	04165602966	Telefono Movil 	47
+4	25	04126402966	Otro Telefono	47
+5	21	0261 7900075	Telefono de Oficina	47
+16	23	foxcarlos@gmail.com	Pinterest	47
+\.
+
+
+--
+-- TOC entry 2422 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: contacto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('contacto_id_seq', 16, true);
+
+
+--
+-- TOC entry 2300 (class 0 OID 41127)
+-- Dependencies: 176
+-- Data for Name: contenido_programatico; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY contenido_programatico (id, id_programa, tema, id_ponente, hora_inicio, hora_final) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2423 (class 0 OID 0)
+-- Dependencies: 177
+-- Name: contenido_programatico_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('contenido_programatico_id_seq', 1, false);
+
+
+--
+-- TOC entry 2302 (class 0 OID 41135)
+-- Dependencies: 178
+-- Data for Name: direccion; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY direccion (id, id_pais, id_estado, id_ciudad, localidad_area, direccion, id_persona) FROM stdin;
+1	196	24	322	Municipio San Francisco	Av 40 Urbanizacio San Francisco	47
+\.
+
+
+--
+-- TOC entry 2424 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: direccion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('direccion_id_seq', 1, true);
+
+
+--
+-- TOC entry 2304 (class 0 OID 41143)
+-- Dependencies: 180
+-- Data for Name: evento; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY evento (id, descripcion, fecha_inicio, fecha_final, id_direccion, id_contacto, motivo, objetivo) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2425 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: evento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('evento_id_seq', 1, false);
+
+
+--
+-- TOC entry 2426 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: informacion_contacto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('informacion_contacto_id_seq', 18, true);
+
+
+--
+-- TOC entry 2308 (class 0 OID 41159)
+-- Dependencies: 184
+-- Data for Name: informacion_laboral; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY informacion_laboral (id, id_persona, institucion, direccion, telefono, fax, email, web, twitter, cargo) FROM stdin;
+1	\N	PDV SERVICIOS DE SALUD	AV 3C SECTOR LA LAGO	02617900075	\N	garciacau@pdvsa.com	\N	\N	SUPERVISOR DE DESARROLLO DE APLICACIONES
+\.
+
+
+--
+-- TOC entry 2427 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: informacion_laboral_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('informacion_laboral_id_seq', 1, true);
+
+
+--
+-- TOC entry 2306 (class 0 OID 41151)
+-- Dependencies: 182
+-- Data for Name: informacion_personal; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY informacion_personal (id, id_persona, telefono_movil, telefono_habitacion, email, twitter, instagram) FROM stdin;
+1	47	04165602966	\N	foxcarlos@gmail.com	@foxcarlos	@foxcarlos
+15	124	04165602966	\N	a@a.com	\N	\N
+16	125	04126719830	\N	jignaciol@gmail.com	\N	\N
+17	126	04165602966	\N	nairestherg@gmail.com	\N	\N
+18	127	04165037629	\N	alawadadel@gmail.com	\N	\N
+\.
+
+
+--
+-- TOC entry 2428 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: informacion_personal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('informacion_personal_id_seq', 1, true);
+
+
+--
+-- TOC entry 2310 (class 0 OID 41167)
+-- Dependencies: 186
+-- Data for Name: informacion_profesional; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY informacion_profesional (id, id_persona, id_nivelacademico, id_especialidad, institucion, direccion) FROM stdin;
+1	47	9	\N	Jesus Enrique Lossada	Calle 78 Dr. POrtillo
+\.
+
+
+--
+-- TOC entry 2312 (class 0 OID 41175)
+-- Dependencies: 188
+-- Data for Name: menu; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY menu (id, orden, nombre, descripcion, depende_menu_id, status, fecha_creacion, usuario_id) FROM stdin;
+1	1	Configurar Sistema	Menu el cual conendra todas las opciones para dar la configuracion inicial del Sistema, Ej: Configur	0	1	2016-02-23 13:37:53.963786	0
+4	1	Usuarios	Crear usuario para el Sistema	1	1	2016-02-24 13:46:17.043424	0
+5	2	Roles	Crear Roles para el Sistema	1	1	2016-02-24 13:46:43.972651	0
+6	3	Roles de Usuario	Asignar Roles al usuario	1	1	2016-02-24 13:47:19.076924	0
+7	4	Permisos	Asignar Permisos a los Menu	1	1	2016-02-24 13:48:00.18908	0
+2	2	Configurar Eventos	Menu con las Opciones para configurar todo lo referente al Evento, Ej. crear evento, crear salon, cr	0	1	2016-02-23 13:39:07.893014	0
+8	1	Eventos	CRUD para Eventos	2	1	2016-02-24 13:51:36.318532	0
+9	2	Programa	CRUD para Programas	2	1	2016-02-24 13:51:52.590093	0
+10	3	Contenido Programatico	CRUD para Contenido Programatico	2	1	2016-02-24 13:52:15.24518	0
+11	4	Litas de Eventos	Lista de Todos los Eventos Creados	2	1	2016-02-24 13:52:41.693272	0
+3	4	Configurar Perfil	Opcion para configurar todo lo referente al Perfil de Usuario. Ej:, Nombre, Clave, Datos personales	0	1	2016-02-23 13:40:29.29321	0
+12	3	Eventos	Eventos del Usuario	0	1	2016-02-24 13:57:45.376013	0
+13	1	Eventos Disponibles	Le muestra al usuario eventos disponibles actualemnte	12	1	2016-02-24 13:58:19.695242	0
+14	2	Mis Eventos	Lista de Eventos al cual el Usuario de inscribio	12	1	2016-02-24 13:59:22.639337	0
+15	1	Configurar Cuenta	Cambiar informacion de la Cuenta del usuario	3	1	2016-02-24 14:02:03.592118	0
+16	2	Cambiar Contraseña	Cambiar contraseña delѠUsuario	3	1	2016-02-24 14:02:16.144202	0
+17	3	Cerrar Sesion	Cerrar sesion actual	3	1	2016-02-24 14:02:24.385376	0
+\.
+
+
+--
+-- TOC entry 2429 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('menu_id_seq', 17, true);
+
+
+--
+-- TOC entry 2314 (class 0 OID 41185)
+-- Dependencies: 190
+-- Data for Name: persona; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY persona (id, tipo_identidad, cedula_passp, nombres, apellidos, fechanac, genero_sexo, nacionalidad, edo_civil, direccion, usuario) FROM stdin;
+124	\N	\N	a	a	2016-05-03	2	\N	\N	\N	117
+125	\N	\N	Jose	Luengo	2016-05-11	2	\N	\N	\N	118
+126	\N	\N	Nairesther	Gomez	2016-05-10	1	\N	\N	\N	119
+47	1	9796220	Carlos	Garcia	1972-07-16	2	1	1	1	1
+127	\N	\N	Adel	Al Awad	1962-10-02	2	\N	\N	\N	120
+\.
+
+
+--
+-- TOC entry 2430 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: persona_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('persona_id_seq', 127, true);
+
+
+--
+-- TOC entry 2431 (class 0 OID 0)
+-- Dependencies: 192
+-- Name: persona_tipo_identidad_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('persona_tipo_identidad_seq', 3, true);
+
+
+--
+-- TOC entry 2317 (class 0 OID 41195)
+-- Dependencies: 193
+-- Data for Name: programa; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY programa (id, id_evento, id_tipo_programa, descripcion, fecha_inicio_programa, fecha_final_programa, fecha_inicio_inscripcion, fecha_final_inscripcion, id_direccion, id_salon, observaciones) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2432 (class 0 OID 0)
+-- Dependencies: 194
+-- Name: programa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('programa_id_seq', 1, false);
+
+
+--
+-- TOC entry 2319 (class 0 OID 41203)
+-- Dependencies: 195
+-- Data for Name: salon; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY salon (id, descripcion, capacidad, observaciones) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2433 (class 0 OID 0)
+-- Dependencies: 196
+-- Name: salon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('salon_id_seq', 1, false);
+
+
+--
+-- TOC entry 2321 (class 0 OID 41211)
+-- Dependencies: 197
+-- Data for Name: tipos_contacto; Type: TABLE DATA; Schema: public; Owner: admhc
+--
+
+COPY tipos_contacto (id, descripcion) FROM stdin;
+20	Email
+21	Telefono
+22	Direccion
+23	Red Social
+24	Pagina Web
+25	Movil
+\.
+
+
+--
+-- TOC entry 2434 (class 0 OID 0)
+-- Dependencies: 198
+-- Name: tipos_contacto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admhc
+--
+
+SELECT pg_catalog.setval('tipos_contacto_id_seq', 25, true);
+
+
+SET search_path = referencias, pg_catalog;
+
+--
+-- TOC entry 2332 (class 0 OID 41282)
+-- Dependencies: 208
+-- Data for Name: cargo; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY cargo (id, descripcion) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2435 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: cargo_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('cargo_id_seq', 1, false);
+
+
+--
+-- TOC entry 2323 (class 0 OID 41219)
+-- Dependencies: 199
+-- Data for Name: ciudad; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY ciudad (id, id_pais, id_estado, descripcion) FROM stdin;
+1	196	1	San Fernando de Atabapo
+2	196	1	San Carlos de Rio Negro
+3	196	1	Guainia
+4	196	1	La Esmeralda
+5	196	1	Puerto Ayacucho
+6	196	1	Isla Raton
+7	196	1	San Juan de Manapiare
+8	196	1	Maroa
+9	196	2	Puerto La Cruz
+10	196	2	Lecherias
+11	196	2	Guanta
+12	196	2	El Tigre
+13	196	2	Anaco
+14	196	3	Achaguas
+15	196	3	Biruaca
+16	196	3	Bruzual
+17	196	3	Elorza
+18	196	4	Urmero
+19	196	4	La Victoria
+20	196	4	Cagua
+21	196	4	Villa de Cura
+22	196	4	Colonia Tovar
+23	196	4	Turmero
+24	196	4	San Sebastian
+25	196	4	Ocumare de la Costa
+26	196	4	El Consejo
+27	196	4	San Casimiro
+28	196	4	Las Tejerias
+29	196	4	El Limon
+30	196	5	Barinitas
+31	196	5	Socopo
+32	196	5	Santa Barbara
+33	196	5	Sabaneta
+34	196	5	Barinas
+35	196	6	Ciudad Guayana
+36	196	6	Upata
+37	196	6	Caicara del Orinoco
+38	196	6	Tumeremo
+39	196	6	El Callao
+40	196	6	Santa Elena de Uairén
+41	196	2	Barcelona
+42	196	3	San Fernando de Apure
+43	196	4	Maracay
+44	196	6	Ciudad Bolivar
+45	196	7	Valencia
+46	196	7	Puerto Cabello
+47	196	7	Guacara
+48	196	7	Mariara
+49	196	7	Guigue
+50	196	7	Bejuma
+51	196	7	Moron
+52	196	7	Tocuyito
+53	196	7	Naguanagua
+54	196	7	San Joaquin
+55	196	7	San Diego
+56	196	8	San Carlos
+57	196	8	Tinaquillo
+58	196	8	Tinaco
+59	196	8	El Pao
+60	196	8	El Baul
+61	196	8	Cojedes
+62	196	8	Macapo
+63	196	8	Libertad
+64	196	8	las Vegas
+65	196	9	Curiapo
+66	196	9	Perdernales
+67	196	9	La Horqueta
+68	196	9	Las Piacoa
+69	196	9	Santa Catalina
+70	196	9	Tucupita
+71	196	9	Sierra Imataca
+72	196	10	Caracas
+73	196	11	Santa Ana
+74	196	11	Punto Fijo
+75	196	11	Punta Cardon
+76	196	11	Churuguara
+77	196	11	Mirimire
+78	196	11	Chichiriviche
+79	196	11	Dabajuro
+80	196	11	Mene de Mauroa
+81	196	11	Los Pedros
+82	196	11	Pedregal
+83	196	11	Urumaco
+84	196	11	Coro
+85	196	11	La Vela
+86	196	11	San Luis
+87	196	11	Pueblo Nuevo
+88	196	11	Santa Cruz de los Taques
+89	196	11	Yaracal
+90	196	11	Cabure
+91	196	11	Piritu
+92	196	11	Mene Tucacas
+93	196	11	La Cruz de taratara
+94	196	11	Tocopero
+95	196	11	Santa Cruz de Bucaral
+96	196	11	Puerto Cumarebo
+97	196	11	Curimagua
+98	196	11	Borojo
+99	196	11	Mitare
+100	196	11	Seque
+101	196	11	Bariro
+102	196	12	San Juan de los Morros
+103	196	12	Valle de la Pascua
+104	196	12	Calabozo
+105	196	12	El Camaguan
+106	196	12	Chaguaramas
+107	196	12	Las Mercedes
+108	196	12	Santa Maria de Ipire
+109	196	12	Tucupide
+110	196	12	Zaraza
+111	196	12	Altagracia de Orituco
+112	196	12	El Sombrero
+113	196	13	Barquisimeto
+114	196	13	Carora
+115	196	13	Cabudare
+116	196	13	El Tocuyo
+117	196	13	Quibor
+118	196	13	Duaca
+119	196	13	Cubiro
+120	196	13	Sanare
+121	196	13	Siquisique
+122	196	13	Tintorero
+123	196	14	Merida
+124	196	14	El Vijia
+125	196	14	La Azulita
+126	196	14	El Santa Cruz de Mora
+127	196	14	Aricagua
+128	196	14	Canagua
+129	196	14	Ejido
+130	196	14	Tucani
+131	196	14	Santo Domingo
+132	196	14	Arapuey
+133	196	14	Timotes
+134	196	14	Santa Elena de Arenales 
+135	196	14	Bailadores
+136	196	14	Tabay
+137	196	14	Tovar
+138	196	14	Lagunillas
+139	196	15	Caucagua
+140	196	15	San Jose de Barlovento
+141	196	15	Baruta
+142	196	15	Higuerote
+143	196	15	San Francisco de Yare
+144	196	15	Mamporal
+145	196	15	Carrizal
+146	196	15	Chacao
+147	196	15	El Hatillo
+148	196	15	Los Teques
+149	196	15	Santa Teresa del Tuy
+150	196	15	Ocumare del Tuy
+151	196	15	San Antonio de los Altos
+152	196	15	Rio Chico
+153	196	15	Guarenas
+154	196	15	Charallave
+155	196	15	Guatire
+156	196	15	Petare
+157	196	15	Cua
+158	196	16	Maturin
+159	196	16	Aguasay
+160	196	16	Caripito
+161	196	16	Caripe
+162	196	16	Caicara de Maturin
+163	196	16	Tembaldor
+166	196	16	Quiriquire
+167	196	16	Santa Barbara
+168	196	16	Barrancas del Orinoco
+169	196	16	Uracoa
+170	196	16	Punta de Mata
+164	196	16	San Antonio de Maturin
+165	196	16	Aragua de Maturin
+171	196	17	Paraguachi
+172	196	17	La Asuncion
+173	196	17	San Juan
+174	196	17	El Valle
+175	196	17	Santa Ana
+176	196	17	Pampatar
+177	196	17	Juan Griego
+178	196	17	Porlamar
+179	196	17	Boca de Rio
+180	196	17	Punta de Piedras
+181	196	17	Coche
+182	196	18	Agua Blanca
+183	196	18	Araure
+184	196	18	Piritu
+185	196	18	Guanare
+186	196	18	Guanarito
+187	196	18	Paraiso de Chabasquen
+188	196	18	Ospino
+189	196	18	Acarigua
+190	196	18	Papelon
+191	196	18	Boconoito
+192	196	18	San Rafael de Onoto
+193	196	18	El Playon
+194	196	18	Biscucuy
+195	196	18	Villa Bruzual
+196	196	19	Casanay
+197	196	19	San Jose de Aerocuar
+198	196	19	Rio Caribe
+199	196	19	El Pilar
+200	196	19	Carupano
+201	196	19	Mariguitar
+202	196	19	Yaguaraparo
+203	196	19	Araya
+204	196	19	Tunapuy
+205	196	19	Irapa
+206	196	19	San Antonio del Golfo
+207	196	19	Cumanacoa
+208	196	19	Cariaco
+209	196	19	Cumana
+210	196	19	Guiria
+211	196	20	Cordero
+212	196	20	Las Mesas
+213	196	20	Colon
+214	196	20	San Antonio
+215	196	20	Tariba
+216	196	20	Santa Ana
+217	196	20	El Piñal
+218	196	20	San Jose de Bolivar
+219	196	20	La Fria
+220	196	20	Palmira
+221	196	20	Capacho Nuevo
+222	196	20	La Grita
+223	196	20	El Cobre
+224	196	20	Rubio
+225	196	20	Umuquema
+226	196	20	Capacho Viejo
+227	196	20	Abejales
+228	196	20	Lobatera
+229	196	20	Michelena
+230	196	20	Coloncito
+231	196	20	Ureña
+232	196	20	Delicias
+233	196	20	La Tendida
+234	196	20	San Cristobal
+235	196	20	Seboruco
+236	196	20	San Simon
+237	196	20	queniquea
+238	196	20	San Josecito
+239	196	20	Pregonero
+240	196	21	Santa Isabel
+241	196	21	Bocono
+242	196	21	Sabana Grande
+243	196	21	Chejende
+244	196	21	Carache
+245	196	21	Carvajal
+246	196	21	Campo Elias
+247	196	21	Escuque
+248	196	21	Sanata Apolonia
+249	196	21	El Paradero
+250	196	21	El Dividive
+251	196	21	La Monte Carmelo
+252	196	21	Motatan
+253	196	21	Pampan
+254	196	21	Pampanito
+255	196	21	Betijoque
+256	196	21	Sabana de Mendoza
+257	196	21	Trujillo
+258	196	21	La Quebrada
+259	196	21	Valera
+260	196	21	Buena Vista
+261	196	21	La Puerta
+262	196	22	Caraballeda
+263	196	22	Camurichico
+264	196	22	Carayaca
+265	196	22	El Limon
+266	196	22	Chichiriviche de la Costa
+267	196	22	Maiquetia
+268	196	22	10 de Marzo
+269	196	22	Pariata
+270	196	22	Los Dos Cerritos
+271	196	22	Montesano
+272	196	22	Canaima
+273	196	22	Caruao
+274	196	22	La Sabana
+275	196	22	Todasana
+276	196	22	Osma
+277	196	22	Oritapo
+278	196	22	Chuspa
+279	196	22	Catia la Mar
+280	196	22	Las Tunitas
+281	196	22	Carlos Soublette
+282	196	22	El Junquito
+283	196	22	El Junko
+284	196	22	La Guaira
+285	196	22	Galipan
+286	196	22	El Cardonal
+287	196	22	Punta de Mulatos
+288	196	22	Macuto
+289	196	22	Naiguata
+290	196	22	Camuri Grande
+291	196	22	Anare
+292	196	22	Los Caracas
+293	196	22	Carmen de Uria
+294	196	22	Urimare
+295	196	22	Playa Verde
+296	196	22	Puerto Viejo
+297	196	23	San Pablo
+298	196	23	Aroa
+299	196	23	Chivacoa
+300	196	23	Cocorote
+301	196	23	Independencia
+302	196	23	Boraure
+303	196	23	Yumare
+304	196	23	Nirgua
+305	196	23	Sabana de Parra
+306	196	23	Yaritagua
+307	196	23	San Felipe
+308	196	23	Guama
+309	196	23	Urachiche
+310	196	23	Farriar
+311	196	24	El Toro
+312	196	24	San Timoteo
+313	196	24	Cabimas
+314	196	24	Encontrados
+315	196	24	San Carlos del Zulia
+316	196	24	Pueblo Nuevo-El Chivo
+317	196	24	La Concepcion
+318	196	24	Casigua el Cubo
+319	196	24	Ciudad Ojeda
+320	196	24	Machiques
+321	196	24	San Rafael del Mojan
+322	196	24	Maracaibo
+323	196	24	Farriar
+324	196	24	Los Puertos de Altagracia
+325	196	24	Sinamaica
+326	196	24	Villa del Rosario
+327	196	24	San Francisco
+328	196	24	Santa Rita
+329	196	24	Tia Juana
+330	196	24	Bobures
+331	196	24	Bachaquero
+332	196	24	Lagunillas
+333	196	24	El Mecocal
+334	196	24	La cañada de Urdaneta
+335	196	24	Isla de Toas
+336	196	25	Otra
+\.
+
+
+--
+-- TOC entry 2436 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: ciudad_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('ciudad_id_seq', 336, true);
+
+
+--
+-- TOC entry 2324 (class 0 OID 41225)
+-- Dependencies: 200
+-- Data for Name: edo_civil; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY edo_civil (id, descripcion) FROM stdin;
+1	Casado(a)
+2	Soltero(a)
+3	Divorciado(a)
+4	Viudo(a)
+\.
+
+
+--
+-- TOC entry 2437 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: edo_civil_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('edo_civil_id_seq', 4, true);
+
+
+--
+-- TOC entry 2336 (class 0 OID 41294)
+-- Dependencies: 212
+-- Data for Name: especialidad; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY especialidad (id, descripcion) FROM stdin;
+1	Cirugia
+2	Alergologia
+3	Anestesiologia y reanimacion
+4	Cardiologia
+5	Gastroenterologia
+6	Endocrinologia
+7	Geriatria
+8	Hematologia y hemoterapia
+9	Hidrologia medica
+10	Infectologia
+11	Medicina aeroespacial
+12	Medicina del deporte
+13	Medicina del trabajo
+14	Medicina de urgencias
+15	Medicina familiar y comunitaria
+16	Medicina intensiva
+17	Medicina interna
+18	Medicina legal y forense
+19	Medicina preventiva y salud publica
+20	Nefrologia
+21	Neumologia
+22	Neurologia
+23	Nutriologia
+24	Odontologia
+25	Oftalmologia
+26	Oncologia medica
+27	Oncologia radioterapica
+28	Otorrinolaringologia
+29	Pediatria
+30	Proctologia
+31	Psiquiatria
+32	Rehabilitacion
+33	Reumatologia
+34	Traumatologia
+35	Toxicologia
+36	Urologia
+37	Cirugia cardiovascular
+38	Cirugia general y del aparato digestivo
+39	Cirugia oral y maxilofacial
+40	Cirugia ortopedica y traumatologia
+41	Cirugia pediatrica
+42	Cirugia plastica, estetica y reparadora
+43	Cirugia toracica
+44	Neurocirugia
+45	Angiologia y cirugia vascular
+46	Dermatologia medico-quirurgica y venereologia
+47	Estomatologia
+48	Ginecologia y obstetricia o tocologia
+49	Oftalmologia
+50	Otorrinolaringologia
+51	Urologia
+52	Analisis clinicos
+53	Anatomia patologica
+54	Bioquimica clinica
+55	Farmacologia clinica
+56	Genetica medica
+57	Inmunologia
+58	Medicina nuclear
+59	Microbiologia y parasitologia
+60	Neurofisiologia clinica
+61	Radiodiagnostico o radiologia
+62	Otras
+\.
+
+
+--
+-- TOC entry 2438 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: especialidad_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('especialidad_id_seq', 62, true);
+
+
+--
+-- TOC entry 2325 (class 0 OID 41231)
+-- Dependencies: 201
+-- Data for Name: estado; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY estado (id, descripcion, id_pais) FROM stdin;
+25	Otro	2
+1	Amazonas	196
+2	Anzoategui	196
+3	Apure	196
+4	Aragua	196
+5	Barinas	196
+6	Bolivar	196
+7	Carabobo	196
+8	Cojedes	196
+9	Delta Amacuro	196
+10	Distrito capital	196
+11	Falcon	196
+12	Guarico	196
+13	Lara	196
+14	Merida	196
+15	Miranda	196
+16	Monagas	196
+17	Nueva Esparta	196
+18	Portuguesa	196
+19	Sucre	196
+20	Tachira	196
+21	Trujillo	196
+23	Yaracuy	196
+22	Vargas	196
+24	Zulia	196
+\.
+
+
+--
+-- TOC entry 2439 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: estado_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('estado_id_seq', 25, true);
+
+
+--
+-- TOC entry 2326 (class 0 OID 41237)
+-- Dependencies: 202
+-- Data for Name: genero_sexo; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY genero_sexo (id, descripcion) FROM stdin;
+1	Femenino
+2	Masculino
+\.
+
+
+--
+-- TOC entry 2440 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: genero_sexo_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('genero_sexo_id_seq', 2, true);
+
+
+--
+-- TOC entry 2327 (class 0 OID 41243)
+-- Dependencies: 203
+-- Data for Name: nacionalidad; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY nacionalidad (id, descripcion) FROM stdin;
+1	Venezolano(a)
+2	Extranjero(a)
+\.
+
+
+--
+-- TOC entry 2441 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: nacionalidad_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('nacionalidad_id_seq', 2, true);
+
+
+--
+-- TOC entry 2328 (class 0 OID 41249)
+-- Dependencies: 204
+-- Data for Name: nivelacademico; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY nivelacademico (id, descripcion) FROM stdin;
+1	Medico
+2	Ingeniero
+3	Arquitecto
+4	Magister
+5	PHD
+6	Licenciado
+7	Comerciante
+9	TSU
+10	Bachiller
+11	Tecnico Medio
+8	Estudiante Universitario
+12	Abogado
+\.
+
+
+--
+-- TOC entry 2329 (class 0 OID 41255)
+-- Dependencies: 205
+-- Data for Name: pais; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY pais (id, descripcion, nombre_corto) FROM stdin;
+2	Otro	\N
+3	Afghanistan	AFG
+4	Albania	ALB
+5	Algeria	DZA
+6	Andorra	AND
+7	Angola	AGO
+8	Antigua & Barbuda	ATG
+9	Argentina	ARG
+10	Armenia	ARM
+11	Australia	AUS
+12	Austria	AUT
+13	Azerbaijan	AZE
+14	Bahamas	BHS
+15	Bahrain	BHR
+16	Bangladesh	BGD
+17	Barbados	BRB
+18	Belarus	BLR
+19	Belgium	BEL
+20	Belize	BLZ
+21	Benin	BEN
+22	Bhutan	BTN
+23	Bolivia	BOL
+24	Bosnia & Herzegovina	BIH
+25	Botswana	BWA
+26	Brazil	BRA
+27	Brunei Darussalam	BRN
+28	Bulgaria	BGR
+29	Burkina Faso	BFA
+30	Burma	MMR
+31	Burundi	BDI
+32	Cambodia	KHM
+33	Cameroon	CMR
+34	Canada	CAN
+35	Cape Verde	CPV
+36	Central African Republic	CAF
+37	Chad	TCD
+38	Chile	CHL
+39	China	CHN
+40	Colombia	COL
+41	Comoros	COM
+42	Congo	COG
+43	Cook Islands	COK
+44	Costa Rica	CRI
+45	Croatia	HRV
+46	Cuba	CUB
+47	Cyprus	CYP
+48	Czech Republic	CZE
+49	Democratic Republic of the Congo	COD
+50	Denmark	DNK
+51	Djibouti	DJI
+52	Dominica	DMA
+53	Dominican Republic	DOM
+54	Ecuador	ECU
+55	Egypt	EGY
+56	El Salvador	SLV
+57	Equatorial Guinea	GNQ
+58	Eritrea	ERI
+59	Estonia	EST
+60	Ethiopia	ETH
+61	Fiji	FJI
+62	Finland	FIN
+63	France	FRA
+64	Gabon	GAB
+65	Gambia	GMB
+66	Georgia	GEO
+67	Germany	DEU
+68	Ghana	GHA
+69	Global	WLD
+70	Greece	GRC
+71	Grenada	GRD
+72	Guatemala	GTM
+73	Guinea	GIN
+74	Guinea-Bissau	GNB
+75	Guyana	GUY
+76	Haiti	HTI
+77	Holy See	VAT
+78	Honduras	HND
+79	Hungary	HUN
+80	Iceland	ISL
+81	India	IND
+82	Indonesia	IDN
+83	Iran	IRN
+84	Iraq	IRQ
+85	Ireland	IRL
+86	Israel	ISR
+87	Italy	ITA
+88	Ivory Coast	CIV
+89	Jamaica	JAM
+90	Japan	JPN
+91	Jordan	JOR
+92	Kazakhstan	KAZ
+93	Kenya	KEN
+94	Kiribati	KIR
+95	Kosovo	KSV
+96	Kuwait	KWT
+97	Kyrgyzstan	KGZ
+98	Laos	LAO
+99	Latvia	LVA
+100	Lebanon	LBN
+101	Lesotho	LSO
+102	Liberia	LBR
+103	Libya	LBY
+104	Liechtenstein	LIE
+105	Lithuania	LTU
+106	Luxembourg	LUX
+107	Macedonia	MKD
+108	Madagascar	MDG
+109	Malawi	MWI
+110	Malaysia	MYS
+111	Maldives	MDV
+112	Mali	MLI
+113	Malta	MLT
+114	Marshall Islands	MHL
+115	Mauritania	MRT
+116	Mauritius	MUS
+117	Mexico	MEX
+118	Micronesia	FSM
+119	Moldova	MDA
+120	Monaco	MCO
+121	Mongolia	MNG
+122	Montenegro	MNE
+123	Morocco	MAR
+124	Mozambique	MOZ
+125	Namibia	NAM
+126	Nauru	NRU
+127	Nepal	NPL
+128	Netherlands	NLD
+129	New Zealand	NZL
+130	Nicaragua	NIC
+131	Niger	NER
+132	Nigeria	NGA
+133	Niue	NIU
+134	North Korea	PRK
+135	Norway	NOR
+136	Oman	OMN
+137	Pakistan	PAK
+138	Palau	PLW
+139	Panama	PAN
+140	Papua New Guinea	PNG
+141	Paraguay	PRY
+142	Peru	PER
+143	Philippines	PHL
+144	Poland	POL
+145	Portugal	PRT
+146	Qatar	QAT
+147	Romania	ROU
+148	Russia	RUS
+149	Rwanda	RWA
+150	Samoa	WSM
+151	San Marino	SMR
+152	Sao Tome & Principe	STP
+153	Saudi Arabia	SAU
+154	Senegal	SEN
+155	Serbia	SRB
+156	Seychelles	SYC
+157	Sierra Leone	SLE
+158	Singapore	SGP
+159	Slovakia	SVK
+160	Slovenia	SVN
+161	Solomon Islands	SLB
+162	Somalia	SOM
+163	South Africa	ZAF
+164	South Korea	KOR
+165	South Sudan	SSD
+166	Spain	ESP
+167	Sri Lanka	LKA
+168	St. Kitts & Nevis	KNA
+169	St. Lucia	LCA
+170	St. Vincent & the Grenadines	VCT
+171	Sudan	SDN
+172	Suriname	SUR
+173	Swaziland	SWZ
+174	Sweden	SWE
+175	Switzerland	CHE
+176	Syria	SYR
+177	Tajikistan	TJK
+178	Tanzania	TZA
+179	Thailand	THA
+180	Timor-Leste	TLS
+181	Togo	TGO
+182	Tonga	TON
+183	Trinidad & Tobago	TTO
+184	Tunisia	TUN
+185	Turkey	TUR
+186	Turkmenistan	TKM
+187	Tuvalu	TUV
+188	Uganda	UGA
+189	Ukraine	UKR
+190	United Arab Emirates	ARE
+191	United Kingdom	GBR
+192	United States of America	USA
+193	Uruguay	URY
+194	Uzbekistan	UZB
+195	Vanuatu	VUT
+196	Venezuela	VEN
+197	Vietnam	VNM
+198	Yemen	YEM
+199	Zambia	ZMB
+200	Zimbabwe	ZWE
+\.
+
+
+--
+-- TOC entry 2442 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: pais_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('pais_id_seq', 200, true);
+
+
+--
+-- TOC entry 2443 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: profesion_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('profesion_id_seq', 12, true);
+
+
+--
+-- TOC entry 2330 (class 0 OID 41261)
+-- Dependencies: 206
+-- Data for Name: tipo_identidad; Type: TABLE DATA; Schema: referencias; Owner: admhc
+--
+
+COPY tipo_identidad (id, descripcion) FROM stdin;
+1	Cedula
+2	Pasaporte
+3	DNI
+4	Otro
+\.
+
+
+--
+-- TOC entry 2444 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: tipo_identidad_id_seq; Type: SEQUENCE SET; Schema: referencias; Owner: admhc
+--
+
+SELECT pg_catalog.setval('tipo_identidad_id_seq', 4, true);
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 2344 (class 0 OID 41314)
+-- Dependencies: 220
+-- Data for Name: permisos; Type: TABLE DATA; Schema: seguridad; Owner: admhc
+--
+
+COPY permisos (id, menu_id, rol_id, status, fecha_creacion, creado_por_id) FROM stdin;
+1	1	2	1	2016-02-24 16:56:47.02138	0
+2	2	2	1	2016-02-24 16:56:49.797155	0
+3	12	1	1	2016-02-24 16:56:54.357262	0
+4	3	1	1	2016-02-24 16:56:57.309046	0
+9	1	0	1	2016-02-24 17:13:53.151524	0
+10	2	0	1	2016-02-24 17:13:56.415701	0
+13	1	0	1	2016-02-24 17:14:08.329101	0
+14	2	0	1	2016-02-24 17:14:09.721245	0
+5	1	4	1	2016-02-24 17:01:54.172431	0
+6	2	4	1	2016-02-24 17:01:58.508138	0
+7	12	2	1	2016-02-24 17:13:40.961114	0
+8	3	2	1	2016-02-24 17:13:42.953386	0
+11	12	3	1	2016-02-24 17:13:58.489374	0
+16	3	3	1	2016-02-24 17:14:12.641584	0
+17	13	1	1	2016-02-24 18:35:09.888322	0
+18	14	1	1	2016-02-24 18:35:12.969851	0
+19	15	1	1	2016-02-24 18:42:40.002512	0
+20	16	1	1	2016-02-24 18:42:44.690618	0
+21	17	1	1	2016-02-24 18:42:47.011946	0
+\.
+
+
+--
+-- TOC entry 2445 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: permisos_id_seq; Type: SEQUENCE SET; Schema: seguridad; Owner: admhc
+--
+
+SELECT pg_catalog.setval('permisos_id_seq', 21, true);
+
+
+--
+-- TOC entry 2346 (class 0 OID 41324)
+-- Dependencies: 222
+-- Data for Name: roles; Type: TABLE DATA; Schema: seguridad; Owner: admhc
+--
+
+COPY roles (id, nombre, descripcion, status, fecha_creacion, usuario_id) FROM stdin;
+1	Participante	Usuario Basico, solo como participante del Evento	1	2016-02-23 15:54:29.548699	0
+2	Administrador	Usuario con perfil para configurar el Sistema	1	2016-02-23 15:55:41.669316	0
+4	Sistemas	Usuario del Departamento de Sistemas, privilegios como Administrador	1	2016-02-23 15:59:21.758288	0
+3	Protocolo	Este Usuario tendra acceso como transcriptior y ayuda para agilizar elproceso de inscripcion y selec	1	2016-02-23 15:58:31.405685	0
+\.
+
+
+--
+-- TOC entry 2446 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: seguridad; Owner: admhc
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 4, true);
+
+
+--
+-- TOC entry 2348 (class 0 OID 41332)
+-- Dependencies: 224
+-- Data for Name: usuario_rol; Type: TABLE DATA; Schema: seguridad; Owner: admhc
+--
+
+COPY usuario_rol (id, usuario_id, rol_id, status, fecha_creacion, creado_por_id) FROM stdin;
+1	1	4	1	2016-02-23 16:42:49.682656	1
+2	1	1	1	2016-02-24 17:31:34.382968	0
+\.
+
+
+--
+-- TOC entry 2447 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: usuario_rol_id_seq; Type: SEQUENCE SET; Schema: seguridad; Owner: admhc
+--
+
+SELECT pg_catalog.setval('usuario_rol_id_seq', 2, true);
+
+
+--
+-- TOC entry 2331 (class 0 OID 41267)
+-- Dependencies: 207
+-- Data for Name: usuarios; Type: TABLE DATA; Schema: seguridad; Owner: admhc
+--
+
+COPY usuarios (id, login, clave, rol_id, status, fecha_creacion, creado_por_id) FROM stdin;
+118	jignaciol@gmail.com	Ign2205	0	1	2016-05-10 14:13:48.159378	0
+119	nairestherg@gmail.com	carlosgarcia	0	1	2016-05-10 19:19:26.533303	0
+120	alawadadel@gmail.com	docencia	0	1	2016-05-17 14:15:13.972336	0
+1	foxcarlos@gmail.com	carlos	0	1	2016-02-23 15:23:08.819584	0
+117	a@a.com		0	1	2016-05-03 17:57:40.01773	0
+\.
+
+
+--
+-- TOC entry 2448 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: seguridad; Owner: admhc
+--
+
+SELECT pg_catalog.setval('usuarios_id_seq', 120, true);
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 2118 (class 2606 OID 41372)
+-- Name: id_contenido; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY contenido_programatico
+    ADD CONSTRAINT id_contenido PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2120 (class 2606 OID 41374)
+-- Name: id_direccion; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY direccion
+    ADD CONSTRAINT id_direccion PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2122 (class 2606 OID 41376)
+-- Name: id_evento; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY evento
+    ADD CONSTRAINT id_evento PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2130 (class 2606 OID 41378)
+-- Name: id_index; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY menu
+    ADD CONSTRAINT id_index PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2124 (class 2606 OID 41380)
+-- Name: id_informacion_contacto; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY informacion_personal
+    ADD CONSTRAINT id_informacion_contacto PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2126 (class 2606 OID 41382)
+-- Name: id_informacion_laboral; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY informacion_laboral
+    ADD CONSTRAINT id_informacion_laboral PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2128 (class 2606 OID 41384)
+-- Name: id_informacion_profesional; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY informacion_profesional
+    ADD CONSTRAINT id_informacion_profesional PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2132 (class 2606 OID 41386)
+-- Name: id_persona; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY persona
+    ADD CONSTRAINT id_persona PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2134 (class 2606 OID 41388)
+-- Name: id_programa; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY programa
+    ADD CONSTRAINT id_programa PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2136 (class 2606 OID 41390)
+-- Name: id_salon; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY salon
+    ADD CONSTRAINT id_salon PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2116 (class 2606 OID 41392)
+-- Name: idx_contacto; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY contacto
+    ADD CONSTRAINT idx_contacto PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2138 (class 2606 OID 41394)
+-- Name: idx_tipo_contacto; Type: CONSTRAINT; Schema: public; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY tipos_contacto
+    ADD CONSTRAINT idx_tipo_contacto PRIMARY KEY (id);
+
+
+SET search_path = referencias, pg_catalog;
+
+--
+-- TOC entry 2158 (class 2606 OID 41396)
+-- Name: id_cargo; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY cargo
+    ADD CONSTRAINT id_cargo PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2140 (class 2606 OID 41398)
+-- Name: id_ciudad; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY ciudad
+    ADD CONSTRAINT id_ciudad PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2142 (class 2606 OID 41400)
+-- Name: id_edo_civil; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY edo_civil
+    ADD CONSTRAINT id_edo_civil PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2160 (class 2606 OID 41402)
+-- Name: id_especialidad; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY especialidad
+    ADD CONSTRAINT id_especialidad PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2144 (class 2606 OID 41404)
+-- Name: id_estado; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY estado
+    ADD CONSTRAINT id_estado PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2146 (class 2606 OID 41406)
+-- Name: id_genero_sexo; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY genero_sexo
+    ADD CONSTRAINT id_genero_sexo PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2148 (class 2606 OID 41408)
+-- Name: id_nacionalidad; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY nacionalidad
+    ADD CONSTRAINT id_nacionalidad PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2152 (class 2606 OID 41410)
+-- Name: id_pais; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY pais
+    ADD CONSTRAINT id_pais PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2150 (class 2606 OID 41412)
+-- Name: id_profesion; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY nivelacademico
+    ADD CONSTRAINT id_profesion PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2154 (class 2606 OID 41414)
+-- Name: id_tipo_identidad; Type: CONSTRAINT; Schema: referencias; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY tipo_identidad
+    ADD CONSTRAINT id_tipo_identidad PRIMARY KEY (id);
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 2156 (class 2606 OID 41416)
+-- Name: menu_index; Type: CONSTRAINT; Schema: seguridad; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY usuarios
+    ADD CONSTRAINT menu_index PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2162 (class 2606 OID 41418)
+-- Name: permiso_idx; Type: CONSTRAINT; Schema: seguridad; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY permisos
+    ADD CONSTRAINT permiso_idx PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2164 (class 2606 OID 41420)
+-- Name: rol_idx; Type: CONSTRAINT; Schema: seguridad; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT rol_idx PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2166 (class 2606 OID 41422)
+-- Name: usuario_rol_idx; Type: CONSTRAINT; Schema: seguridad; Owner: admhc; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario_rol
+    ADD CONSTRAINT usuario_rol_idx PRIMARY KEY (id);
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 2167 (class 2606 OID 41423)
+-- Name: id_ciudad; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY direccion
+    ADD CONSTRAINT id_ciudad FOREIGN KEY (id_ciudad) REFERENCES referencias.ciudad(id);
+
+
+--
+-- TOC entry 2170 (class 2606 OID 41428)
+-- Name: id_contacto; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY evento
+    ADD CONSTRAINT id_contacto FOREIGN KEY (id_contacto) REFERENCES informacion_personal(id);
+
+
+--
+-- TOC entry 2171 (class 2606 OID 41433)
+-- Name: id_direccion; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY evento
+    ADD CONSTRAINT id_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id);
+
+
+--
+-- TOC entry 2177 (class 2606 OID 41438)
+-- Name: id_direccion; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY persona
+    ADD CONSTRAINT id_direccion FOREIGN KEY (direccion) REFERENCES direccion(id);
+
+
+--
+-- TOC entry 2182 (class 2606 OID 41443)
+-- Name: id_direccion; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY programa
+    ADD CONSTRAINT id_direccion FOREIGN KEY (id_direccion) REFERENCES direccion(id);
+
+
+--
+-- TOC entry 2178 (class 2606 OID 41448)
+-- Name: id_edo_civil; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY persona
+    ADD CONSTRAINT id_edo_civil FOREIGN KEY (edo_civil) REFERENCES referencias.edo_civil(id);
+
+
+--
+-- TOC entry 2174 (class 2606 OID 41453)
+-- Name: id_especialidad; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY informacion_profesional
+    ADD CONSTRAINT id_especialidad FOREIGN KEY (id_especialidad) REFERENCES referencias.especialidad(id);
+
+
+--
+-- TOC entry 2168 (class 2606 OID 41458)
+-- Name: id_estado; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY direccion
+    ADD CONSTRAINT id_estado FOREIGN KEY (id_estado) REFERENCES referencias.estado(id);
+
+
+--
+-- TOC entry 2183 (class 2606 OID 41463)
+-- Name: id_evento; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY programa
+    ADD CONSTRAINT id_evento FOREIGN KEY (id_evento) REFERENCES evento(id);
+
+
+--
+-- TOC entry 2179 (class 2606 OID 41468)
+-- Name: id_genero_sexo; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY persona
+    ADD CONSTRAINT id_genero_sexo FOREIGN KEY (genero_sexo) REFERENCES referencias.genero_sexo(id);
+
+
+--
+-- TOC entry 2180 (class 2606 OID 41473)
+-- Name: id_nacionalidad; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY persona
+    ADD CONSTRAINT id_nacionalidad FOREIGN KEY (nacionalidad) REFERENCES referencias.nacionalidad(id);
+
+
+--
+-- TOC entry 2175 (class 2606 OID 41478)
+-- Name: id_nivelacademico; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY informacion_profesional
+    ADD CONSTRAINT id_nivelacademico FOREIGN KEY (id_nivelacademico) REFERENCES referencias.nivelacademico(id);
+
+
+--
+-- TOC entry 2169 (class 2606 OID 41483)
+-- Name: id_pais; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY direccion
+    ADD CONSTRAINT id_pais FOREIGN KEY (id_pais) REFERENCES referencias.pais(id);
+
+
+--
+-- TOC entry 2173 (class 2606 OID 41488)
+-- Name: id_persona; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY informacion_laboral
+    ADD CONSTRAINT id_persona FOREIGN KEY (id_persona) REFERENCES persona(id);
+
+
+--
+-- TOC entry 2172 (class 2606 OID 41493)
+-- Name: id_persona; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY informacion_personal
+    ADD CONSTRAINT id_persona FOREIGN KEY (id_persona) REFERENCES persona(id);
+
+
+--
+-- TOC entry 2176 (class 2606 OID 41498)
+-- Name: id_persona; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY informacion_profesional
+    ADD CONSTRAINT id_persona FOREIGN KEY (id_persona) REFERENCES persona(id);
+
+
+--
+-- TOC entry 2184 (class 2606 OID 41503)
+-- Name: id_salon; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY programa
+    ADD CONSTRAINT id_salon FOREIGN KEY (id_salon) REFERENCES salon(id);
+
+
+--
+-- TOC entry 2181 (class 2606 OID 41508)
+-- Name: id_tipo_identidad; Type: FK CONSTRAINT; Schema: public; Owner: admhc
+--
+
+ALTER TABLE ONLY persona
+    ADD CONSTRAINT id_tipo_identidad FOREIGN KEY (tipo_identidad) REFERENCES referencias.tipo_identidad(id);
+
+
+SET search_path = referencias, pg_catalog;
+
+--
+-- TOC entry 2185 (class 2606 OID 41513)
+-- Name: id_estado; Type: FK CONSTRAINT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY ciudad
+    ADD CONSTRAINT id_estado FOREIGN KEY (id_estado) REFERENCES estado(id);
+
+
+--
+-- TOC entry 2186 (class 2606 OID 41518)
+-- Name: id_pais; Type: FK CONSTRAINT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY ciudad
+    ADD CONSTRAINT id_pais FOREIGN KEY (id_pais) REFERENCES pais(id);
+
+
+--
+-- TOC entry 2187 (class 2606 OID 41523)
+-- Name: id_pais; Type: FK CONSTRAINT; Schema: referencias; Owner: admhc
+--
+
+ALTER TABLE ONLY estado
+    ADD CONSTRAINT id_pais FOREIGN KEY (id_pais) REFERENCES pais(id);
+
+
+--
+-- TOC entry 2358 (class 0 OID 0)
+-- Dependencies: 7
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- TOC entry 2360 (class 0 OID 0)
+-- Dependencies: 8
+-- Name: seguridad; Type: ACL; Schema: -; Owner: admhc
+--
+
+REVOKE ALL ON SCHEMA seguridad FROM PUBLIC;
+REVOKE ALL ON SCHEMA seguridad FROM admhc;
+GRANT ALL ON SCHEMA seguridad TO admhc;
+GRANT ALL ON SCHEMA seguridad TO PUBLIC;
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 2366 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: contacto; Type: ACL; Schema: public; Owner: admhc
+--
+
+REVOKE ALL ON TABLE contacto FROM PUBLIC;
+REVOKE ALL ON TABLE contacto FROM admhc;
+GRANT ALL ON TABLE contacto TO admhc;
+GRANT ALL ON TABLE contacto TO PUBLIC;
+
+
+--
+-- TOC entry 2381 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: menu; Type: ACL; Schema: public; Owner: admhc
+--
+
+REVOKE ALL ON TABLE menu FROM PUBLIC;
+REVOKE ALL ON TABLE menu FROM admhc;
+GRANT ALL ON TABLE menu TO admhc;
+GRANT ALL ON TABLE menu TO PUBLIC;
+
+
+--
+-- TOC entry 2388 (class 0 OID 0)
+-- Dependencies: 197
+-- Name: tipos_contacto; Type: ACL; Schema: public; Owner: admhc
+--
+
+REVOKE ALL ON TABLE tipos_contacto FROM PUBLIC;
+REVOKE ALL ON TABLE tipos_contacto FROM admhc;
+GRANT ALL ON TABLE tipos_contacto TO admhc;
+GRANT ALL ON TABLE tipos_contacto TO PUBLIC;
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 2392 (class 0 OID 0)
+-- Dependencies: 207
+-- Name: usuarios; Type: ACL; Schema: seguridad; Owner: admhc
+--
+
+REVOKE ALL ON TABLE usuarios FROM PUBLIC;
+REVOKE ALL ON TABLE usuarios FROM admhc;
+GRANT ALL ON TABLE usuarios TO admhc;
+GRANT ALL ON TABLE usuarios TO PUBLIC;
+
+
+--
+-- TOC entry 2409 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: permisos; Type: ACL; Schema: seguridad; Owner: admhc
+--
+
+REVOKE ALL ON TABLE permisos FROM PUBLIC;
+REVOKE ALL ON TABLE permisos FROM admhc;
+GRANT ALL ON TABLE permisos TO admhc;
+GRANT ALL ON TABLE permisos TO PUBLIC;
+
+
+--
+-- TOC entry 2411 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: roles; Type: ACL; Schema: seguridad; Owner: admhc
+--
+
+REVOKE ALL ON TABLE roles FROM PUBLIC;
+REVOKE ALL ON TABLE roles FROM admhc;
+GRANT ALL ON TABLE roles TO admhc;
+GRANT ALL ON TABLE roles TO PUBLIC;
+
+
+--
+-- TOC entry 2419 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: usuario_rol; Type: ACL; Schema: seguridad; Owner: admhc
+--
+
+REVOKE ALL ON TABLE usuario_rol FROM PUBLIC;
+REVOKE ALL ON TABLE usuario_rol FROM admhc;
+GRANT ALL ON TABLE usuario_rol TO admhc;
+GRANT ALL ON TABLE usuario_rol TO PUBLIC;
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 1728 (class 826 OID 41528)
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: admhc
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE admhc IN SCHEMA public REVOKE ALL ON TABLES  FROM PUBLIC;
+ALTER DEFAULT PRIVILEGES FOR ROLE admhc IN SCHEMA public REVOKE ALL ON TABLES  FROM admhc;
+ALTER DEFAULT PRIVILEGES FOR ROLE admhc IN SCHEMA public GRANT ALL ON TABLES  TO PUBLIC;
+
+
+SET search_path = seguridad, pg_catalog;
+
+--
+-- TOC entry 1729 (class 826 OID 41529)
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: seguridad; Owner: admhc
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE admhc IN SCHEMA seguridad REVOKE ALL ON TABLES  FROM PUBLIC;
+ALTER DEFAULT PRIVILEGES FOR ROLE admhc IN SCHEMA seguridad REVOKE ALL ON TABLES  FROM admhc;
+ALTER DEFAULT PRIVILEGES FOR ROLE admhc IN SCHEMA seguridad GRANT ALL ON TABLES  TO PUBLIC;
+
+
+-- Completed on 2016-05-19 20:27:59 VET
+
+--
+-- PostgreSQL database dump complete
+--
+
