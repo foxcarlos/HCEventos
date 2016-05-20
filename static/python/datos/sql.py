@@ -494,7 +494,7 @@ def estado_listar(pais=0):
     if not posg.estado['status']:
         devuelveMsg = {'status': estado, 'mensaje': mensaje}
     else:
-        sql = "SELECT row_to_json(estado) FROM referencias.estado {0} ".format(condicionWhere)
+        sql = "SELECT row_to_json(estado) FROM referencias.estado {0} order by descripcion ".format(condicionWhere)
         posg.ejecutar(sql)
 
         # Se verifica el estado del Select SQL
@@ -535,7 +535,7 @@ def ciudad_listar(estado=0):
     if not posg.estado['status']:
         devuelveMsg = {'status': estado, 'mensaje': mensaje}
     else:
-        sql = "SELECT row_to_json(ciudad) FROM referencias.ciudad {0} ".format(condicionWhere)
+        sql = "SELECT row_to_json(ciudad) FROM referencias.ciudad {0} order by descripcion ".format(condicionWhere)
         posg.ejecutar(sql)
 
         # Se verifica el estado del Select SQL
