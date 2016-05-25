@@ -27,8 +27,8 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
 
             // Este Metodo es el que cambia la clave
-            PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario);
-            this.limpiarCampos();
+            // PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario);
+            // this.limpiarCampos();
 
         }
     },
@@ -53,22 +53,13 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         * informacion esta escrita correctamente*/
 
         var errorCampo = {estado: false, mensaje: 'Mensaje:'};
+        var tipo_identidad = $('#tipo_identidad').val();
+        var rgxTipoIndentidad = /^[0-9]*$/;
 
-        claAnt = $('#password0').val();
-        cla = $('#password1').val();
-        cla2 = $('#password2').val();
-
-        if( objeto == '#password0' ){
-            if( !this.verificaClaveAnterior()){
+        if( objeto == '#tipo_identidad' ){
+            if( !rgxTipoIndentidad.test(tipo_identidad) ){
                 errorCampo.estado = true;
-                errorCampo.mensaje = 'La Contraseña anterior es incorrecta';
-            }
-        }
-
-        if( objeto == '#password2' ){
-            if( cla2 != cla ){
-                errorCampo.estado = true;
-                errorCampo.mensaje = 'Contraseñas no coinciden';
+                errorCampo.mensaje = 'El documento de indentidad debe contener solo numeros';
             }
         }
 
