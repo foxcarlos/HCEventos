@@ -9,7 +9,7 @@ Vista.CuerpoIndexParte1 = Backbone.View.extend({
     },
 
     render: function(){
-        mi = this.plantilla( this.model.toJSON() )
+        mi = this.plantilla( this.model.toJSON() );
         this.$el.html( mi );
         return this;
     }

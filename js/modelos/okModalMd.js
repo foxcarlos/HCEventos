@@ -6,4 +6,4 @@ Models.okModalMd = Backbone.Model.extend({
         cuerpo1: '',
         cuerpo2: ''
     }
-})
+});

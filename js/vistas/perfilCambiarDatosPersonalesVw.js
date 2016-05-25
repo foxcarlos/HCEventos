@@ -27,7 +27,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
 
             // Este Metodo es el que cambia la clave
-            PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario)
+            PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario);
             this.limpiarCampos();
 
         }
@@ -61,7 +61,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         if( objeto == '#password0' ){
             if( !this.verificaClaveAnterior()){
                 errorCampo.estado = true;
-                errorCampo.mensaje = 'La Contraseña anterior es incorrecta'
+                errorCampo.mensaje = 'La Contraseña anterior es incorrecta';
             }
         }
 
@@ -72,7 +72,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
             }
         }
 
-        return errorCampo
+        return errorCampo;
     },
 
     validarCamposVacios: function(){
@@ -82,7 +82,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         */
 
         var todoBien = true;
-        var errorCampo = {estado: false, mensaje: ''}
+        var errorCampo = {estado: false, mensaje: ''};
 
         // Lista todos los elementos input del Form
         var lista = $("#frmDatosPersonales :input");
@@ -97,10 +97,10 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
                 errorCampoDevuelto = this.validarCampos(selector);
 
                 if( errorCampoDevuelto.estado ){
-                    todoBien = false
+                    todoBien = false;
                     Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-warning');
                     $(selector).focus();
-                    break
+                    break;
                 }
             }
 
@@ -108,7 +108,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
                 todoBien = false;
                 Notificar.modalOk('Atencion ...', 'Campo vacio: ' + descripcion, '#modal-warning');
                 $(selector).focus();
-                break
+                break;
             }
         }
         return todoBien;
@@ -123,39 +123,39 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
     cbxGenero: function(){
         valorGenero = this.model.id_genero_sexo;
         data = Utils.Varias.BuscarReg_Genero();
-        cbx = new Vista.ComboBox({el: '#slcGeneroSexo', collections: data, defaultValue: valorGenero})
+        cbx = new Vista.ComboBox({el: '#slcGeneroSexo', collections: data, defaultValue: valorGenero});
     },
 
     cbxNacionalidad: function(){
         valorNacion = this.model.id_nacionalidad;
         data = Utils.Varias.BuscarReg_Nacionalidad();
-        cbx = new Vista.ComboBox({el: '#slcNacionalidad', collections: data, defaultValue: valorNacion})
+        cbx = new Vista.ComboBox({el: '#slcNacionalidad', collections: data, defaultValue: valorNacion});
     },
 
     cbxEdoCivil: function(){
         valorEdoCivil = this.model.id_edo_civil;
         data = Utils.Varias.BuscarReg_EdoCivil();
-        cbx = new Vista.ComboBox({el: '#slcEdoCivil', collections: data, defaultValue: valorEdoCivil})
+        cbx = new Vista.ComboBox({el: '#slcEdoCivil', collections: data, defaultValue: valorEdoCivil});
     },
 
     cbxPais: function(){
         valorPais = this.model.id_pais;
         data = Utils.Varias.BuscarReg_Pais();
-        cbx = new Vista.ComboBox({el: '#slcPais', collections: data, defaultValue: valorPais})
+        cbx = new Vista.ComboBox({el: '#slcPais', collections: data, defaultValue: valorPais});
     },
 
     cbxEstado: function(){
         valorPais = this.model.id_pais;
         valorEstado = this.model.id_estado;
         data = Utils.Varias.BuscarReg_Estado(valorPais);
-        cbx = new Vista.ComboBox({el: '#slcEstado', collections: data, defaultValue: valorEstado})
+        cbx = new Vista.ComboBox({el: '#slcEstado', collections: data, defaultValue: valorEstado});
     },
 
     cbxCiudad: function(){
         valorEstado = this.model.id_estado;
         valorCiudad = this.model.id_ciudad;
         data = Utils.Varias.BuscarReg_Ciudad(valorEstado);
-        cbx = new Vista.ComboBox({el: '#slcCiudad', collections: data, defaultValue: valorCiudad})
+        cbx = new Vista.ComboBox({el: '#slcCiudad', collections: data, defaultValue: valorCiudad});
     },
 
     render: function(){

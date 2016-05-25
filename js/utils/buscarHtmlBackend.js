@@ -14,7 +14,7 @@ Utils = {
             error: function(respuesta){
                 self.htmlDevuelto = respuesta;
             }
-        })
-        return self.htmlDevuelto
+        });
+        return self.htmlDevuelto;
     }
-}
+};

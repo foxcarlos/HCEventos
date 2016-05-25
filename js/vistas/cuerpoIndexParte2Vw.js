@@ -5,7 +5,7 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
 
     initialize: function(){
         this.render();
-        $('#txtfechanac').datepicker()
+        $('#txtfechanac').datepicker();
     },
 
     events:{
@@ -21,7 +21,7 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
 
         // Valida el Correo que tenga el formato correcto
         var rgxEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        var rgxMovil = /^([0]{1}[4]{1})(12|14|16|24|26)([0-9]{7})$/
+        var rgxMovil = /^([0]{1}[4]{1})(12|14|16|24|26)([0-9]{7})$/;
         var rgxFnac = /^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/;
 
         corr = $(objeto).val();
@@ -33,7 +33,7 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
         if( objeto == '#txtcorreo' ){
             if( !rgxEmail.test( corr) || !corr ){
                 errorCampo.estado = true;
-                errorCampo.mensaje = 'Correo Invalido'
+                errorCampo.mensaje = 'Correo Invalido';
             }
         }
 
@@ -58,7 +58,7 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
             }
         }
 
-        return errorCampo
+        return errorCampo;
     },
 
     validarCamposVacios: function(){
@@ -68,7 +68,7 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
         */
 
         var todoBien = true;
-        var errorCampo = {estado: false, mensaje: ''}
+        var errorCampo = {estado: false, mensaje: ''};
 
         // Lista todos los elementos input del Form
         var lista = $("#registroRapido :input");
@@ -83,11 +83,11 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
                 errorCampoDevuelto = this.validarCampos(selector);
 
                 if( errorCampoDevuelto.estado ){
-                    todoBien = false
+                    todoBien = false;
                     Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-warning');
                     // alert( errorCampoDevuelto.mensaje );
                     $(selector).focus();
-                    break
+                    break;
                 }
             }
 
@@ -96,7 +96,7 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
                 Notificar.modalOk('Atencion ...', 'Campo vacio:'+descripcion, '#modal-warning');
                 //alert('Campo vacio: '+ descripcion);
                 $(selector).focus();
-                break
+                break;
             }
         }
         return todoBien;
@@ -118,7 +118,7 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
 
     registrarNuevo: function(){
 
-        var todoBien = true
+        var todoBien = true;
         // Valores de los Text del FORM
         nom = $('#txtnombre').val();
         ape = $('#txtapellido').val();
@@ -152,10 +152,10 @@ Vista.CuerpoIndexParte2 = Backbone.View.extend({
                         // alert(response.mensaje);
                         self.limpiarCampos();
 
-                        mensajeEnviar1 = 'Estimado(a) Sr(a) '+ mo.get('nombre') + ', ' + mo.get('apellido') + ' La afiliacion a Eventos Hospital Coromoto fue realizada con exito'
-                        mensajeEnviar2 = 'Recuerde que al volver a ingresar al sistema de Eventos Hospital Coromoto, debe ingresar lo siguiente:'+'Usuario:'+ mo.get('correo')+ ' y Clave:'+ mo.get('clave')
-                        Notificar.Sms(response.id_usuario, mensajeEnviar1)
-                        Notificar.Sms(response.id_usuario, mensajeEnviar2)
+                        mensajeEnviar1 = 'Estimado(a) Sr(a) '+ mo.get('nombre') + ', ' + mo.get('apellido') + ' La afiliacion a Eventos Hospital Coromoto fue realizada con exito';
+                        mensajeEnviar2 = 'Recuerde que al volver a ingresar al sistema de Eventos Hospital Coromoto, debe ingresar lo siguiente:'+'Usuario:'+ mo.get('correo')+ ' y Clave:'+ mo.get('clave');
+                        Notificar.Sms(response.id_usuario, mensajeEnviar1);
+                        Notificar.Sms(response.id_usuario, mensajeEnviar2);
                     }else{
                         Notificar.modalOk('Alerta ...', response.mensaje, '#modal-danger');
                     }

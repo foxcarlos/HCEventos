@@ -16,7 +16,7 @@ Models.RegistroRapido = Backbone.Model.extend({
 
     initialize: function(){
         this.on('invalid', function(model, error){
-            alert(error)
+            alert(error);
         });
     }
 });

@@ -12,5 +12,5 @@ Vista.CabeceraIndex = Backbone.View.extend({
         this.$el.html(this.plantillaCabeceraIndex(this.model.toJSON()));
         return this;
     }
-})
+});
 

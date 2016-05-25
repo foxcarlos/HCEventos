@@ -12,12 +12,12 @@ Vista.CuerpoIndex = Backbone.View.extend({
     },
 
     perfil: function(){
-        alert('click en perfil')
+        alert('click en perfil');
     },
 
     render: function(){
         this.$el.html(this.plantilla(this.model.toJSON()));
         return this;
     }
-})
+});
 

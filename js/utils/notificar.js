@@ -1,8 +1,8 @@
 Notificar = {
 
     Sms: function(id, mensaje){
-        var id_usuario = id
-        var cuerpoMensaje = mensaje
+        var id_usuario = id;
+        var cuerpoMensaje = mensaje;
 
         var request = $.ajax({
             url: "notificar",
@@ -36,4 +36,4 @@ Notificar = {
         });
 
     }
-}
+};

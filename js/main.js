@@ -4,8 +4,8 @@
         Collections: {},
         Views: {},
         Plantilla: function(idPasado){
-            console.log(idPasado)
-            return _.template( $('#'+idPasado).html() )
+            console.log(idPasado);
+            return _.template( $('#'+idPasado).html() );
         },
     };
 
@@ -62,7 +62,7 @@ App.Views.Index = Backbone.View.extend({
     },
 
     mostrarMenu: function(e){
-        e.preventDefault()
+        e.preventDefault();
         // this.$('#wrapper').toggleClass('toggled');
 
     },
@@ -74,7 +74,7 @@ App.Views.Index = Backbone.View.extend({
         var miVistaCabeceraIndex = new Vista.CabeceraIndex({el: miSelector, model: this.model});
         this.$(miSelector).append(miVistaCabeceraIndex.render().el);
 
-        miSelector = '#divCuerpoIndex'
+        miSelector = '#divCuerpoIndex';
         var miVistaCuerpoIndex = new Vista.CuerpoIndex({el: miSelector, model: this.model});
         this.$(miSelector).append(miVistaCuerpoIndex.render().el);
 
@@ -87,21 +87,21 @@ App.Views.Index = Backbone.View.extend({
         var renderizar = miVistaCabeceraMenu.render().el;
         this.$(miSelector).append(miVistaCabeceraMenu.render().el);
 
-        miSelector = '#divInicioSesion'
+        miSelector = '#divInicioSesion';
         var miVistaLogin = new Vista.Login({el: miSelector, model: this.model});
         this.$(miSelector).append(miVistaLogin.render().el);
 
-        miSelector = '#divCuerpoIndexParte1'
+        miSelector = '#divCuerpoIndexParte1';
         var miVistaCuerpoIndexParte1 = new Vista.CuerpoIndexParte1( {el: miSelector, model: this.model} );
         this.$(miSelector).append(miVistaCuerpoIndexParte1.render().el);
 
-        miSelector = '#divCuerpoIndexParte2'
+        miSelector = '#divCuerpoIndexParte2';
         var miVistaCuerpoIndexParte2 = new Vista.CuerpoIndexParte2({el: miSelector, model: this.model});
         this.$(miSelector).append(miVistaCuerpoIndexParte2.render().el);
     }
 });
 
-var indexModelo = new Models.Index()
+var indexModelo = new Models.Index();
 var indexView = new App.Views.Index({model: indexModelo});
 
-})()
+})();

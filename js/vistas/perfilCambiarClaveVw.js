@@ -24,7 +24,7 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
             var nombre_usuario = this.model.nombre_usuario;
 
             // Este Metodo es el que cambia la clave
-            PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario)
+            PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario);
             this.limpiarCampos();
 
         }
@@ -34,17 +34,17 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
         var inUsuario = this.model.nombre_usuario;
         var inClave = $('#password0').val();
 
-        dataEnviar = {usuario: inUsuario, clave: inClave}
-        response = Usuario.IniciarSesion(dataEnviar)
+        dataEnviar = {usuario: inUsuario, clave: inClave};
+        response = Usuario.IniciarSesion(dataEnviar);
 
         var estado = response.status;
         var usuarioId = response.mensaje;
 
         if( estado ){
-            return true
+            return true;
         }
         else{
-            return false
+            return false;
         }
 
     },
@@ -77,7 +77,7 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
         if( objeto == '#password0' ){
             if( !this.verificaClaveAnterior()){
                 errorCampo.estado = true;
-                errorCampo.mensaje = 'La Contraseña anterior es incorrecta'
+                errorCampo.mensaje = 'La Contraseña anterior es incorrecta';
             }
         }
 
@@ -88,7 +88,7 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
             }
         }
 
-        return errorCampo
+        return errorCampo;
     },
 
     validarCamposVacios: function(){
@@ -98,7 +98,7 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
         */
 
         var todoBien = true;
-        var errorCampo = {estado: false, mensaje: ''}
+        var errorCampo = {estado: false, mensaje: ''};
 
         // Lista todos los elementos input del Form
         var lista = $("#frmCambiarClave :input");
@@ -113,20 +113,20 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
                 errorCampoDevuelto = this.validarCampos(selector);
 
                 if( errorCampoDevuelto.estado ){
-                    todoBien = false
-					Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-warning');
+                    todoBien = false;
+					          Notificar.modalOk('Atencion ...', errorCampoDevuelto.mensaje, '#modal-warning');
                     // alert( errorCampoDevuelto.mensaje );
                     $(selector).focus();
-                    break
+                    break;
                 }
             }
 
             if(!valor.trim()){
                 todoBien = false;
-				Notificar.modalOk('Alerta ...', 'Campo vacio: '+ descripcion, '#modal-warning');
+				        Notificar.modalOk('Alerta ...', 'Campo vacio: '+ descripcion, '#modal-warning');
                 // alert('Campo vacio: '+ descripcion);
                 $(selector).focus();
-                break
+                break;
             }
         }
         return todoBien;

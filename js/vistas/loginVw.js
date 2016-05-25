@@ -27,10 +27,10 @@ Vista.Login = Backbone.View.extend({
         this.plantillaLogin = loginOk( this.modelo );
 
         /* Esta Opcion cambia el screen central y elimina la opcion de crear registro rapido*/
-        var indexModelo = new Models.Index()
-        miSelector = '#contenedorCentral'
+        var indexModelo = new Models.Index();
+        miSelector = '#contenedorCentral';
         var miVistaCuerpoIndexParte1 = new Vista.CuerpoIndexParte1( {el: miSelector, model: indexModelo} );
-        console.log(miVistaCuerpoIndexParte1.render().el)
+        console.log(miVistaCuerpoIndexParte1.render().el);
         this.$(miSelector).append(miVistaCuerpoIndexParte1.render().el);
 
         this.render();
@@ -72,8 +72,8 @@ Vista.Login = Backbone.View.extend({
         var inUsuario = $('#inputEmail').val();
         var inClave = $('#inputPassword').val();
 
-        dataEnviar = {usuario: inUsuario, clave: inClave}
-        response = Usuario.IniciarSesion(dataEnviar)
+        dataEnviar = {usuario: inUsuario, clave: inClave};
+        response = Usuario.IniciarSesion(dataEnviar);
 
         var estado = response.status;
         var usuarioId = response.mensaje;

@@ -11,8 +11,8 @@ Usuario = {
             success: function(response){
                 self.a = response;
             }
-        })
-        return this.a
+        });
+        return this.a;
     },
 
     CerrarSesion: function(){
@@ -47,7 +47,7 @@ Usuario = {
                 console.log(errorThrown);
             }
         });
-        return this.hola  // modeloDevolver
+        return this.hola;  // modeloDevolver
     }
-}
+};
 

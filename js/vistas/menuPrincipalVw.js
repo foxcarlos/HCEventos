@@ -22,5 +22,5 @@ Vista.MenuPrincipal = Backbone.View.extend({
         this.$el.html( this.plantilla() );
         return this;
     }
-})
+});
 

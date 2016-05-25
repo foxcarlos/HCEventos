@@ -16,7 +16,7 @@ Utils.Varias = {
             console.log('fail '+respon);
         });
 
-        return this.d
+        return this.d;
     },
 
     BuscarReg_Genero: function(){
@@ -34,7 +34,7 @@ Utils.Varias = {
             console.log('fail '+respon);
         });
 
-        return this.d
+        return this.d;
     },
 
     BuscarReg_Nacionalidad: function(){
@@ -52,7 +52,7 @@ Utils.Varias = {
             console.log('fail '+respon);
         });
 
-        return this.d
+        return this.d;
     },
 
     BuscarReg_EdoCivil: function(){
@@ -70,7 +70,7 @@ Utils.Varias = {
             console.log('fail '+respon);
         });
 
-        return this.d
+        return this.d;
     },
 
     BuscarReg_Pais: function(){
@@ -88,7 +88,7 @@ Utils.Varias = {
             console.log('fail '+respon);
         });
 
-        return this.d
+        return this.d;
     },
 
     BuscarReg_Estado: function(id_pais){
@@ -97,10 +97,10 @@ Utils.Varias = {
         // Si esta vacio e parametro pasado
         if (!id_pais){
             id_pais = null;
-        };
+        }
 
         var Edos = new Models.Estado({id: id_pais});
-        this.d = ''
+        this.d = '';
         self = this;
         respuesta = Edos.fetch({async: false});
 
@@ -114,7 +114,7 @@ Utils.Varias = {
             console.log('fail '+respon);
         });
 
-        return this.d
+        return this.d;
     },
 
     BuscarReg_Ciudad: function(id_estado){
@@ -124,7 +124,7 @@ Utils.Varias = {
         // Si esta vacio e parametro pasado
         if (!id_estado){
             id_estado = null;
-        };
+        }
 
         var ciudad = new Models.Ciudad({id: id_estado});
         self = this;
@@ -140,7 +140,7 @@ Utils.Varias = {
             console.log('fail '+respon);
         });
 
-        return this.d
+        return this.d;
     },
 
-}
+};

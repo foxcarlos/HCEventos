@@ -7,8 +7,8 @@ Vista.ComboBox = Backbone.View.extend({
 
     initialize: function(){
         this.data = this.options.collections;
-        this.valor = this.options.defaultValue
-        this.elemento = this.options.el
+        this.valor = this.options.defaultValue;
+        this.elemento = this.options.el;
         this.render();
     },
 
@@ -21,7 +21,7 @@ Vista.ComboBox = Backbone.View.extend({
          un objeto Select (comboBox)
         */
 
-        var datos = this.data  // this.BuscarReg_TipoIdentidad();
+        var datos = this.data;  // this.BuscarReg_TipoIdentidad();
         var htmlSelectArmar= '';
         seleccionado = '';
         console.log(datos);
@@ -35,9 +35,9 @@ Vista.ComboBox = Backbone.View.extend({
 
             var id = "'"+datos[i].id+"'";
             var descripcion = datos[i].descripcion;
-            var htmlSelectArmar = htmlSelectArmar + "<option value="+ id + seleccionado +">"+ descripcion +"</option>" ;
+            htmlSelectArmar = htmlSelectArmar + "<option value="+ id + seleccionado +">"+ descripcion +"</option>";
         }
-        return htmlSelectArmar
+        return htmlSelectArmar;
     },
 
     render: function(){
