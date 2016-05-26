@@ -171,7 +171,7 @@ def login():
     username = bottle.request.get_cookie("account")
     respuesta = {'usuario': username}
     print('##########################################################')
-    print('consultar sesion devuelve la cookie {0}'.format(respuesta))
+    # print('consultar sesion devuelve la cookie {0}'.format(respuesta))
     print('##########################################################')
     return json.dumps(respuesta)
 
@@ -193,7 +193,7 @@ def loginp():
     acceso = sql.validaLogin(usuario, clave)
 
     print('##########################################################')
-    print('Lo que devuelve /iniciarSesion', acceso)
+    # print('Lo que devuelve /iniciarSesion', acceso)
     print('##########################################################')
 
     if acceso['status']:
@@ -275,7 +275,7 @@ def GetTipoIdentidad():
     # Consulta la Base de Datos
     editar = sql.tipo_identidad_listar()
     print('###################################################################################')
-    print('Lo que devuelve sql.tipo_identidad_listar()', editar)
+    # print('Lo que devuelve sql.tipo_identidad_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -298,7 +298,7 @@ def GetGeneroSexo():
     # Consulta la Base de Datos
     editar = sql.genero_sexo_listar()
     print('###################################################################################')
-    print('Lo que devuelve sql.genero_sexo_listar()', editar)
+    # print('Lo que devuelve sql.genero_sexo_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -318,7 +318,7 @@ def GetNacionalidad():
     # Consulta la Base de Datos
     editar = sql.nacionalidad_listar()
     print('###################################################################################')
-    print('Lo que devuelve sql.nacionalidad_listar()', editar)
+    # print('Lo que devuelve sql.nacionalidad_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -338,7 +338,7 @@ def GetEdoCivil():
     # Consulta la Base de Datos
     editar = sql.edo_civil_listar()
     print('###################################################################################')
-    print('Lo que devuelve sql.edo_civil_listar()', editar)
+    # print('Lo que devuelve sql.edo_civil_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -358,7 +358,7 @@ def GetPais():
     # Consulta la Base de Datos
     editar = sql.pais_listar()
     print('###################################################################################')
-    print('Lo que devuelve sql.pais_listar()', editar)
+    # print('Lo que devuelve sql.pais_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -379,7 +379,7 @@ def GetEstado():
     # Consulta la Base de Datos
     editar = sql.estado_listar()
     print('###################################################################################')
-    print('Lo que devuelve sql.estado_listar()', editar)
+    # print('Lo que devuelve sql.estado_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -402,7 +402,7 @@ def GetEstadoId(id_pais):
     # Consulta la Base de Datos
     editar = sql.estado_listar(paisId)
     print('###################################################################################')
-    print('Lo que devuelve sql.estado_listar()', editar)
+    # print('Lo que devuelve sql.estado_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -423,7 +423,7 @@ def GetCiudad():
     # Consulta la Base de Datos
     editar = sql.ciudad_listar()
     print('###################################################################################')
-    print('Lo que devuelve sql.ciudad_listar()', editar)
+    # print('Lo que devuelve sql.ciudad_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -445,7 +445,7 @@ def GetCiudadId(id_estado):
     # Consulta la Base de Datos
     editar = sql.ciudad_listar(estadoId)
     print('###################################################################################')
-    print('Lo que devuelve sql.ciudad_listar()', editar)
+    # print('Lo que devuelve sql.ciudad_listar()', editar)
     print('###################################################################################')
 
     if editar['status']:
@@ -502,7 +502,7 @@ def registroPost():
     insReg = sql.crearRegRapido(nombre, apellido, correo, clave, fechanac, genero, movil)
 
     print('####################################################')
-    print('Lo que develve el insert de /crearRegistroRapido', insReg)
+    # print('Lo que develve el insert de /crearRegistroRapido', insReg)
     print('####################################################')
 
     return json.dumps(insReg)

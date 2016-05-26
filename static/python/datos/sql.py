@@ -192,7 +192,7 @@ def buscarTelefono(idUsuario):
         # Se verifica el estado del Select SQL
         if posg.estado["status"]:
             registros = posg.cur.fetchall()
-            print(registros[0])
+            # print(registros[0])
 
             if registros:
                 devuelveMsg = {'status': 1, 'mensaje': registros[0]}
@@ -232,7 +232,7 @@ def buscarUsuario(idUsuario):
         # Se verifica el estado del Select SQL
         if posg.estado["status"]:
             registros = posg.cur.fetchall()
-            print(registros[0])
+            # print(registros[0])
 
             if registros:
                 devuelveMsg = {'status': 1, 'mensaje': registros[0]}
@@ -269,7 +269,7 @@ def editarUsuarios(idUsuario, clave):
     else:
         sql = "UPDATE seguridad.usuarios set clave = '{0}' where id = {1}".format(clave, idUsuario)
         posg.ejecutar(sql)
-        print(sql)
+        #print(sql)
 
         # Se verifica el estado del Select SQL
         if posg.estado["status"]:
