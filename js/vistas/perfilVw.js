@@ -10,13 +10,21 @@ Vista.Perfil = Backbone.View.extend({
     },
 
     events:{
+        'click #tabDatosPersonales': 'vistaDatosPersonales',
+    },
+
+    vistaDatosPersonales: function(){
+        $("body").css("cursor", "progress");
+        vistaCambiarDatosP = new  Vista.PerfilCambiarDatosPersonales({el: '#plantillaCambiarDatosPersonales', model: this.model});
+        $("body").css("cursor", "auto");
     },
 
     render: function(){
+        $("body").css("cursor", "progress");
         this.$el.html( this.plantilla() );
         vistaCambiarClave = new  Vista.PerfilCambiarClave({el: '#plantillaCambiarClave', model: this.model});
-        vistaCambiarDatosP = new  Vista.PerfilCambiarDatosPersonales({el: '#plantillaCambiarDatosPersonales', model: this.model});
-   return this;
+        $("body").css("cursor", "auto");
+        return this;
     }
 
 });
