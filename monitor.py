@@ -212,7 +212,7 @@ def loginp():
 
 
 @bottle.route('/datosUsuario/<idUsuario>')
-def getUsuario(idUsuario):
+def getDatosUsuario(idUsuario):
     '''Metodo que permite buscar datos del usaurio para el inicio de sesion '''
 
     msg = {"status": 0, "mensaje": ''}
@@ -220,6 +220,35 @@ def getUsuario(idUsuario):
 
     # Consulta la Base de Datos
     buscar = sql.buscarUsuario(recibido)
+
+    if buscar['status']:
+        # Si todo salio bien, obtengo el registro que devuelve
+        registros = buscar['mensaje'][0]
+        campos = ['id', 'usuario', 'nombre', 'apellido']
+
+        mensajeDict = dict(zip(campos, registros))
+        msg = {"status": buscar['status'], "mensaje": mensajeDict}
+    else:
+        msg = buscar
+
+    msg = registros  # mensajeDict
+    return json.dumps(msg)
+
+
+@bottle.put('/datosUsuario/<idUsuario>')
+def putDatosUsuario(idUsuario):
+    '''Metodo que permite actualizar datos personales para en el perfil de usuario'''
+
+    buscar = {"status": 0, "mensaje": "No se consiguieron registros"}
+    msg = {"status": 0, "mensaje": " "}
+    registros = 0
+
+    recibido = idUsuario
+    recibidoParam = bottle.request.json
+    print(recibidoParam)
+
+    # Consulta la Base de Datos
+    # buscar = sql.buscarUsuario(recibido)
 
     if buscar['status']:
         # Si todo salio bien, obtengo el registro que devuelve

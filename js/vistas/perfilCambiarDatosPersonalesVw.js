@@ -30,16 +30,12 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
             var id_genero_sexo = $("#slcGeneroSexo").val();
             var id_nacionalidad = $("#slcNacionalidad").val();
             var id_edo_civil = $("#slcEdoCivil").val();
+            var id_direccion = this.model.id_dierccion;
             var id_pais = $("#slcPais").val();
             var id_estado = $("#slcEstado").val();
             var id_ciudad = $("#slcCiudad").val();
             var area = $("#area").val();
             var direccion = $("#direccion").val();
-
-
-            // Este Metodo es el que cambia la clave
-            // PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario);
-            // this.limpiarCampos();
 
         }
     },

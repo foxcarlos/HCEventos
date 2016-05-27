@@ -20,8 +20,8 @@ PerfilUsuarios = {
 
     PerfilGuardarDatosP: function(modelo){
 
-        var seguridad_usuarios = new Models.Usuarios({id: id_usuario, clave: clave});
-        seguridad_usuarios.save({},{
+        var DatosUsuario = // No es new es set. // new Models.DatosUsuario({});
+        DatosUsuario.save({},{
         }).done(function(data){
             if( data.status ){
                 // data.mensaje devuelve el mensaje desde el backend, pero se manejaran los menasjes desde el front;
