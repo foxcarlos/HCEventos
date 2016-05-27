@@ -24,6 +24,17 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
             var id_tipo_identidad = $("#slcTipoIdentidad").val();
             var cedula_passp = $("#tipo_identidad").val();
+            var nombres = $("#nombers").val();
+            var apellidos = $("#apellidos").val();
+            var fechanac = $("#fechanac").val();
+            var id_genero_sexo = $("#slcGeneroSexo").val();
+            var id_nacionalidad = $("#slcNacionalidad").val();
+            var id_edo_civil = $("#slcEdoCivil").val();
+            var id_pais = $("#slcPais").val();
+            var id_estado = $("#slcEstado").val();
+            var id_ciudad = $("#slcCiudad").val();
+            var area = $("#area").val();
+            var direccion = $("#direccion").val();
 
 
             // Este Metodo es el que cambia la clave
@@ -150,6 +161,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
     },
 
     render: function(){
+        $('body').attr('class', 'wait');
         this.$el.html( this.plantilla(this.model) );
         this.cbxTipoIdentidad();
         this.cbxGenero();
