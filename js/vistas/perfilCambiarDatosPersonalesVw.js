@@ -22,21 +22,23 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
 
             var id_usuario = this.model.id_usuario;
 
-            var id_tipo_identidad = $("#slcTipoIdentidad").val();
-            var cedula_passp = $("#tipo_identidad").val();
-            var nombres = $("#nombers").val();
-            var apellidos = $("#apellidos").val();
-            var fechanac = $("#fechanac").val();
-            var id_genero_sexo = $("#slcGeneroSexo").val();
-            var id_nacionalidad = $("#slcNacionalidad").val();
-            var id_edo_civil = $("#slcEdoCivil").val();
-            var id_direccion = this.model.id_dierccion;
-            var id_pais = $("#slcPais").val();
-            var id_estado = $("#slcEstado").val();
-            var id_ciudad = $("#slcCiudad").val();
-            var area = $("#area").val();
-            var direccion = $("#direccion").val();
+            var dp_id_tipo_identidad = $("#slcTipoIdentidad").val();
+            var dp_cedula_passp = $("#tipo_identidad").val();
+            var dp_nombres = $("#nombers").val();
+            var dp_apellidos = $("#apellidos").val();
+            var dp_fechanac = $("#fechanac").val();
+            var dp_id_genero_sexo = $("#slcGeneroSexo").val();
+            var dp_id_nacionalidad = $("#slcNacionalidad").val();
+            var dp_id_edo_civil = $("#slcEdoCivil").val();
+            var dp_id_direccion = this.model.id_dierccion;
+            var dp_id_pais = $("#slcPais").val();
+            var dp_id_estado = $("#slcEstado").val();
+            var dp_id_ciudad = $("#slcCiudad").val();
+            var dp_area = $("#area").val();
+            var dp_direccion = $("#direccion").val();
 
+            // model.set('id_tipo_identidad', dp_id_tipo_identidad);
+            console.log(this.model)
         }
     },
 
@@ -157,7 +159,6 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
     },
 
     render: function(){
-        $('body').attr('class', 'wait');
         this.$el.html( this.plantilla(this.model) );
         this.cbxTipoIdentidad();
         this.cbxGenero();
@@ -166,9 +167,7 @@ Vista.PerfilCambiarDatosPersonales = Backbone.View.extend({
         this.cbxPais();
         this.cbxEstado();
         this.cbxCiudad();
-
-        // $("#slcTipoIdentidad").html( Utils.Varias.ComboBox_TipoIdentidad() );
-        // $("select#slcTipoIdentidad").val(valor);
+        console.log('Entro al render de la vistaCambiarDatosP')
     return this;
     }
 

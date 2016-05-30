@@ -37,8 +37,8 @@ Usuario = {
         modeloDatosUsuario.fetch({
             async: false,
             success: function(model){
-                self.hola = model.toJSON();
-                console.log(self.hola);
+                self.hola = model  // model.toJSON();
+                console.log('Lo que devuelve el fetch modeloDatosUsuario' + self.hola);
             },
 
             error: function(jqXHR, status, errorThrown){

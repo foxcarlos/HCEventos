@@ -7,7 +7,9 @@ Vista.Login = Backbone.View.extend({
          si el usuario tiene una sesion abierta, dependiendo de esto
          muestra una plantilla HTML */
 
-        var usuarioId = this.user;
+        console.log('El usuario de verifica sesion es:'+usuario)
+
+        var usuarioId = usuario  // this.user;
 
         if( !usuarioId ){
             htmlSesionInactiva = Utils.BuscarHtml('tplSesionInactiva');
@@ -15,7 +17,7 @@ Vista.Login = Backbone.View.extend({
             this.render();
         }
         else{
-            this.sesionActiva(this.user);
+            this.sesionActiva(usuario);
         }
     },
 
@@ -24,7 +26,7 @@ Vista.Login = Backbone.View.extend({
         this.modelo = Usuario.BuscarUsuarioId(usuarioId);
         htmlSesionActiva = Utils.BuscarHtml('tplSesionActiva');
         var loginOk =  _.template(htmlSesionActiva.trim());
-        this.plantillaLogin = loginOk( this.modelo );
+        this.plantillaLogin = loginOk( this.modelo.toJSON() );
 
         /* Esta Opcion cambia el screen central y elimina la opcion de crear registro rapido*/
         var indexModelo = new Models.Index();

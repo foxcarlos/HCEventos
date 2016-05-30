@@ -20,7 +20,7 @@ PerfilUsuarios = {
 
     PerfilGuardarDatosP: function(modelo){
 
-        var DatosUsuario = // No es new es set. // new Models.DatosUsuario({});
+        var DatosUsuario = modelo;  // No es new es set. // new Models.DatosUsuario({});
         DatosUsuario.save({},{
         }).done(function(data){
             if( data.status ){

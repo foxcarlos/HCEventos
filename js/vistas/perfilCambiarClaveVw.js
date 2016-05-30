@@ -19,9 +19,10 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
 
     guardarClave: function(){
         if ( this.validarCamposVacios() ){
-            var id_usuario = this.model.id_usuario;
+            console.log(this.model)
+            var id_usuario = this.model.attributes.id_usuario;
             var clave = $('#password1').val();
-            var nombre_usuario = this.model.nombre_usuario;
+            var nombre_usuario = this.model.attributes.nombre_usuario;
 
             // Este Metodo es el que cambia la clave
             PerfilUsuarios.PerfilCambiarClave(id_usuario, clave, nombre_usuario);
@@ -31,7 +32,8 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
     },
 
     verificaClaveAnterior: function(){
-        var inUsuario = this.model.nombre_usuario;
+        console.log(this.model)
+        var inUsuario = this.model.attributes.nombre_usuario;
         var inClave = $('#password0').val();
 
         dataEnviar = {usuario: inUsuario, clave: inClave};
@@ -133,7 +135,7 @@ Vista.PerfilCambiarClave = Backbone.View.extend({
       },
 
     render: function(){
-        this.$el.html( this.plantilla(this.model) );
+        this.$el.html( this.plantilla(this.model.toJSON() ) );
         $("#password0").focus();
     return this;
     }
