@@ -38,7 +38,6 @@ Usuario = {
             async: false,
             success: function(model){
                 self.hola = model  // model.toJSON();
-                console.log('Lo que devuelve el fetch modeloDatosUsuario' + self.hola);
             },
 
             error: function(jqXHR, status, errorThrown){
@@ -47,7 +46,9 @@ Usuario = {
                 console.log(errorThrown);
             }
         });
-        return this.hola;  // modeloDevolver
+
+        console.log('Lo que devuelve el fetch modeloDatosUsuario' + modeloDatosUsuario.attributes);
+        return this.hola;
     }
 };
 
